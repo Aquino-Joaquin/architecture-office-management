@@ -22,17 +22,17 @@ export class ClientsController {
   }
 
   @Post()
-  createOneClient(@Body() temp: string) {
+  createClient(@Body() temp: string) {
     return 'Created';
   }
 
   @Patch(':id')
   updateOneClient(@Param('id', ParseIntPipe) id: number) {
-    return `Client ${id}`;
+    return `Updated ${id}`;
   }
 
   @Delete(':id')
   deleteOneClient(@Param('id', ParseIntPipe) id: number) {
-    return `Clien ${id}`;
+    return `Deleted ${id}`;
   }
 }
