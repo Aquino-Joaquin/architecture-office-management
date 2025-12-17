@@ -1,7 +1,9 @@
+import { Project } from 'src/projects/projects.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -18,4 +20,7 @@ export class Expense {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToOne(() => Project, (project) => project.expenses)
+  project: Project;
 }

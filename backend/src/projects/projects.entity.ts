@@ -1,4 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Client } from 'src/clients/clients.entity';
+import { Expense } from 'src/expenses/expenses.entity';
+import { User } from 'src/users/users.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'projects' })
 export class Project {
@@ -19,4 +30,14 @@ export class Project {
 
   @Column()
   amoutPaid: number;
+
+  @ManyToOne(() => Client, (client) => client.projects)
+  client: Client;
+
+  @OneToMany(() => Expense, (expense) => expense.project)
+  expenses: Expense[];
+
+  @ManyToMany(() => User, (user) => user.projects)
+  @JoinTable()
+  users: User[];
 }

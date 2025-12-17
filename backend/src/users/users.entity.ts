@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Project } from 'src/projects/projects.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User {
@@ -16,4 +17,7 @@ export class User {
 
   @Column()
   role: string;
+
+  @ManyToMany(() => Project, (project) => project.users)
+  projects: Project[];
 }
