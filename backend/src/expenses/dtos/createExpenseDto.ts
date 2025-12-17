@@ -1,0 +1,18 @@
+import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+
+export class CreateExpenseDto {
+  @IsNotEmpty()
+  @IsNumber()
+  amount: number;
+
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+
+  @IsNotEmpty()
+  @IsDate()
+  date: Date;
+
+  @IsNotEmpty()
+  type: string;
+}
