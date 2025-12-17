@@ -11,7 +11,7 @@ export class CreateExpenseDto {
 
   @IsNotEmpty()
   @IsDate()
-  date: Date;
+  createdAt: Date;
 
   @IsNotEmpty()
   type: string;
