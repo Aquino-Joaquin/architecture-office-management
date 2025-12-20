@@ -7,32 +7,40 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
+import { ExpensesService } from './expenses.service';
+import { CreateExpenseDto } from './dtos/createExpenseDto';
+import { UpdateExpenseDto } from './dtos/updateExpenseDto';
 
 @Controller('expenses')
 export class ExpensesController {
+  constructor(private readonly expenseService: ExpensesService) {}
   @Get()
   getAllExpenses() {
-    return 'All expenses';
+    return this.expenseService.getAllExpenses();
   }
 
   @Get(':id')
   getOneExpense(@Param('id', ParseIntPipe) id: number) {
-    return `Expense number ${id}`;
+    return this.expenseService.getOneExpense(id);
   }
 
   @Post()
-  createExpense(@Body() temp: string) {
-    return 'Created';
+  createExpense(@Body(ValidationPipe) createExpense: CreateExpenseDto) {
+    return this.expenseService.createExpense(createExpense);
   }
 
   @Patch(':id')
-  updateUser(@Param('id', ParseIntPipe) id: number) {
-    return `Expense number ${id}`;
+  updateExpense(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(ValidationPipe) updateExpense: UpdateExpenseDto,
+  ) {
+    return this.expenseService.updateExpense(id, updateExpense);
   }
 
   @Delete(':id')
-  deleteUser(@Param('id', ParseIntPipe) id: number) {
-    return `Expense number ${id}`;
+  deleteExpense(@Param('id', ParseIntPipe) id: number) {
+    return this.expenseService.deleteExpense(id);
   }
 }

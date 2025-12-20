@@ -7,37 +7,48 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
+import { ProjectsService } from './projects.service';
+import { CreateProjectDto } from './dtos/createProjectDto';
+import { UpdateProjectDto } from './dtos/updateProjectDto';
 
 @Controller('projects')
 export class ProjectsController {
+  constructor(private readonly projectService: ProjectsService) {}
   @Get()
   getAllProjects() {
-    return 'All projects';
+    return this.projectService.getAllProjects();
   }
 
   @Get(':id')
   getOneProject(@Param('id', ParseIntPipe) id: number) {
-    return `Project number ${id}`;
+    return this.projectService.getOneProject(id);
   }
 
   @Post()
-  createProject(@Body() temp: string) {
-    return 'Created';
+  createProject(@Body() createProject: CreateProjectDto) {
+    return this.projectService.createProject(createProject);
   }
 
   @Patch(':id')
-  updateProject(@Param('id', ParseIntPipe) id: number) {
-    return `Updated ${id}`;
+  updateProject(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(ValidationPipe) updateProject: UpdateProjectDto,
+  ) {
+    return this.projectService.updateProject(id, updateProject);
   }
 
   @Patch(':id/status')
-  updateProjectStatus(@Param('id', ParseIntPipe) id: number) {
-    return `Updated status ${id}`;
+  updateProjectStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(ValidationPipe) status: string,
+  ) {
+    return this.projectService.updateProjectStatus(id, status);
   }
 
   @Delete(':id')
   deleteProject(@Param('id', ParseIntPipe) id: number) {
-    return `Deleted project ${id}`;
+    return this.projectService.deleteProject(id);
   }
 }
