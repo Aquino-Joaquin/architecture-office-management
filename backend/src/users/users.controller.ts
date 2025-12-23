@@ -6,14 +6,21 @@ import {
   Param,
   ParseIntPipe,
   Patch,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/updateUserDto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Role } from 'src/auth/role.decorator';
 
+@UseGuards(AuthGuard('jwt'), RolesGuard)
+@Role('Admin')
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
+
   @Get()
   getAllUsers() {
     return this.userService.getAllUsers();

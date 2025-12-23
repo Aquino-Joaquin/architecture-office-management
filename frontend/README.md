@@ -1,19 +1,21 @@
-# Frontend – React Application
+# Backend – NestJS API
 
-This folder contains the frontend of the project, developed using React.
+This folder contains the backend of the project, developed using NestJS.
 
 ## Features
 
-- Login interface
-- Role-based pages (Admin / Staff)
-- Project and expense management
-- User-friendly dashboard for office management
+- Authentication and authorization with roles (Admin, Staff)
+- User management
+- Project and client management
+- Office and project expenses management
+- Role-based access control for all endpoints
 
 ## Technology Stack
 
-- React
-- React Router
-- Axios (API communication)
+- NestJS
+- TypeORM
+- JWT Authentication
+- SQL Database
 
 ## Setup
 
@@ -22,5 +24,5 @@ This folder contains the frontend of the project, developed using React.
 
 2. Create a `.env` file based on `.env.example`
 
-3. Run the application:
-   npm start
+3. Run the server:
+   npm run start:dev
