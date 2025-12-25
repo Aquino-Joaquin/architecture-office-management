@@ -1,8 +1,8 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
 
-export default function loginForm() {
+export default function LoginForm() {
   return (
-    <Card className="w-full max-w-md  !bg-white !border-none">
+    <Card className="w-full max-w-md  bg-white! border-none!">
       <div className="flex items-center justify-center">
         <img
           src="../logo.svg"
@@ -46,7 +46,7 @@ export default function loginForm() {
             required
           />
         </div>
-        <Button className="!bg-[rgb(236,202,110)] hover:!brightness-105 !border-transparent focus:!ring-4 focus:!ring-[rgba(236,202,110,0.5)] text-white">
+        <Button className="bg-[rgb(236,202,110)]! hover:brightness-105! border-transparent! focus:ring-4! focus:ring-[rgba(236,202,110,0.5)]! text-white">
           Sign In
         </Button>
       </form>
