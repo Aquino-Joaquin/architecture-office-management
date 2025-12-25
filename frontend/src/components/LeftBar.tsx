@@ -7,11 +7,13 @@ import {
 } from "flowbite-react";
 import { HiChartPie } from "react-icons/hi";
 import type { LeftBarType } from "../types/LeftBarType";
+import { useNavigate } from "react-router-dom";
 type LeftBarProps = {
   items: LeftBarType[];
 };
 
 export default function LeftBar({ items }: LeftBarProps) {
+  const navigate = useNavigate();
   return (
     <Sidebar
       aria-label="Sidebar with content separator example"
@@ -27,11 +29,12 @@ export default function LeftBar({ items }: LeftBarProps) {
           <h1 className="font-medium">Architecture Office</h1>
         </div>
         <SidebarItemGroup>
-          {items.map(({ title, Icon }, index) => (
+          {items.map(({ title, Icon, path }) => (
             <SidebarItem
-              key={index}
+              key={path}
               className="text-black! hover:text-gray-50"
               icon={Icon}
+              onClick={() => navigate(path)}
             >
               {title}
             </SidebarItem>

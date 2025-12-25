@@ -3,8 +3,6 @@ import type { CardInfomation } from "../types/CardInformation";
 import type { Projects } from "../types/Projects";
 import type { Expenses } from "../types/Expenses";
 
-// Función auxiliar simple para asignar color al badge según el tipo
-// (Puedes expandir esto según tus tipos reales de gastos)
 const getBadgeColor = (type: string) => {
   switch (type.toLowerCase()) {
     case "office":
@@ -27,7 +25,6 @@ export default function AdminDashboard({
 }: AdminDashboardProps) {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
-      {/* --- CABECERA MEJORADA --- */}
       <div className="mb-6 flex flex-col gap-1">
         <h1 className="text-3xl font-bold tracking-tight text-black ">
           Admin Dashboard
@@ -37,7 +34,6 @@ export default function AdminDashboard({
         </p>
       </div>
 
-      {/* --- SECCIÓN 1: KPIs (Información General) --- */}
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-4">
         {itemsInformation.map(({ title, value, Icon }, index) => (
           <Card
@@ -51,7 +47,6 @@ export default function AdminDashboard({
                   {value}
                 </h3>
               </div>
-              {/* Añadí un fondo suave al icono para que destaque mejor */}
               <div className="p-3 rounded-lg bg-blue-50 text-blue-600 ">
                 {Icon && <Icon className="w-6 h-6" />}
               </div>
@@ -60,10 +55,7 @@ export default function AdminDashboard({
         ))}
       </div>
 
-      {/* --- SECCIÓN 2: PROYECTOS Y GASTOS (Full Width) --- */}
-      {/* Eliminado max-w-5xl y mx-auto para que ocupe todo el ancho */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-        {/* Card: Recent Projects */}
         <Card className="w-full shadow-sm bg-white! border-none">
           <div className="mb-4 flex items-center justify-between">
             <h5 className="text-xl font-bold leading-none text-black ">
@@ -93,7 +85,6 @@ export default function AdminDashboard({
           </div>
         </Card>
 
-        {/* Card: Recent Expenses */}
         <Card className="w-full shadow-sm bg-white! border-none">
           <div className="mb-4 flex items-center justify-between">
             <h5 className="text-xl font-bold leading-none text-black">
@@ -113,7 +104,6 @@ export default function AdminDashboard({
                         <span className="truncate text-sm text-gray-500 ">
                           {date}
                         </span>
-                        {/* Usamos la función auxiliar para el color del badge */}
                         <Badge color={getBadgeColor(type)} size="xs">
                           {type}
                         </Badge>

@@ -1,9 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import AdminOverview from "./pages/AdminOverview";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/PagesRoutes";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AdminOverview />
+    <RouterProvider router={router} />
   </StrictMode>
 );
