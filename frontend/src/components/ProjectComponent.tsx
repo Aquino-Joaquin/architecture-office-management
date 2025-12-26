@@ -1,34 +1,81 @@
 import { Button } from "flowbite-react";
-import type { Projects } from "../types/Projects";
+import type { Project } from "../types/Project";
 import TableComponent from "./TableComponent";
 import { HiPlus } from "react-icons/hi";
 
-const titles: string[] = ["Title", "Client", "Price"];
-const projectRow: Projects[] = [
+const titles: string[] = [
+  "Id",
+  "Name",
+  "Status",
+  "Total Price",
+  "Amount Paid",
+  "Client Name",
+];
+const projectRow: Project[] = [
   {
-    title: "Gastos",
-    client: "Pepe",
-    price: 200,
+    id: 1,
+    name: "Joaquin",
+    description: "Bueno bueno bueno chicos",
+    status: "On going",
+    totalPrice: 1200,
+    amoutPaid: 500,
+    client: {
+      id: 1,
+      name: "Pepe",
+      phone: 4238719,
+    },
   },
   {
-    title: "Gastos",
-    client: "Pepe",
-    price: 200,
+    id: 1,
+    name: "Joaquin",
+    description: "Bueno bueno bueno chicos",
+    status: "On going",
+    totalPrice: 1200,
+    amoutPaid: 500,
+    client: {
+      id: 1,
+      name: "Pepe",
+      phone: 4238719,
+    },
   },
   {
-    title: "Gastos",
-    client: "Pepe",
-    price: 200,
+    id: 1,
+    name: "Joaquin",
+    description: "Bueno bueno bueno chicos",
+    status: "On going",
+    totalPrice: 1200,
+    amoutPaid: 500,
+    client: {
+      id: 1,
+      name: "Pepe",
+      phone: 4238719,
+    },
   },
   {
-    title: "Gastos",
-    client: "Pepe",
-    price: 200,
+    id: 1,
+    name: "Joaquin",
+    description: "Bueno bueno bueno chicos",
+    status: "On going",
+    totalPrice: 1200,
+    amoutPaid: 500,
+    client: {
+      id: 1,
+      name: "Pepe",
+      phone: 4238719,
+    },
   },
   {
-    title: "Gastos",
-    client: "Pepe",
-    price: 200,
+    id: 1,
+    name: "Joaquin",
+    description: "Bueno bueno bueno chicos",
+    status: "On going",
+    totalPrice: 1200,
+    amoutPaid: 500,
+    client: {
+      id: 1,
+      name: "Pepe",
+      phone: 4238719,
+    },
   },
 ];
 export default function ProjectComponent() {

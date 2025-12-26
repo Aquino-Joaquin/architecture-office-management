@@ -5,19 +5,18 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import type { Projects } from "../types/Projects";
+import type { Project } from "../types/Project";
 import ProjectRowComponent from "./ProjectRowComponent";
 
 type TableProps = {
   titles: string[];
-  rows: Projects[];
+  rows: Project[];
 };
 export default function TableComponent({ titles, rows }: TableProps) {
   return (
     <div>
       <Table hoverable>
         <TableHead>
-          {" "}
           {titles.map((i, index) => (
             <TableHeadCell key={index}>{i}</TableHeadCell>
           ))}

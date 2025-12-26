@@ -41,7 +41,7 @@ export default function LeftBar({ items }: LeftBarProps) {
           ))}
         </SidebarItemGroup>
         <SidebarItemGroup className="mt-auto">
-          <div className="flex flex-wrap gap-2">
+          <div className="ml-5 flex flex-wrap gap-5 justify-baseline">
             <Avatar rounded />
             <h1 className="text-center items-center text-lg font-medium text-black">
               Joaquin
@@ -52,8 +52,8 @@ export default function LeftBar({ items }: LeftBarProps) {
 
           <SidebarItem
             className="text-black! hover:text-gray-50"
-            href="#"
             icon={HiChartPie}
+            onClick={() => navigate("/login")}
           >
             Log out
           </SidebarItem>

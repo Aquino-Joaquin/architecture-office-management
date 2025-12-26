@@ -1,21 +1,30 @@
 import { TableCell } from "flowbite-react";
-import type { Projects } from "../types/Projects";
+import type { Project } from "../types/Project";
 
 export type Props = {
-  project: Projects;
+  project: Project;
 };
 
 export default function ProjectRowComponent({ project }: Props) {
   return (
     <>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.title}
+        {project.id}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.client}
+        {project.name}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.price}
+        {project.status}
+      </TableCell>
+      <TableCell className="whitespace-nowrap font-medium text-gray-900">
+        {project.totalPrice}
+      </TableCell>
+      <TableCell className="whitespace-nowrap font-medium text-gray-900">
+        {project.amoutPaid}
+      </TableCell>
+      <TableCell className="whitespace-nowrap font-medium text-gray-900">
+        {project.client.name}
       </TableCell>
     </>
   );
