@@ -1,33 +1,28 @@
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from "flowbite-react";
-import type { Project } from "../types/Project";
-import ProjectRowComponent from "./ProjectRowComponent";
+import { Table, TableBody, TableHead, TableHeadCell } from "flowbite-react";
 
-type TableProps = {
+type TableProps<T> = {
   titles: string[];
-  rows: Project[];
+  rows: T[];
+  renderRow: (item: T) => React.ReactNode;
 };
-export default function TableComponent({ titles, rows }: TableProps) {
+
+// Agregamos <T,> antes de los props para declarar el genérico
+export default function TableComponent<T>({
+  titles,
+  rows,
+  renderRow,
+}: TableProps<T>) {
   return (
-    <div>
+    <div className="overflow-x-auto">
       <Table hoverable>
         <TableHead>
-          {titles.map((i, index) => (
-            <TableHeadCell key={index}>{i}</TableHeadCell>
+          {titles.map((title, index) => (
+            <TableHeadCell key={index}>{title}</TableHeadCell>
           ))}
         </TableHead>
 
         <TableBody className="divide-y">
-          {rows.map((i, index) => (
-            <TableRow key={index} className="bg-white  ">
-              <ProjectRowComponent key={index} project={i} />
-            </TableRow>
-          ))}
+          {rows.map((item) => renderRow(item))}
         </TableBody>
       </Table>
     </div>

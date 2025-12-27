@@ -44,7 +44,7 @@ export default function AdminDashboardPage() {
       },
     },
     {
-      id: 1,
+      id: 2,
       name: "Joaquin",
       description: "Bueno bueno bueno chicos",
       status: "On going",
@@ -66,14 +66,14 @@ export default function AdminDashboardPage() {
       type: "office",
     },
     {
-      id: 1,
+      id: 2,
       amount: 100,
       description: "Gasto normal",
       createdAt: new Date("2025-03-10"),
       type: "office",
     },
     {
-      id: 1,
+      id: 3,
       amount: 100,
       description: "Gasto normal",
       createdAt: new Date("2025-03-10"),

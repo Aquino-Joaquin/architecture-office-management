@@ -1,34 +1,29 @@
 import { Button, Card } from "flowbite-react";
-import { HiPlus } from "react-icons/hi";
+import { HiPlus, HiPencil, HiTrash } from "react-icons/hi"; // Agregamos iconos de editar/borrar
 import type { Client } from "../types/Client";
-const clients: Client[] = [
-  {
-    id: 1,
-    name: "Pepe",
-    phone: 4238719,
-  },
-  {
-    id: 1,
-    name: "Pepe",
-    phone: 4238719,
-  },
-  {
-    id: 1,
-    name: "Pepe",
-    phone: 4238719,
-  },
-  {
-    id: 1,
-    name: "Pepe",
-    phone: 4238719,
-  },
-  {
-    id: 1,
-    name: "Pepe",
-    phone: 4238719,
-  },
-];
+import { MdContacts, MdEmail, MdPhone } from "react-icons/md";
+import { api } from "../helper/api";
+import { useEffect, useState } from "react";
+
 export default function ClientComponent() {
+  const [clients, setClients] = useState<Client[]>([]);
+
+  function fetchClient() {
+    api.get("clients").then((res) => setClients(res.data));
+  }
+
+  const handleEdit = (id: number) => {
+    console.log("Edit client", id);
+  };
+
+  const handleDelete = (id: number) => {
+    console.log("Delete client", id);
+  };
+
+  useEffect(() => {
+    fetchClient();
+  }, []);
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -45,18 +40,72 @@ export default function ClientComponent() {
           New Client
         </Button>
       </div>
-      <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
-        {clients.map(({ id, name, phone }) => (
+
+      <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3 ">
+        {clients.map(({ id, name, companyName, email, phone, projects }) => (
           <Card
             key={id}
-            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none"
+            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none rounded-xl overflow-hidden"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-black ">{name}</p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                  {phone}
-                </h3>
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-6">
+                <div className="flex gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                    <MdContacts className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 leading-tight">
+                      {name}
+                    </h3>
+                    {companyName && (
+                      <p className="text-sm text-gray-500 mt-1">
+                        {companyName}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(id)}
+                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    title="Edit Client"
+                  >
+                    <HiPencil className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(id)}
+                    className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    title="Delete Client"
+                  >
+                    <HiTrash className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {email && (
+                  <div className="flex items-center text-gray-600">
+                    <MdEmail className="h-5 w-5 mr-3 text-gray-400" />
+                    <span className="text-sm truncate">{email}</span>
+                  </div>
+                )}
+
+                <div className="flex items-center text-gray-600">
+                  <MdPhone className="h-5 w-5 mr-3 text-gray-400" />
+                  <span className="text-sm">{phone}</span>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-100 pt-4">
+                <div className="flex flex-col">
+                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                    Active Projects
+                  </span>
+                  <span className="text-lg font-semibold text-gray-900 mt-1">
+                    {projects?.length || 0}
+                  </span>
+                </div>
               </div>
             </div>
           </Card>

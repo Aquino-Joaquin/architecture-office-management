@@ -12,6 +12,11 @@ async function bootstrap() {
       transform: true, // transform from json to Dto
     }),
   );
+  //to be able to get request from my frontend
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  });
   const configService = app.get(ConfigService);
   const port = configService.get<number>('APP_PORT')!;
   await app.listen(process.env.PORT ?? port);

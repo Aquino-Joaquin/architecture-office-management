@@ -10,7 +10,7 @@ export class Client {
   @Column({ nullable: true })
   email: string;
   @Column()
-  phone: number;
+  phone: string;
   @Column({ nullable: true })
   companyName: string;
 

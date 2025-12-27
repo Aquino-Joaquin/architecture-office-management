@@ -2,6 +2,7 @@ import { Button } from "flowbite-react";
 import type { Project } from "../types/Project";
 import TableComponent from "./TableComponent";
 import { HiPlus } from "react-icons/hi";
+import ProjectRowComponent from "./ProjectRowComponent";
 
 const titles: string[] = [
   "Id",
@@ -11,6 +12,8 @@ const titles: string[] = [
   "Amount Paid",
   "Client Name",
 ];
+
+// Nota: Asegúrate de que tu interfaz Project tenga "amoutPaid" (parece un typo de amountPaid)
 const projectRow: Project[] = [
   {
     id: 1,
@@ -25,47 +28,9 @@ const projectRow: Project[] = [
       phone: 4238719,
     },
   },
+  // ... resto de tus datos
   {
-    id: 1,
-    name: "Joaquin",
-    description: "Bueno bueno bueno chicos",
-    status: "On going",
-    totalPrice: 1200,
-    amoutPaid: 500,
-    client: {
-      id: 1,
-      name: "Pepe",
-      phone: 4238719,
-    },
-  },
-  {
-    id: 1,
-    name: "Joaquin",
-    description: "Bueno bueno bueno chicos",
-    status: "On going",
-    totalPrice: 1200,
-    amoutPaid: 500,
-    client: {
-      id: 1,
-      name: "Pepe",
-      phone: 4238719,
-    },
-  },
-  {
-    id: 1,
-    name: "Joaquin",
-    description: "Bueno bueno bueno chicos",
-    status: "On going",
-    totalPrice: 1200,
-    amoutPaid: 500,
-    client: {
-      id: 1,
-      name: "Pepe",
-      phone: 4238719,
-    },
-  },
-  {
-    id: 1,
+    id: 2,
     name: "Joaquin",
     description: "Bueno bueno bueno chicos",
     status: "On going",
@@ -78,6 +43,7 @@ const projectRow: Project[] = [
     },
   },
 ];
+
 export default function ProjectComponent() {
   return (
     <div>
@@ -97,7 +63,13 @@ export default function ProjectComponent() {
       </div>
 
       <div className="overflow-x-auto">
-        <TableComponent titles={titles} rows={projectRow} />
+        <TableComponent<Project>
+          titles={titles}
+          rows={projectRow}
+          renderRow={(project) => (
+            <ProjectRowComponent key={project.id} project={project} />
+          )}
+        />
       </div>
     </div>
   );

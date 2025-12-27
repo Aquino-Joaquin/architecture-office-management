@@ -30,11 +30,6 @@ export default function AdminOverview() {
       path: "/expenses",
     },
     {
-      title: "Office Expenses",
-      Icon: HiOutlineOfficeBuilding,
-      path: "/expenses/office",
-    },
-    {
       title: "User Management",
       Icon: PiUsers,
       path: "/users",
