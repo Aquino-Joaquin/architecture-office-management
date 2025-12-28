@@ -4,8 +4,14 @@ import { HiPencil, HiTrash } from "react-icons/hi";
 
 export type Props = {
   user: User;
+  handleDelete: (id: number) => void;
+  handleEdit: (id: number) => void;
 };
-export default function UserRowComponent({ user }: Props) {
+export default function UserRowComponent({
+  user,
+  handleDelete,
+  handleEdit,
+}: Props) {
   return (
     <TableRow>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -26,14 +32,14 @@ export default function UserRowComponent({ user }: Props) {
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         <div className="flex items-center gap-4">
           <button
-            onClick={() => console.log("Edit", user.id)}
+            onClick={() => handleEdit(user.id)}
             className="text-blue-600 hover:text-blue-800 transition-colors"
           >
             <HiPencil className="h-5 w-5" />
           </button>
 
           <button
-            onClick={() => console.log("Delete", user.id)}
+            onClick={() => handleDelete(user.id)}
             className="text-red-600 hover:text-red-800 transition-colors"
           >
             <HiTrash className="h-5 w-5" />

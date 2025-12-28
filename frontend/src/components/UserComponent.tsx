@@ -11,15 +11,15 @@ import {
 import Header from "./common/Header";
 import { useEffect, useState } from "react";
 import { api } from "../helper/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const titles: string[] = ["Id", "Name", "Email", "Role", "Projects", "Actions"];
 
 export default function UserComponent() {
   const [users, setUsers] = useState<User[]>([]);
-  const [totalUsers, setTotalUsers] = useState<number>(0);
-  const [totalAdmins, setTotalAdmins] = useState<number>(0);
-  const [totalStaff, setTotalStaff] = useState<number>(0);
   const [usersInformation, setUsersInfomation] = useState<CardInfomation[]>([]);
+  const navigate = useNavigate();
 
   async function fetchUser() {
     const res = await api.get<User[]>("users");
@@ -32,9 +32,7 @@ export default function UserComponent() {
     const totalStaffCount = data.filter((user) => user.role === "Staff").length;
 
     setUsers(data);
-    setTotalUsers(totalUsersCount);
-    setTotalAdmins(totalAdminsCount);
-    setTotalStaff(totalStaffCount);
+
     setUsersInfomation([
       {
         title: "Total Users",
@@ -57,6 +55,22 @@ export default function UserComponent() {
   useEffect(() => {
     fetchUser();
   }, []);
+
+  async function handleDelete(id: number) {
+    try {
+      await api.request({
+        url: `users/${id}`,
+        method: "delete",
+      });
+      toast.success("Client deleted successfully");
+      fetchUser();
+    } catch (error) {
+      toast.error("Error deleting user");
+    }
+  }
+  function handleEdit(id: number) {
+    navigate(`/editUser/${id}`);
+  }
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
@@ -90,7 +104,14 @@ export default function UserComponent() {
       <TableComponent<User>
         titles={titles}
         rows={users}
-        renderRow={(user) => <UserRowComponent key={user.id} user={user} />}
+        renderRow={(user) => (
+          <UserRowComponent
+            key={user.id}
+            user={user}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
+        )}
       />
     </div>
   );
