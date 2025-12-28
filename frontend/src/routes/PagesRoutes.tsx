@@ -9,6 +9,7 @@ import UserManagementPage from "../pages/UserManagementPage";
 import NewProjectPage from "../pages/NewProjectPage";
 import NewClientPage from "../pages/NewClientPage";
 import ProjectDetailsPage from "../pages/ProjectDetailsPage";
+import CreateClientComponent from "../components/CreateClientComponent";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "users", element: <UserManagementPage /> },
       { path: "newproject", element: <NewProjectPage /> },
       { path: "newclient", element: <NewClientPage /> },
+      { path: "editClient/:id", element: <CreateClientComponent /> },
       { path: "projectDetail", element: <ProjectDetailsPage /> },
     ],
   },

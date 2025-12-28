@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import Header from "./common/Header";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
+  const navigate = useNavigate();
 
   async function fetchClient() {
     await api.get("clients").then((res) => setClients(res.data));
@@ -26,10 +28,6 @@ export default function ClientComponent() {
       toast.error("Error deleting client");
     }
   }
-
-  const handleEdit = (id: number) => {
-    console.log("Delete client", id);
-  };
 
   useEffect(() => {
     fetchClient();
@@ -71,7 +69,7 @@ export default function ClientComponent() {
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleEdit(id)}
+                    onClick={() => navigate(`/editClient/${id}`)}
                     className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                     title="Edit Client"
                   >

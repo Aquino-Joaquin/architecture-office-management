@@ -1,14 +1,10 @@
 import { Card, Label, TextInput, Button } from "flowbite-react";
 import { HiUserAdd } from "react-icons/hi";
 import Header from "./common/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../helper/api";
 import { toast, ToastContainer } from "react-toastify";
-import type { Client } from "../types/Client";
-
-export type Props = {
-  client?: Client[];
-};
+import { useParams } from "react-router-dom";
 
 export default function CreateClientComponent() {
   const [name, setName] = useState("");
@@ -16,13 +12,27 @@ export default function CreateClientComponent() {
   const [phone, setPhone] = useState("");
   const [companyName, setCompanyName] = useState("");
 
+  const { id } = useParams();
+  const isEditMode = Boolean(id);
+
+  useEffect(() => {
+    if (!id) return;
+    api.get(`clients/${id}`).then((res) => {
+      const client = res.data;
+      setName(client.name);
+      setEmail(client.email);
+      setPhone(client.phone);
+      setCompanyName(client.companyName);
+    });
+  }, [id]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
       await api
         .request({
-          url: "clients",
-          method: "post",
+          url: isEditMode ? `clients/${id}` : "clients",
+          method: isEditMode ? "patch" : "post",
           data: {
             name,
             email,
@@ -31,7 +41,11 @@ export default function CreateClientComponent() {
           },
         })
         .then(() => {
-          toast.success("Client created successfully");
+          toast.success(
+            isEditMode
+              ? "Clien edited successfully"
+              : "Client created successfully"
+          );
           setName("");
           setEmail("");
           setPhone("");
@@ -46,7 +60,7 @@ export default function CreateClientComponent() {
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <ToastContainer position="top-center" autoClose={2000} />
       <Header
-        title={"Create new client"}
+        title={isEditMode ? "Edit the client" : "Create new client"}
         subTitle={"Enter client information"}
       />
 
@@ -122,7 +136,7 @@ export default function CreateClientComponent() {
             <div className="md:col-span-2 flex justify-end mt-4">
               <Button color="blue" type="submit">
                 <HiUserAdd className="mr-2 h-5 w-5" />
-                Create Client
+                {isEditMode ? "Edit Client" : "Create Client"}
               </Button>
             </div>
           </form>

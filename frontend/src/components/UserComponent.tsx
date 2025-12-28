@@ -8,6 +8,7 @@ import {
   HiOutlineShieldCheck,
   HiOutlineUsers,
 } from "react-icons/hi";
+import Header from "./common/Header";
 
 const titles: string[] = ["Id", "Name", "Email", "Role", "Projects", "Actions"];
 const userInformation: CardInfomation[] = [
@@ -57,15 +58,12 @@ const users: User[] = [
 export default function UserComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
-      <div className="mb-6 flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight text-black ">
-          Expense
-        </h1>
-        <p className="text-base font-normal text-gray-500 ">
-          Here you can see your expense overview
-        </p>
-      </div>
-
+      <Header
+        title={"User Management"}
+        subTitle={"Here you can manage all the users"}
+        buttonTitle={"Add new user"}
+        buttonPath="/newuser"
+      />
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
         {userInformation.map(({ title, value, Icon }, index) => (
           <Card

@@ -12,7 +12,9 @@ export class ClientsService {
   ) {}
 
   async getAllClients() {
-    return await this.clientRepository.find();
+    return await this.clientRepository.find({
+      order: { id: 'ASC' },
+    });
   }
 
   async getOneClient(id: number) {
