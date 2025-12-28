@@ -9,53 +9,55 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi";
 import Header from "./common/Header";
+import { useEffect, useState } from "react";
+import { api } from "../helper/api";
 
 const titles: string[] = ["Id", "Name", "Email", "Role", "Projects", "Actions"];
-const userInformation: CardInfomation[] = [
-  {
-    title: "Total Users",
-    value: 200,
-    Icon: HiOutlineUsers,
-  },
-  {
-    title: "Admins",
-    value: 200,
-    Icon: HiOutlineShieldCheck,
-  },
-  {
-    title: "Staff",
-    value: 200,
-    Icon: HiOutlineBriefcase,
-  },
-];
-const users: User[] = [
-  {
-    id: 1,
-    name: "Temp",
-    email: "esteesunemail@gmail.com",
-    role: "Admin",
-  },
-  {
-    id: 2,
-    name: "Temp",
-    email: "esteesunemail@gmail.com",
-    role: "Admin",
-  },
-  {
-    id: 3,
-    name: "Temp",
-    email: "esteesunemail@gmail.com",
-    role: "Admin",
-  },
-  {
-    id: 4,
-    name: "Temp",
-    email: "esteesunemail@gmail.com",
-    role: "Admin",
-  },
-];
 
 export default function UserComponent() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [totalUsers, setTotalUsers] = useState<number>(0);
+  const [totalAdmins, setTotalAdmins] = useState<number>(0);
+  const [totalStaff, setTotalStaff] = useState<number>(0);
+  const [usersInformation, setUsersInfomation] = useState<CardInfomation[]>([]);
+
+  async function fetchUser() {
+    const res = await api.get<User[]>("users");
+    const data = res.data;
+
+    const totalUsersCount = data.length;
+    const totalAdminsCount = data.filter(
+      (user) => user.role === "Admin"
+    ).length;
+    const totalStaffCount = data.filter((user) => user.role === "Staff").length;
+
+    setUsers(data);
+    setTotalUsers(totalUsersCount);
+    setTotalAdmins(totalAdminsCount);
+    setTotalStaff(totalStaffCount);
+    setUsersInfomation([
+      {
+        title: "Total Users",
+        value: totalUsersCount,
+        Icon: HiOutlineUsers,
+      },
+      {
+        title: "Admins",
+        value: totalAdminsCount,
+        Icon: HiOutlineShieldCheck,
+      },
+      {
+        title: "Staff",
+        value: totalStaffCount,
+        Icon: HiOutlineBriefcase,
+      },
+    ]);
+  }
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
       <Header
@@ -65,7 +67,7 @@ export default function UserComponent() {
         buttonPath="/newuser"
       />
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
-        {userInformation.map(({ title, value, Icon }, index) => (
+        {usersInformation.map(({ title, value, Icon }, index) => (
           <Card
             key={index}
             className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none"
