@@ -3,6 +3,7 @@ import type { Project } from "../types/Project";
 import TableComponent from "./TableComponent";
 import { HiPlus } from "react-icons/hi";
 import ProjectRowComponent from "./ProjectRowComponent";
+import { useNavigate } from "react-router-dom";
 
 const titles: string[] = [
   "Id",
@@ -13,7 +14,6 @@ const titles: string[] = [
   "Client Name",
 ];
 
-// Nota: Asegúrate de que tu interfaz Project tenga "amoutPaid" (parece un typo de amountPaid)
 const projectRow: Project[] = [
   {
     id: 1,
@@ -25,10 +25,9 @@ const projectRow: Project[] = [
     client: {
       id: 1,
       name: "Pepe",
-      phone: 4238719,
+      phone: "123213",
     },
   },
-  // ... resto de tus datos
   {
     id: 2,
     name: "Joaquin",
@@ -39,12 +38,13 @@ const projectRow: Project[] = [
     client: {
       id: 1,
       name: "Pepe",
-      phone: 4238719,
+      phone: "1234231",
     },
   },
 ];
 
 export default function ProjectComponent() {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -56,7 +56,7 @@ export default function ProjectComponent() {
             Here you can see all the projects
           </p>
         </div>
-        <Button color="blue">
+        <Button color="blue" onClick={() => navigate("/newproject")}>
           <HiPlus className="mr-2 h-5 w-5" />
           New Project
         </Button>

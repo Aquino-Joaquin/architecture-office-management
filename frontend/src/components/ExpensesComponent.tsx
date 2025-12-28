@@ -12,6 +12,7 @@ const titles: string[] = [
   "Type",
   "Project",
   "Amount",
+  "Actions",
 ];
 const expenseInformation: CardInfomation[] = [
   {

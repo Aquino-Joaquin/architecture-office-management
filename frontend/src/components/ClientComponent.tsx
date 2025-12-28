@@ -1,22 +1,33 @@
-import { Button, Card } from "flowbite-react";
-import { HiPlus, HiPencil, HiTrash } from "react-icons/hi"; // Agregamos iconos de editar/borrar
+import { Card } from "flowbite-react";
 import type { Client } from "../types/Client";
 import { MdContacts, MdEmail, MdPhone } from "react-icons/md";
 import { api } from "../helper/api";
 import { useEffect, useState } from "react";
+import Header from "./common/Header";
+import { HiPencil, HiTrash } from "react-icons/hi";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
 
-  function fetchClient() {
-    api.get("clients").then((res) => setClients(res.data));
+  async function fetchClient() {
+    await api.get("clients").then((res) => setClients(res.data));
+  }
+
+  async function handleDelete(id: number) {
+    try {
+      await api.request({
+        url: `clients/${id}`,
+        method: "delete",
+      });
+      toast.success("Client deleted successfully");
+      fetchClient();
+    } catch (error) {
+      toast.error("Error deleting client");
+    }
   }
 
   const handleEdit = (id: number) => {
-    console.log("Edit client", id);
-  };
-
-  const handleDelete = (id: number) => {
     console.log("Delete client", id);
   };
 
@@ -26,20 +37,13 @@ export default function ClientComponent() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <div className="mb-6 flex flex-col gap-1">
-          <h1 className="text-3xl font-bold tracking-tight text-black ">
-            Clients
-          </h1>
-          <p className="text-base font-normal text-gray-500 ">
-            Here you can see all the clients
-          </p>
-        </div>
-        <Button color="blue">
-          <HiPlus className="mr-2 h-5 w-5" />
-          New Client
-        </Button>
-      </div>
+      <ToastContainer position="top-center" autoClose={2000} />
+      <Header
+        title={"Clients"}
+        subTitle={"Here you can see all the Clients"}
+        buttonTitle={"Add new client"}
+        buttonPath="/newclient"
+      />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3 ">
         {clients.map(({ id, name, companyName, email, phone, projects }) => (

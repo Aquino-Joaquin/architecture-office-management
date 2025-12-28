@@ -1,13 +1,15 @@
 import { TableCell, TableRow } from "flowbite-react";
 import type { Project } from "../types/Project";
+import { useNavigate } from "react-router-dom";
 
 export type Props = {
   project: Project;
 };
 
 export default function ProjectRowComponent({ project }: Props) {
+  const navigate = useNavigate();
   return (
-    <TableRow>
+    <TableRow onClick={() => navigate("/projectDetail")}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {project.id}
       </TableCell>

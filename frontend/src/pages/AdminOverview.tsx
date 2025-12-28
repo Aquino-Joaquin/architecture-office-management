@@ -3,7 +3,6 @@ import LeftBar from "../components/LeftBar";
 import type { LeftBarType } from "../types/LeftBarType";
 import { LuFolders } from "react-icons/lu";
 import { CiMoneyCheck1 } from "react-icons/ci";
-import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { PiUsers } from "react-icons/pi";
 import { Outlet } from "react-router-dom";
 

@@ -33,8 +33,17 @@ export class ClientsService {
   }
 
   async deleteOneClient(id: number) {
-    const client = await this.clientRepository.findOneBy({ id });
-    if (!client) throw new NotFoundException();
-    return await this.clientRepository.delete(client);
+    try {
+      const client = await this.clientRepository.findOneBy({ id });
+
+      if (!client) {
+        throw new NotFoundException('Client not found');
+      }
+
+      await this.clientRepository.delete(id);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }

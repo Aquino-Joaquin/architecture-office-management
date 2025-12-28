@@ -4,7 +4,7 @@ export type Client = {
   id: number;
   name: string;
   email?: string;
-  phone: number;
+  phone: string;
   companyName?: string;
   projects?: Project[];
 };

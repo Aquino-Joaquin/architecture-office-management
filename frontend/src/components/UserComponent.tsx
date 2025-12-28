@@ -9,7 +9,7 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi";
 
-const titles: string[] = ["Id", "Name", "Email", "Role", "Projects"];
+const titles: string[] = ["Id", "Name", "Email", "Role", "Projects", "Actions"];
 const userInformation: CardInfomation[] = [
   {
     title: "Total Users",

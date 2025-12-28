@@ -6,6 +6,9 @@ import ClientsPage from "../pages/ClientsPage";
 import LoginPage from "../pages/LoginPage";
 import ExpensesPage from "../pages/ExpensesPage";
 import UserManagementPage from "../pages/UserManagementPage";
+import NewProjectPage from "../pages/NewProjectPage";
+import NewClientPage from "../pages/NewClientPage";
+import ProjectDetailsPage from "../pages/ProjectDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +20,9 @@ export const router = createBrowserRouter([
       { path: "clients", element: <ClientsPage /> },
       { path: "expenses", element: <ExpensesPage /> },
       { path: "users", element: <UserManagementPage /> },
+      { path: "newproject", element: <NewProjectPage /> },
+      { path: "newclient", element: <NewClientPage /> },
+      { path: "projectDetail", element: <ProjectDetailsPage /> },
     ],
   },
   {
