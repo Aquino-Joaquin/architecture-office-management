@@ -29,7 +29,7 @@ export class Project {
   totalPrice: number;
 
   @Column()
-  amoutPaid: number;
+  amountPaid: number;
 
   @ManyToOne(() => Client, (client) => client.projects)
   client: Client;

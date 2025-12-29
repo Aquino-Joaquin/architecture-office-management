@@ -8,108 +8,179 @@ import {
   TextInput,
 } from "flowbite-react";
 import { HiPlus } from "react-icons/hi";
-const teamMembers = [
-  { id: 1, name: "John Smith", role: "Lead Architect", initials: "J" },
-  { id: 2, name: "Sarah Johnson", role: "Interior Designer", initials: "S" },
-];
+import Header from "./common/Header";
+import { api } from "../helper/api";
+import type { User } from "../types/User";
+import { useEffect, useState } from "react";
+import type { Client } from "../types/Client";
+import { toast, ToastContainer } from "react-toastify";
+
 export default function AddNewProjectComponent() {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [amountPaid, setAmountPaid] = useState(0);
+  const [clientId, setClientId] = useState<number | "">("");
+  const [userIds, setUserIds] = useState<number[]>([]);
+
+  const [users, setUsers] = useState<User[]>([]);
+  const [clients, setClients] = useState<Client[]>([]);
+
+  async function fetchUsers() {
+    const res = await api.get("users");
+    setUsers(res.data);
+  }
+
+  async function fetchClients() {
+    const res = await api.get("clients");
+    setClients(res.data);
+  }
+
+  useEffect(() => {
+    fetchUsers();
+    fetchClients();
+  }, []);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!clientId) {
+      toast.warning("Please select a client");
+      return;
+    }
+
+    try {
+      await api.post("projects", {
+        name,
+        description,
+        status,
+        totalPrice,
+        amountPaid,
+        clientId: Number(clientId),
+        userIds,
+      });
+
+      toast.success("Project created successfully");
+      setName("");
+      setDescription("");
+      setStatus("");
+      setTotalPrice(0);
+      setAmountPaid(0);
+      setClientId("");
+      setUserIds([]);
+    } catch (error) {
+      toast.error("Error creating project");
+    }
+  }
+
   return (
-    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
-      <div className="mb-6 flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight text-black ">
-          Create New Project
-        </h1>
-        <p className="text-base font-normal text-gray-500 ">
-          Enter project infomation and assign team members
-        </p>
-      </div>
-      <div className="w-full  mx-auto space-y-6 p-4">
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
+      <ToastContainer position="top-center" autoClose={2000} />
+      <Header
+        title="Create New Project"
+        subTitle="Enter project information and assign team members"
+      />
+
+      <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
         {/* --- CARD 1: Basic Information --- */}
         <Card className="bg-white! w-full border-none">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
             Basic Information
           </h3>
 
-          <form className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {/* Project Name (Ocupa 2 columnas en desktop) */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {/* Project Name */}
             <div className="md:col-span-2">
-              <div className="mb-2 block">
-                <Label htmlFor="projectName" />
-              </div>
+              <Label htmlFor="projectName">Project Name</Label>
               <TextInput
                 id="projectName"
                 type="text"
                 placeholder="Enter project name"
+                value={name}
                 color="white"
                 required
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
             {/* Client */}
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="client" />
-              </div>
-              <Select color="white" id="client" required>
-                <option disabled selected>
+              <Label htmlFor="client">Client</Label>
+              <Select
+                id="client"
+                value={clientId}
+                color="white"
+                required
+                onChange={(e) => setClientId(Number(e.target.value))}
+              >
+                <option value="" disabled>
                   Select a client
                 </option>
-                <option>Client A</option>
-                <option>Client B</option>
+                {clients.map(({ id, name }) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
               </Select>
             </div>
 
             {/* Status */}
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="status" />
-              </div>
-              <Select color="white" id="status" required>
-                <option selected>Planning</option>
-                <option>In Progress</option>
-                <option>Completed</option>
+              <Label htmlFor="status">Status</Label>
+              <Select
+                id="status"
+                color="white"
+                required
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select status
+                </option>
+                <option value="Planning">Planning</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
               </Select>
             </div>
 
             {/* Budget */}
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="budget" />
-              </div>
+              <Label htmlFor="budget">Total Budget</Label>
               <TextInput
                 id="budget"
                 type="number"
-                placeholder="Enter budget amount"
                 color="white"
+                value={totalPrice}
+                onChange={(e) => setTotalPrice(Number(e.target.value))}
               />
             </div>
 
+            {/* Amount Paid */}
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="amountPaid" />
-              </div>
+              <Label htmlFor="amountPaid">Amount Paid</Label>
               <TextInput
                 id="amountPaid"
                 type="number"
-                placeholder="Amount Paid"
                 color="white"
+                value={amountPaid}
+                onChange={(e) => setAmountPaid(Number(e.target.value))}
               />
             </div>
 
-            {/* Description (Ocupa 2 columnas) */}
+            {/* Description */}
             <div className="md:col-span-2">
-              <div className="mb-2 block">
-                <Label htmlFor="description" />
-              </div>
+              <Label htmlFor="description">Description</Label>
               <Textarea
-                color="white"
                 id="description"
-                placeholder="Enter project description"
-                required
+                color="white"
                 rows={4}
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-          </form>
+          </div>
         </Card>
 
         {/* --- CARD 2: Assign Team Members --- */}
@@ -119,43 +190,49 @@ export default function AddNewProjectComponent() {
           </h3>
 
           <div className="flex flex-col gap-4">
-            {teamMembers.map((member) => (
+            {users.map(({ id, name, role }) => (
               <div
-                key={member.id}
-                className="flex items-center gap-4 rounded-lg border border-gray-200 p-4 hover:bg-gray-50 transition-colors"
+                key={id}
+                className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50"
               >
-                {/* Checkbox */}
                 <Checkbox
-                  id={`member-${member.id}`}
-                  className="h-5 w-5 bg-white!"
+                  id={`member-${id}`}
+                  checked={userIds.includes(id)}
+                  onChange={(e) => {
+                    setUserIds((prev) =>
+                      e.target.checked
+                        ? [...prev, id]
+                        : prev.filter((uid) => uid !== id)
+                    );
+                  }}
                 />
 
-                {/* Avatar con Iniciales */}
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
-                  {member.initials}
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-600">
+                  {name.charAt(0)}
                 </div>
 
-                {/* Info Text */}
-                <div className="flex flex-col">
+                <div>
                   <label
-                    htmlFor={`member-${member.id}`}
-                    className="text-sm font-medium text-gray-900 cursor-pointer"
+                    htmlFor={`member-${id}`}
+                    className="font-medium cursor-pointer"
                   >
-                    {member.name}
+                    {name}
                   </label>
-                  <span className="text-xs text-gray-500">{member.role}</span>
+                  <div className="text-xs text-gray-500">{role}</div>
                 </div>
               </div>
             ))}
           </div>
         </Card>
-        <div className="flex items-center justify-end gap-4 mt-4">
-          <Button color="blue" type="submit">
+
+        {/* Submit */}
+        <div className="flex justify-end">
+          <Button type="submit" color="blue">
             <HiPlus className="mr-2 h-5 w-5" />
             Create Project
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
