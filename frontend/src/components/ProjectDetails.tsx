@@ -6,9 +6,10 @@ import ExpenseRowComponent from "./ExpenseRowComponent";
 import Header from "./common/Header";
 import { Card } from "flowbite-react";
 import { api } from "../helper/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Project } from "../types/Project";
+import { toast } from "react-toastify";
 const titles: string[] = [
   "Id",
   "Description",
@@ -18,34 +19,36 @@ const titles: string[] = [
   "Amount",
   "Actions",
 ];
-const expenses: Expense[] = [
-  {
-    id: 1,
-    amount: 200,
-    description: "Una Description",
-    createdAt: new Date("22-09-2002"),
-    type: "office",
-  },
-  {
-    id: 2,
-    amount: 200,
-    description: "Una Description",
-    createdAt: new Date("22-09-2002"),
-    type: "office",
-  },
-  {
-    id: 3,
-    amount: 200,
-    description: "Una Description",
-    createdAt: new Date("22-09-2002"),
-    type: "project",
-  },
-];
+
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const navigate = useNavigate();
   const { id } = useParams();
   async function fetchProject(id: number) {
     await api.get(`projects/${id}`).then((res) => setProject(res.data));
+  }
+
+  async function fetchExpenses(projectId: number) {
+    const res = (await api.get<Expense[]>("expenses")).data;
+
+    setExpenses(res.filter((expense) => expense.project?.id === projectId));
+  }
+
+  async function handleDelete(id: number) {
+    try {
+      await api.request({
+        url: `expenses/${id}`,
+        method: "delete",
+      });
+      toast.success("Expense deleted successfully");
+      fetchExpenses(id);
+    } catch (error) {
+      toast.error("Error deleting project");
+    }
+  }
+  function handleEdit(id: number) {
+    navigate(`/editexpense/${id}`);
   }
 
   const projecInformation: CardInfomation[] = [
@@ -67,15 +70,18 @@ export default function ProjectDetails() {
   ];
   useEffect(() => {
     fetchProject(Number(id));
+    fetchExpenses(Number(id));
   }, [id]);
 
-  const budget = project?.amountPaid;
-  const totalExpense = project?.expenses
-    ? project.expenses.reduce((total, expense) => total + expense.amount, 0)
-    : 0;
-  const remaining = budget && budget - totalExpense;
+  const budget = project?.totalPrice ?? 0;
+  const totalExpense = expenses.reduce(
+    (total, expense) => total + expense.amount,
+    0
+  );
+  const remaining = budget - totalExpense;
+
   const percentage =
-    budget && (totalExpense / budget != 0 ? totalExpense / budget : 1) * 100;
+    budget > 0 ? Math.min((totalExpense / budget) * 100, 100) : 0;
 
   return (
     <div>
@@ -218,7 +224,12 @@ export default function ProjectDetails() {
             titles={titles}
             rows={expenses}
             renderRow={(expense) => (
-              <ExpenseRowComponent key={expense.id} expense={expense} />
+              <ExpenseRowComponent
+                key={expense.id}
+                expense={expense}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+              />
             )}
           />
         </div>

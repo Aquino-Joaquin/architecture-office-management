@@ -1,4 +1,10 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateExpenseDto {
   @IsNotEmpty()
@@ -10,9 +16,9 @@ export class CreateExpenseDto {
   description: string;
 
   @IsNotEmpty()
-  @IsDate()
-  createdAt: Date;
-
-  @IsNotEmpty()
   type: string;
+
+  @IsOptional()
+  @IsNumber()
+  projectId: number;
 }

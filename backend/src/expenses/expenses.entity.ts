@@ -24,6 +24,9 @@ export class Expense {
   @Column()
   type: string;
 
-  @ManyToOne(() => Project, (project) => project.expenses)
+  @ManyToOne(() => Project, (project) => project.expenses, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   project: Project;
 }
