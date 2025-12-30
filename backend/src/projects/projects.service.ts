@@ -20,11 +20,22 @@ export class ProjectsService {
   ) {}
 
   async getAllProjects() {
-    return await this.projectRepository.find();
+    return await this.projectRepository.find({
+      relations: {
+        client: true,
+        users: true,
+      },
+    });
   }
 
   async getOneProject(id: number) {
-    const project = await this.projectRepository.findOneBy({ id });
+    const project = await this.projectRepository.findOne({
+      where: { id },
+      relations: {
+        client: true,
+        users: true,
+      },
+    });
     if (!project) throw new NotFoundException();
     return project;
   }
@@ -79,6 +90,6 @@ export class ProjectsService {
   async deleteProject(id: number) {
     const project = await this.projectRepository.findOneBy({ id });
     if (!project) throw new NotFoundException();
-    return this.projectRepository.delete(project);
+    return this.projectRepository.delete(id);
   }
 }

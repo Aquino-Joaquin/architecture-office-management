@@ -1,30 +1,14 @@
-import { Button, Card } from "flowbite-react";
 import type { CardInfomation } from "../types/CardInformation";
-import {
-  HiOutlineCurrencyDollar,
-  HiOutlineTrendingUp,
-  HiPlus,
-} from "react-icons/hi";
+import { HiOutlineCurrencyDollar, HiOutlineTrendingUp } from "react-icons/hi";
 import TableComponent from "./TableComponent";
 import type { Expense } from "../types/Expense";
 import ExpenseRowComponent from "./ExpenseRowComponent";
-const projecInformation: CardInfomation[] = [
-  {
-    title: "Budget",
-    value: 200,
-    Icon: HiOutlineCurrencyDollar,
-  },
-  {
-    title: "Spent",
-    value: 200,
-    Icon: HiOutlineTrendingUp,
-  },
-  {
-    title: "Remaning",
-    value: 200,
-    Icon: HiOutlineCurrencyDollar,
-  },
-];
+import Header from "./common/Header";
+import { Card } from "flowbite-react";
+import { api } from "../helper/api";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import type { Project } from "../types/Project";
 const titles: string[] = [
   "Id",
   "Description",
@@ -58,27 +42,47 @@ const expenses: Expense[] = [
   },
 ];
 export default function ProjectDetails() {
-  const teamMembers = [
-    { name: "John Smith", role: "Lead Architect", initials: "J" },
-    { name: "Sarah Johnson", role: "Structural Engineer", initials: "S" },
-    { name: "Mike Ross", role: "Interior Designer", initials: "M" },
+  const [project, setProject] = useState<Project>();
+  const { id } = useParams();
+  async function fetchProject(id: number) {
+    await api.get(`projects/${id}`).then((res) => setProject(res.data));
+  }
+
+  const projecInformation: CardInfomation[] = [
+    {
+      title: "Budget",
+      value: project?.totalPrice || 0,
+      Icon: HiOutlineCurrencyDollar,
+    },
+    {
+      title: "Paid",
+      value: project?.amountPaid || 0,
+      Icon: HiOutlineTrendingUp,
+    },
+    {
+      title: "Remaning",
+      value: project ? project?.totalPrice - project?.amountPaid : 0,
+      Icon: HiOutlineCurrencyDollar,
+    },
   ];
+  useEffect(() => {
+    fetchProject(Number(id));
+  }, [id]);
+
+  const budget = project?.amountPaid;
+  const totalExpense = project?.expenses
+    ? project.expenses.reduce((total, expense) => total + expense.amount, 0)
+    : 0;
+  const remaining = budget && budget - totalExpense;
+  const percentage =
+    budget && (totalExpense / budget != 0 ? totalExpense / budget : 1) * 100;
+
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <div className="mb-6 flex flex-col gap-1">
-          <h1 className="text-3xl font-bold tracking-tight text-black ">
-            Projects Details
-          </h1>
-          <p className="text-base font-normal text-gray-500 ">
-            Here you can see all your project Details
-          </p>
-        </div>
-        <Button color="blue">
-          <HiPlus className="mr-2 h-5 w-5" />
-          Edit Project
-        </Button>
-      </div>
+      <Header
+        title={"Project Details"}
+        subTitle={"Here you can see all your project details"}
+      />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
         {projecInformation.map(({ title, value, Icon }, index) => (
@@ -114,10 +118,7 @@ export default function ProjectDetails() {
                     Description
                   </h4>
                   <p className="text-gray-600 leading-relaxed">
-                    A modern 15-story office complex featuring sustainable
-                    design elements, open workspaces, and advanced technology
-                    infrastructure. The project includes underground parking,
-                    retail space on ground floor, and rooftop amenities.
+                    {project?.description}
                   </p>
                 </div>
               </div>
@@ -137,13 +138,31 @@ export default function ProjectDetails() {
                   <span className="text-sm font-medium text-gray-700">
                     Budget Usage
                   </span>
-                  <span className="text-sm font-bold text-gray-900">65.0%</span>
+                  <span className="text-sm font-bold text-gray-900">
+                    {`${percentage}%`}
+                  </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div
                     className="bg-green-500 h-2.5 rounded-full"
-                    style={{ width: "65%" }}
+                    style={{ width: `${percentage}%` }}
                   ></div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Total Budget</p>
+                  <p className="text-lg font-bold text-gray-900">{budget}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Total Spent</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {totalExpense}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Remaining</p>
+                  <p className="text-lg font-bold text-gray-900">{remaining}</p>
                 </div>
               </div>
             </Card>
@@ -159,25 +178,26 @@ export default function ProjectDetails() {
               </div>
 
               <div className="flex flex-col gap-4 mt-2">
-                {teamMembers.map((member, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-4 p-3 rounded-lg bg-gray-50 border border-gray-100"
-                  >
-                    {/* Avatar Circular con Inicial */}
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
-                      {member.initials}
-                    </div>
+                {project?.users &&
+                  project?.users.map((member, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-4 p-3 rounded-lg bg-gray-50 border border-gray-100"
+                    >
+                      {/* Avatar Circular con Inicial */}
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
+                        {member.name.charAt(0)}
+                      </div>
 
-                    {/* Texto */}
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">
-                        {member.name}
-                      </p>
-                      <p className="text-xs text-gray-500">{member.role}</p>
+                      {/* Texto */}
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {member.name}
+                        </p>
+                        <p className="text-xs text-gray-500">{member.role}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </Card>
           </div>

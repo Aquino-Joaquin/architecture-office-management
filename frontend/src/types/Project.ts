@@ -13,7 +13,7 @@ export type Project = {
 
   totalPrice: number;
 
-  amoutPaid: number;
+  amountPaid: number;
 
   client: Client;
 

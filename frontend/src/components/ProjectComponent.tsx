@@ -1,8 +1,10 @@
-import { Button } from "flowbite-react";
 import type { Project } from "../types/Project";
 import TableComponent from "./TableComponent";
-import { HiPlus } from "react-icons/hi";
 import ProjectRowComponent from "./ProjectRowComponent";
+import Header from "./common/Header";
+import { api } from "../helper/api";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const titles: string[] = [
@@ -12,62 +14,51 @@ const titles: string[] = [
   "Total Price",
   "Amount Paid",
   "Client Name",
+  "Actions",
 ];
-
-const projectRow: Project[] = [
-  {
-    id: 1,
-    name: "Joaquin",
-    description: "Bueno bueno bueno chicos",
-    status: "On going",
-    totalPrice: 1200,
-    amoutPaid: 500,
-    client: {
-      id: 1,
-      name: "Pepe",
-      phone: "123213",
-    },
-  },
-  {
-    id: 2,
-    name: "Joaquin",
-    description: "Bueno bueno bueno chicos",
-    status: "On going",
-    totalPrice: 1200,
-    amoutPaid: 500,
-    client: {
-      id: 1,
-      name: "Pepe",
-      phone: "1234231",
-    },
-  },
-];
-
 export default function ProjectComponent() {
   const navigate = useNavigate();
+  const [projects, setProjects] = useState<Project[]>([]);
+  function fetchProjects() {
+    api.get("projects").then((res) => setProjects(res.data));
+  }
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+  async function handleDelete(id: number) {
+    try {
+      await api.request({
+        url: `projects/${id}`,
+        method: "delete",
+      });
+      toast.success("Project deleted successfully");
+      fetchProjects();
+    } catch (error) {
+      toast.error("Error deleting project");
+    }
+  }
+  function handleEdit(id: number) {
+    navigate(`/editproject/${id}`);
+  }
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <div className="mb-6 flex flex-col gap-1">
-          <h1 className="text-3xl font-bold tracking-tight text-black ">
-            Projects
-          </h1>
-          <p className="text-base font-normal text-gray-500 ">
-            Here you can see all the projects
-          </p>
-        </div>
-        <Button color="blue" onClick={() => navigate("/newproject")}>
-          <HiPlus className="mr-2 h-5 w-5" />
-          New Project
-        </Button>
-      </div>
-
+      <Header
+        title={"Projects"}
+        subTitle={"Here you can see all the projects"}
+        buttonTitle={"Add new project"}
+        buttonPath="/newproject"
+      />
       <div className="overflow-x-auto">
         <TableComponent<Project>
           titles={titles}
-          rows={projectRow}
+          rows={projects}
           renderRow={(project) => (
-            <ProjectRowComponent key={project.id} project={project} />
+            <ProjectRowComponent
+              key={project.id}
+              project={project}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           )}
         />
       </div>

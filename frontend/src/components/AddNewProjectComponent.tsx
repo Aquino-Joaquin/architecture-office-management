@@ -7,15 +7,20 @@ import {
   Textarea,
   TextInput,
 } from "flowbite-react";
-import { HiPlus } from "react-icons/hi";
+import { HiPlus, HiPencil } from "react-icons/hi";
 import Header from "./common/Header";
 import { api } from "../helper/api";
 import type { User } from "../types/User";
-import { useEffect, useState } from "react";
 import type { Client } from "../types/Client";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function AddNewProjectComponent() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const isEditMode = Boolean(id);
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
@@ -37,10 +42,27 @@ export default function AddNewProjectComponent() {
     setClients(res.data);
   }
 
+  async function fetchProject(projectId: string) {
+    const res = await api.get(`projects/${projectId}`);
+    const project = res.data;
+
+    setName(project.name);
+    setDescription(project.description);
+    setStatus(project.status);
+    setTotalPrice(project.totalPrice);
+    setAmountPaid(project.amountPaid);
+    setClientId(project.client.id);
+    setUserIds(project.users.map((u: User) => u.id));
+  }
+
   useEffect(() => {
     fetchUsers();
     fetchClients();
-  }, []);
+
+    if (isEditMode && id) {
+      fetchProject(id);
+    }
+  }, [id]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,69 +72,63 @@ export default function AddNewProjectComponent() {
       return;
     }
 
-    try {
-      await api.post("projects", {
-        name,
-        description,
-        status,
-        totalPrice,
-        amountPaid,
-        clientId: Number(clientId),
-        userIds,
-      });
+    const payload = {
+      name,
+      description,
+      status,
+      totalPrice,
+      amountPaid,
+      clientId: Number(clientId),
+      userIds,
+    };
 
-      toast.success("Project created successfully");
-      setName("");
-      setDescription("");
-      setStatus("");
-      setTotalPrice(0);
-      setAmountPaid(0);
-      setClientId("");
-      setUserIds([]);
+    try {
+      if (isEditMode) {
+        await api.patch(`projects/${id}`, payload);
+        toast.success("Project updated successfully");
+      } else {
+        await api.post("projects", payload);
+        toast.success("Project created successfully");
+      }
+
+      navigate("/projects");
     } catch (error) {
-      toast.error("Error creating project");
+      toast.error("Error saving project");
     }
   }
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <ToastContainer position="top-center" autoClose={2000} />
+
       <Header
-        title="Create New Project"
+        title={isEditMode ? "Edit Project" : "Create New Project"}
         subTitle="Enter project information and assign team members"
       />
 
       <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
-        {/* --- CARD 1: Basic Information --- */}
-        <Card className="bg-white! w-full border-none">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Basic Information
-          </h3>
+        {/* Basic Information */}
+        <Card className="bg-white! border-none">
+          <h3 className="text-lg font-semibold mb-2">Basic Information</h3>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {/* Project Name */}
             <div className="md:col-span-2">
-              <Label htmlFor="projectName">Project Name</Label>
+              <Label>Project Name</Label>
               <TextInput
-                id="projectName"
-                type="text"
-                placeholder="Enter project name"
                 value={name}
-                color="white"
                 required
                 onChange={(e) => setName(e.target.value)}
+                color="white"
               />
             </div>
 
-            {/* Client */}
             <div>
-              <Label htmlFor="client">Client</Label>
+              <Label>Client</Label>
               <Select
-                id="client"
                 value={clientId}
-                color="white"
                 required
                 onChange={(e) => setClientId(Number(e.target.value))}
+                color="white"
               >
                 <option value="" disabled>
                   Select a client
@@ -125,15 +141,13 @@ export default function AddNewProjectComponent() {
               </Select>
             </div>
 
-            {/* Status */}
             <div>
-              <Label htmlFor="status">Status</Label>
+              <Label>Status</Label>
               <Select
-                id="status"
-                color="white"
-                required
                 value={status}
+                required
                 onChange={(e) => setStatus(e.target.value)}
+                color="white"
               >
                 <option value="" disabled>
                   Select status
@@ -144,92 +158,78 @@ export default function AddNewProjectComponent() {
               </Select>
             </div>
 
-            {/* Budget */}
             <div>
-              <Label htmlFor="budget">Total Budget</Label>
+              <Label>Total Budget</Label>
               <TextInput
-                id="budget"
                 type="number"
-                color="white"
                 value={totalPrice}
                 onChange={(e) => setTotalPrice(Number(e.target.value))}
+                color="white"
               />
             </div>
 
-            {/* Amount Paid */}
             <div>
-              <Label htmlFor="amountPaid">Amount Paid</Label>
+              <Label>Amount Paid</Label>
               <TextInput
-                id="amountPaid"
                 type="number"
-                color="white"
                 value={amountPaid}
                 onChange={(e) => setAmountPaid(Number(e.target.value))}
+                color="white"
               />
             </div>
 
-            {/* Description */}
             <div className="md:col-span-2">
-              <Label htmlFor="description">Description</Label>
+              <Label>Description</Label>
               <Textarea
-                id="description"
-                color="white"
                 rows={4}
-                required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                color="white"
               />
             </div>
           </div>
         </Card>
 
-        {/* --- CARD 2: Assign Team Members --- */}
+        {/* Assign Users */}
         <Card className="bg-white! border-none">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Assign Team Members
-          </h3>
+          <h3 className="text-lg font-semibold mb-2">Assign Team Members</h3>
 
           <div className="flex flex-col gap-4">
             {users.map(({ id, name, role }) => (
-              <div
+              <label
                 key={id}
-                className="flex items-center gap-4 rounded-lg border p-4 hover:bg-gray-50"
+                className="flex items-center gap-4 border p-4 rounded-lg cursor-pointer"
               >
                 <Checkbox
-                  id={`member-${id}`}
                   checked={userIds.includes(id)}
-                  onChange={(e) => {
+                  onChange={(e) =>
                     setUserIds((prev) =>
                       e.target.checked
                         ? [...prev, id]
                         : prev.filter((uid) => uid !== id)
-                    );
-                  }}
+                    )
+                  }
                 />
-
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-600">
-                  {name.charAt(0)}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor={`member-${id}`}
-                    className="font-medium cursor-pointer"
-                  >
-                    {name}
-                  </label>
+                <div className="font-medium">
+                  {name}
                   <div className="text-xs text-gray-500">{role}</div>
                 </div>
-              </div>
+              </label>
             ))}
           </div>
         </Card>
 
-        {/* Submit */}
         <div className="flex justify-end">
-          <Button type="submit" color="blue">
-            <HiPlus className="mr-2 h-5 w-5" />
-            Create Project
+          <Button type="submit">
+            {isEditMode ? (
+              <>
+                <HiPencil className="mr-2" /> Update Project
+              </>
+            ) : (
+              <>
+                <HiPlus className="mr-2" /> Create Project
+              </>
+            )}
           </Button>
         </div>
       </form>

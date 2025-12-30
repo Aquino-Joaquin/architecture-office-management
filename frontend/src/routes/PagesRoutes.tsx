@@ -11,6 +11,7 @@ import NewClientPage from "../pages/NewClientPage";
 import ProjectDetailsPage from "../pages/ProjectDetailsPage";
 import CreateClientComponent from "../components/CreateClientComponent";
 import CreateUserComponent from "../components/CreateUserComponent";
+import AddNewProjectComponent from "../components/AddNewProjectComponent";
 
 export const router = createBrowserRouter([
   {
@@ -23,9 +24,10 @@ export const router = createBrowserRouter([
       { path: "expenses", element: <ExpensesPage /> },
       { path: "users", element: <UserManagementPage /> },
       { path: "newproject", element: <NewProjectPage /> },
+      { path: "editproject/:id", element: <AddNewProjectComponent /> },
       { path: "newclient", element: <NewClientPage /> },
       { path: "editClient/:id", element: <CreateClientComponent /> },
-      { path: "projectDetail", element: <ProjectDetailsPage /> },
+      { path: "projectDetail/:id", element: <ProjectDetailsPage /> },
       { path: "newuser", element: <CreateUserComponent /> },
       { path: "editUser/:id", element: <CreateUserComponent /> },
     ],
