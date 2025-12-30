@@ -13,16 +13,24 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const res = await api.post("auth/login", { userName, password });
+
       localStorage.setItem("token", res.data.accessToken);
-      const user = {
-        role: res.data.role,
-      };
-      if (user.role === "Staff") {
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: res.data.id,
+          name: res.data.userName,
+          role: res.data.role,
+        })
+      );
+
+      if (res.data.role === "Admin") {
         navigate("/");
       } else {
         navigate("/projects");
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error("Login failed");
       setUserName("");
       setPassword("");

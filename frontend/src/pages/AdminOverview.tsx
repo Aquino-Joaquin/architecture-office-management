@@ -4,7 +4,9 @@ import type { LeftBarType } from "../types/LeftBarType";
 import { LuFolders } from "react-icons/lu";
 import { CiMoneyCheck1 } from "react-icons/ci";
 import { PiUsers } from "react-icons/pi";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
+import type { User } from "../types/User";
+import { useEffect, useState } from "react";
 
 export default function AdminOverview() {
   const leftBarInfomation: LeftBarType[] = [
@@ -34,10 +36,19 @@ export default function AdminOverview() {
       path: "/users",
     },
   ];
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
     <div className="flex h-screen overflow-hidden">
       <aside className="w-64 shrink-0 overflow-y-auto">
-        <LeftBar items={leftBarInfomation} />
+        {user && <LeftBar items={leftBarInfomation} user={user} />}
       </aside>
 
       <main className="flex-1 overflow-y-auto bg-gray-100 p-6">

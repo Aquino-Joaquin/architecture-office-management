@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Sidebar,
   SidebarItem,
   SidebarItemGroup,
@@ -8,12 +7,15 @@ import {
 import { HiChartPie } from "react-icons/hi";
 import type { LeftBarType } from "../types/LeftBarType";
 import { useNavigate } from "react-router-dom";
+import type { User } from "../types/User";
 type LeftBarProps = {
   items: LeftBarType[];
+  user?: User;
 };
 
-export default function LeftBar({ items }: LeftBarProps) {
+export default function LeftBar({ items, user }: LeftBarProps) {
   const navigate = useNavigate();
+
   return (
     <Sidebar
       aria-label="Sidebar with content separator example"
@@ -28,6 +30,7 @@ export default function LeftBar({ items }: LeftBarProps) {
           />
           <h1 className="font-medium">Architecture Office</h1>
         </div>
+
         <SidebarItemGroup>
           {items.map(({ title, Icon, path }) => (
             <SidebarItem
@@ -40,20 +43,30 @@ export default function LeftBar({ items }: LeftBarProps) {
             </SidebarItem>
           ))}
         </SidebarItemGroup>
+
         <SidebarItemGroup className="mt-auto">
           <div className="ml-5 flex flex-wrap gap-5 justify-baseline">
-            <Avatar rounded />
-            <h1 className="text-center items-center text-lg font-medium text-black">
-              Joaquin
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
+              {user?.name?.charAt(0) ?? "?"}
+            </div>
+
+            <h1 className="text-lg font-medium text-black">
+              {user?.name ?? "Loading..."}
               <br />
-              <span className="text-gray-500 font-medium">Admin</span>
+              <span className="text-gray-500 font-medium">
+                {user?.role ?? ""}
+              </span>
             </h1>
           </div>
 
           <SidebarItem
             className="text-black! hover:text-gray-50"
             icon={HiChartPie}
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              navigate("/login");
+            }}
           >
             Log out
           </SidebarItem>
