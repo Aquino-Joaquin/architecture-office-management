@@ -1,6 +1,7 @@
 import { TableCell, TableRow } from "flowbite-react";
 import type { Expense } from "../types/Expense";
 import { HiPencil, HiTrash } from "react-icons/hi";
+import { formatDateDMY } from "../helper/formatDateDMY";
 export type Props = {
   expense: Expense;
   handleDelete: (id: number) => void;
@@ -20,7 +21,7 @@ export default function ExpenseRowComponent({
         {expense.description}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {new Date(expense.createdAt).getDate()}
+        {formatDateDMY(expense.createdAt)}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {expense.type}

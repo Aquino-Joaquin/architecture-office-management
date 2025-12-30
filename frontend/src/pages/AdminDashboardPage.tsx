@@ -5,79 +5,64 @@ import type { Project } from "../types/Project";
 import { FiUsers } from "react-icons/fi";
 import { GiExpense, GiMoneyStack } from "react-icons/gi";
 import type { Expense } from "../types/Expense";
+import { useEffect, useState } from "react";
+import { api } from "../helper/api";
+import type { Client } from "../types/Client";
 
 export default function AdminDashboardPage() {
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [clients, setClients] = useState<Client[]>([]);
+
+  async function fetchExpenses() {
+    await api.get("expenses").then((res) => setExpenses(res.data));
+  }
+
+  async function fetchProjects() {
+    await api.get("projects").then((res) => setProjects(res.data));
+  }
+
+  async function fetchClients() {
+    await api.get("clients").then((res) => setClients(res.data));
+  }
+
+  useEffect(() => {
+    fetchExpenses();
+    fetchProjects();
+    fetchClients();
+  }, []);
+
+  const activeProjects = projects.length;
+  const clientNumber = clients.length;
+  const generalBudget = projects.reduce(
+    (count, project) => count + project.amountPaid,
+    0
+  );
+  const generalExpense = expenses.reduce(
+    (count, expense) => count + expense.amount,
+    0
+  );
+
   const cardInformations: CardInfomation[] = [
     {
       title: "Active Projects",
-      value: 200,
+      value: activeProjects,
       Icon: VscFileSubmodule,
     },
     {
       title: "Clients",
-      value: 200,
+      value: clientNumber,
       Icon: FiUsers,
     },
     {
       title: "Budget",
-      value: 200,
+      value: generalBudget,
       Icon: GiMoneyStack,
     },
     {
       title: "Expenses",
-      value: 200,
+      value: generalExpense,
       Icon: GiExpense,
-    },
-  ];
-  const projects: Project[] = [
-    {
-      id: 1,
-      name: "Joaquin",
-      description: "Bueno bueno bueno chicos",
-      status: "On going",
-      totalPrice: 1200,
-      amoutPaid: 500,
-      client: {
-        id: 1,
-        name: "Pepe",
-        phone: 4238719,
-      },
-    },
-    {
-      id: 2,
-      name: "Joaquin",
-      description: "Bueno bueno bueno chicos",
-      status: "On going",
-      totalPrice: 1200,
-      amoutPaid: 500,
-      client: {
-        id: 1,
-        name: "Pepe",
-        phone: 4238719,
-      },
-    },
-  ];
-  const expenses: Expense[] = [
-    {
-      id: 1,
-      amount: 100,
-      description: "Gasto normal",
-      createdAt: new Date("2025-03-10"),
-      type: "office",
-    },
-    {
-      id: 2,
-      amount: 100,
-      description: "Gasto normal",
-      createdAt: new Date("2025-03-10"),
-      type: "office",
-    },
-    {
-      id: 3,
-      amount: 100,
-      description: "Gasto normal",
-      createdAt: new Date("2025-03-10"),
-      type: "office",
     },
   ];
 

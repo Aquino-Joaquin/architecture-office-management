@@ -2,6 +2,8 @@ import { Badge, Card } from "flowbite-react";
 import type { CardInfomation } from "../types/CardInformation";
 import type { Project } from "../types/Project";
 import type { Expense } from "../types/Expense";
+import Header from "./common/Header";
+import { formatDateDMY } from "../helper/formatDateDMY";
 
 const getBadgeColor = (type: string) => {
   switch (type.toLowerCase()) {
@@ -25,14 +27,10 @@ export default function AdminDashboard({
 }: AdminDashboardProps) {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
-      <div className="mb-6 flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight text-black ">
-          Admin Dashboard
-        </h1>
-        <p className="text-base font-normal text-gray-500 ">
-          Welcome back! Here's your office overview.
-        </p>
-      </div>
+      <Header
+        title={"Admin Dashboard"}
+        subTitle={"Welcome back! Here's your office overview."}
+      />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-4">
         {itemsInformation.map(({ title, value, Icon }, index) => (
@@ -109,7 +107,7 @@ export default function AdminDashboard({
                         </p>
                         <div className="mt-1 flex items-center gap-2">
                           <span className="truncate text-sm text-gray-500 ">
-                            {createdAt.getDate()}
+                            {formatDateDMY(createdAt)}
                           </span>
                           <Badge color={getBadgeColor(type)} size="xs">
                             {type}

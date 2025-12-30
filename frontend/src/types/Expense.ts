@@ -4,7 +4,7 @@ export type Expense = {
   id: number;
   amount: number;
   description: string;
-  createdAt: Date;
+  createdAt: string;
   type: string;
   project?: Project;
 };
