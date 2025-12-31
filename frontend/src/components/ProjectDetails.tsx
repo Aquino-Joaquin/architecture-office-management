@@ -48,7 +48,7 @@ export default function ProjectDetails() {
     }
   }
   function handleEdit(id: number) {
-    navigate(`/editexpense/${id}`);
+    navigate(`editexpense/${id}`);
   }
 
   const projecInformation: CardInfomation[] = [

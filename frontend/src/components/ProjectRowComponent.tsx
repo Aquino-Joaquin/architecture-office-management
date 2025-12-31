@@ -16,7 +16,7 @@ export default function ProjectRowComponent({
 }: Props) {
   const navigate = useNavigate();
   return (
-    <TableRow onClick={() => navigate(`/projectDetail/${project.id}`)}>
+    <TableRow onClick={() => navigate(`projectDetail/${project.id}`)}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {project.id}
       </TableCell>

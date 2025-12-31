@@ -1,4 +1,10 @@
-import { Table, TableBody, TableHead, TableHeadCell } from "flowbite-react";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeadCell,
+  TableRow,
+} from "flowbite-react";
 
 type TableProps<T> = {
   titles: string[];
@@ -6,7 +12,6 @@ type TableProps<T> = {
   renderRow: (item: T) => React.ReactNode;
 };
 
-// Agregamos <T,> antes de los props para declarar el genérico
 export default function TableComponent<T>({
   titles,
   rows,
@@ -16,9 +21,11 @@ export default function TableComponent<T>({
     <div className="overflow-x-auto">
       <Table hoverable>
         <TableHead>
-          {titles.map((title, index) => (
-            <TableHeadCell key={index}>{title}</TableHeadCell>
-          ))}
+          <TableRow>
+            {titles.map((title, index) => (
+              <TableHeadCell key={index}>{title}</TableHeadCell>
+            ))}
+          </TableRow>
         </TableHead>
 
         <TableBody className="divide-y">

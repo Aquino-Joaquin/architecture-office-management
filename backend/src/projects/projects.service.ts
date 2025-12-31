@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './projects.entity';
@@ -19,16 +20,26 @@ export class ProjectsService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async getAllProjects() {
-    return await this.projectRepository.find({
-      relations: {
-        client: true,
-        users: true,
-      },
-    });
+  async getAllProjects(user: User) {
+    if (user.role === 'Admin') {
+      return await this.projectRepository.find({
+        relations: {
+          client: true,
+          users: true,
+        },
+      });
+    } else {
+      return await this.projectRepository.find({
+        where: { users: { id: user.id } },
+        relations: {
+          client: true,
+          users: true,
+        },
+      });
+    }
   }
 
-  async getOneProject(id: number) {
+  async getOneProject(id: number, user: User) {
     const project = await this.projectRepository.findOne({
       where: { id },
       relations: {
@@ -37,6 +48,9 @@ export class ProjectsService {
       },
     });
     if (!project) throw new NotFoundException();
+    if (user.role === 'Staff') return project;
+    const isUserAssigned = project.users.some((u) => u.id === user.id);
+    if (!isUserAssigned) throw new UnauthorizedException();
     return project;
   }
 

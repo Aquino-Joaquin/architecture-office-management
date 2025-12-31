@@ -38,7 +38,7 @@ export default function ProjectComponent() {
     }
   }
   function handleEdit(id: number) {
-    navigate(`/editproject/${id}`);
+    navigate(`editproject/${id}`);
   }
   return (
     <div>
@@ -46,7 +46,7 @@ export default function ProjectComponent() {
         title={"Projects"}
         subTitle={"Here you can see all the projects"}
         buttonTitle={"Add new project"}
-        buttonPath="/newproject"
+        buttonPath="newproject"
       />
       <div className="overflow-x-auto">
         <TableComponent<Project>

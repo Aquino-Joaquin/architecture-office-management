@@ -7,15 +7,21 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { CreateExpenseDto } from './dtos/createExpenseDto';
 import { UpdateExpenseDto } from './dtos/updateExpenseDto';
-
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Role } from 'src/auth/role.decorator';
+@UseGuards(AuthGuard('jwt'), RolesGuard)
+@Role('Admin')
 @Controller('expenses')
 export class ExpensesController {
   constructor(private readonly expenseService: ExpensesService) {}
+
   @Get()
   getAllExpenses() {
     return this.expenseService.getAllExpenses();

@@ -1,4 +1,4 @@
-import { Button, Card, Label, TextInput, Toast } from "flowbite-react";
+import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { api } from "../helper/api";
 import { useNavigate } from "react-router-dom";
@@ -26,9 +26,9 @@ export default function LoginForm() {
       );
 
       if (res.data.role === "Admin") {
-        navigate("/");
+        navigate("/admin");
       } else {
-        navigate("/projects");
+        navigate("/staff");
       }
     } catch (error) {
       toast.error("Login failed");

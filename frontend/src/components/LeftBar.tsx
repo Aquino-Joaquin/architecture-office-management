@@ -24,7 +24,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
       <SidebarItems className="flex flex-col h-full">
         <div className="flex items-center gap-2 px-2 py-3">
           <img
-            src="../logo.svg"
+            src="/logo.svg"
             alt="Architecture Office Logo"
             className="w-12 h-12 rounded-lg"
           />

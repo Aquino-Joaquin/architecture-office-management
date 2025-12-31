@@ -13,22 +13,29 @@ import CreateClientComponent from "../components/CreateClientComponent";
 import CreateUserComponent from "../components/CreateUserComponent";
 import AddNewProjectComponent from "../components/AddNewProjectComponent";
 import CreateExpenseComponent from "../components/CreateExpenseComponent";
+import RequireRole from "../components/RequireRole";
+import StaffOverview from "../pages/StaffOverview";
+import StaffDashboardPage from "../pages/StaffDashboardPage";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <AdminOverview />,
+    path: "/admin",
+    element: (
+      <RequireRole allowedRoles={["Admin"]}>
+        <AdminOverview />
+      </RequireRole>
+    ),
     children: [
       { index: true, element: <AdminDashboardPage /> },
       { path: "projects", element: <ProjectsPage /> },
       { path: "clients", element: <ClientsPage /> },
       { path: "expenses", element: <ExpensesPage /> },
       { path: "users", element: <UserManagementPage /> },
-      { path: "newproject", element: <NewProjectPage /> },
-      { path: "editproject/:id", element: <AddNewProjectComponent /> },
+      { path: "projects/newproject", element: <NewProjectPage /> },
+      { path: "projects/editproject/:id", element: <AddNewProjectComponent /> },
       { path: "newclient", element: <NewClientPage /> },
       { path: "editClient/:id", element: <CreateClientComponent /> },
-      { path: "projectDetail/:id", element: <ProjectDetailsPage /> },
+      { path: "projects/projectDetail/:id", element: <ProjectDetailsPage /> },
       { path: "newuser", element: <CreateUserComponent /> },
       { path: "editUser/:id", element: <CreateUserComponent /> },
       { path: "newexpense", element: <CreateExpenseComponent /> },
@@ -36,7 +43,20 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "login",
+    path: "/staff",
+    element: (
+      <RequireRole allowedRoles={["Admin", "Staff"]}>
+        <StaffOverview />
+      </RequireRole>
+    ),
+    children: [
+      { index: true, element: <StaffDashboardPage /> },
+      { path: "projects", element: <ProjectsPage /> },
+      { path: "projects/projectDetail/:id", element: <ProjectDetailsPage /> },
+    ],
+  },
+  {
+    path: "/login",
     element: <LoginPage />,
   },
 ]);

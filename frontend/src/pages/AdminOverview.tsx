@@ -4,7 +4,7 @@ import type { LeftBarType } from "../types/LeftBarType";
 import { LuFolders } from "react-icons/lu";
 import { CiMoneyCheck1 } from "react-icons/ci";
 import { PiUsers } from "react-icons/pi";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import type { User } from "../types/User";
 import { useEffect, useState } from "react";
 
@@ -18,22 +18,22 @@ export default function AdminOverview() {
     {
       title: "Projects",
       Icon: LuFolders,
-      path: "/projects",
+      path: "projects",
     },
     {
       title: "Clients",
       Icon: PiUsers,
-      path: "/clients",
+      path: "clients",
     },
     {
       title: "Expenses",
       Icon: CiMoneyCheck1,
-      path: "/expenses",
+      path: "expenses",
     },
     {
       title: "User Management",
       Icon: PiUsers,
-      path: "/users",
+      path: "users",
     },
   ];
   const [user, setUser] = useState<User | null>(null);
