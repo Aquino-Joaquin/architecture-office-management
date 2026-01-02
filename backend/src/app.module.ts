@@ -29,7 +29,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         synchronize: true,
         ssl:
           process.env.NODE_ENV === 'production' ||
-          process.env.DATABASE_URL.includes('neon.tech'),
+          !!(
+            process.env.DATABASE_URL &&
+            process.env.DATABASE_URL.includes('neon.tech')
+          ),
         extra: {
           ssl: {
             rejectUnauthorized: false,
