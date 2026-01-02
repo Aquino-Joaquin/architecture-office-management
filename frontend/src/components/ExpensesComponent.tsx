@@ -17,12 +17,15 @@ const titles: string[] = [
   "Type",
   "Project",
   "Amount",
-  "Actions",
 ];
 
 export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
+
+  const user = localStorage.getItem("user");
+  const userRole = user ? JSON.parse(user).role : null;
+  const isAdmin = userRole === "Admin";
 
   async function fetchExpenses() {
     await api.get("expenses").then((res) => setExpenses(res.data));
@@ -73,7 +76,7 @@ export default function ExpensesComponent() {
     }
   }
   function handleEdit(id: number) {
-    navigate(`/editexpense/${id}`);
+    navigate(`editexpense/${id}`);
   }
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
@@ -81,7 +84,7 @@ export default function ExpensesComponent() {
         title={"Expense"}
         subTitle={"Here you can see your expense overview"}
         buttonTitle="Create new expense"
-        buttonPath="/newexpense"
+        buttonPath="newexpense"
       />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
@@ -114,6 +117,7 @@ export default function ExpensesComponent() {
             expense={expense}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
+            canDoActions={isAdmin}
           />
         )}
       />

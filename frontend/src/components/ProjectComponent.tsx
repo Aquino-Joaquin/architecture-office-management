@@ -19,6 +19,10 @@ const titles: string[] = [
 export default function ProjectComponent() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
+
+  const user = localStorage.getItem("user");
+  const userRole = user ? JSON.parse(user).role : null;
+  const isAdmin = userRole === "Admin";
   function fetchProjects() {
     api.get("projects").then((res) => setProjects(res.data));
   }
@@ -47,6 +51,7 @@ export default function ProjectComponent() {
         subTitle={"Here you can see all the projects"}
         buttonTitle={"Add new project"}
         buttonPath="newproject"
+        showButton={isAdmin}
       />
       <div className="overflow-x-auto">
         <TableComponent<Project>
@@ -58,6 +63,7 @@ export default function ProjectComponent() {
               project={project}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
+              actionDelete={isAdmin}
             />
           )}
         />

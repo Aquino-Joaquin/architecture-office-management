@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { CreateExpenseDto } from './dtos/createExpenseDto';
 import { UpdateExpenseDto } from './dtos/updateExpenseDto';
 import { Project } from 'src/projects/projects.entity';
+import { User } from 'src/users/users.entity';
+import { JwtUser } from 'src/auth/jwt-user.type';
 
 @Injectable()
 export class ExpensesService {
@@ -13,12 +15,27 @@ export class ExpensesService {
     @InjectRepository(Project) private projectRepository: Repository<Project>,
   ) {}
 
-  async getAllExpenses() {
-    return await this.expenseRepository.find({
-      relations: {
-        project: true,
-      },
-    });
+  async getAllExpenses(user: JwtUser) {
+    if (user.role == 'Admin') {
+      return await this.expenseRepository.find({
+        relations: {
+          project: true,
+        },
+      });
+    } else {
+      return this.expenseRepository.find({
+        where: {
+          project: {
+            users: {
+              id: user.id,
+            },
+          },
+        },
+        relations: {
+          project: true,
+        },
+      });
+    }
   }
   async getOneExpense(id: number) {
     const expense = await this.expenseRepository.findOneBy({ id });

@@ -40,7 +40,7 @@ export default function ClientComponent() {
         title={"Clients"}
         subTitle={"Here you can see all the Clients"}
         buttonTitle={"Add new client"}
-        buttonPath="/newclient"
+        buttonPath="newclient"
       />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3 ">
@@ -69,7 +69,7 @@ export default function ClientComponent() {
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => navigate(`/editClient/${id}`)}
+                    onClick={() => navigate(`editClient/${id}`)}
                     className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                     title="Edit Client"
                   >

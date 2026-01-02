@@ -7,12 +7,14 @@ export type Props = {
   project: Project;
   handleDelete: (id: number) => void;
   handleEdit: (id: number) => void;
+  actionDelete: boolean;
 };
 
 export default function ProjectRowComponent({
   project,
   handleDelete,
   handleEdit,
+  actionDelete,
 }: Props) {
   const navigate = useNavigate();
   return (
@@ -47,15 +49,17 @@ export default function ProjectRowComponent({
             <HiPencil className="h-5 w-5" />
           </button>
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDelete(project.id);
-            }}
-            className="text-red-600 hover:text-red-800 transition-colors"
-          >
-            <HiTrash className="h-5 w-5" />
-          </button>
+          {actionDelete && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(project.id);
+              }}
+              className="text-red-600 hover:text-red-800 transition-colors"
+            >
+              <HiTrash className="h-5 w-5" />
+            </button>
+          )}
         </div>
       </TableCell>
     </TableRow>

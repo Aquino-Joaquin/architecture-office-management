@@ -11,7 +11,7 @@ export default function RequireRole({ allowedRoles, children }: Props) {
   const role = user?.role;
 
   if (!role) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
   if (!allowedRoles.includes(role)) {
     return <Navigate to="/unauthorized" replace />;

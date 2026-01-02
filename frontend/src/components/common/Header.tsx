@@ -6,12 +6,14 @@ export type Props = {
   subTitle: string;
   buttonTitle?: string;
   buttonPath?: string;
+  showButton?: boolean;
 };
 export default function Header({
   title,
   subTitle,
   buttonTitle,
   buttonPath,
+  showButton,
 }: Props) {
   const navigate = useNavigate();
   return (
@@ -23,7 +25,7 @@ export default function Header({
           </h1>
           <p className="text-base font-normal text-gray-500 ">{subTitle}</p>
         </div>
-        {buttonTitle && buttonPath && (
+        {showButton && buttonTitle && buttonPath && (
           <Button color="blue" onClick={() => navigate(buttonPath)}>
             <HiPlus className="mr-2 h-5 w-5" />
             {buttonTitle}

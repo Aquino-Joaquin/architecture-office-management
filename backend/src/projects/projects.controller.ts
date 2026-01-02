@@ -17,7 +17,6 @@ import { UpdateProjectDto } from './dtos/updateProjectDto';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Role } from 'src/auth/role.decorator';
-import { User } from 'src/users/users.entity';
 
 @Controller('projects')
 export class ProjectsController {
@@ -26,7 +25,7 @@ export class ProjectsController {
   @Role('Admin', 'Staff')
   @Get()
   getAllProjects(@Req() req) {
-    return this.projectService.getAllProjects(req);
+    return this.projectService.getAllProjects(req.user);
   }
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -42,12 +41,15 @@ export class ProjectsController {
     return this.projectService.createProject(createProject);
   }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Role('Admin', 'Staff')
   @Patch(':id')
   updateProject(
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe) updateProject: UpdateProjectDto,
+    @Req() req,
   ) {
-    return this.projectService.updateProject(id, updateProject);
+    return this.projectService.updateProject(id, updateProject, req.user);
   }
 
   @Patch(':id/status')

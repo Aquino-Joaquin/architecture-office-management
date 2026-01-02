@@ -69,7 +69,7 @@ export default function UserComponent() {
     }
   }
   function handleEdit(id: number) {
-    navigate(`/editUser/${id}`);
+    navigate(`editUser/${id}`);
   }
 
   return (
@@ -78,7 +78,7 @@ export default function UserComponent() {
         title={"User Management"}
         subTitle={"Here you can manage all the users"}
         buttonTitle={"Add new user"}
-        buttonPath="/newuser"
+        buttonPath="newuser"
       />
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
         {usersInformation.map(({ title, value, Icon }, index) => (

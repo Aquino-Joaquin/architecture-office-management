@@ -17,7 +17,6 @@ const titles: string[] = [
   "Type",
   "Project",
   "Amount",
-  "Actions",
 ];
 
 export default function ProjectDetails() {
@@ -25,6 +24,12 @@ export default function ProjectDetails() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const user = localStorage.getItem("user");
+  const userRole = user ? JSON.parse(user).role : null;
+  const isAdmin = userRole === "Admin";
+  const finalTitles = isAdmin ? [...titles, "Actions"] : titles;
+
   async function fetchProject(id: number) {
     await api.get(`projects/${id}`).then((res) => setProject(res.data));
   }
@@ -48,7 +53,7 @@ export default function ProjectDetails() {
     }
   }
   function handleEdit(id: number) {
-    navigate(`editexpense/${id}`);
+    navigate(`projects/editexpense/${id}`);
   }
 
   const projecInformation: CardInfomation[] = [
@@ -131,14 +136,12 @@ export default function ProjectDetails() {
             </Card>
           </div>
 
-          {/* --- 2. BUDGET OVERVIEW (2/3 del ancho) --- */}
           <div className="lg:col-span-2">
             <Card className="bg-white! border-none shadow-sm h-full">
               <h3 className="text-xl font-bold text-gray-900 mb-4">
                 Budget Overview
               </h3>
 
-              {/* Barra de Progreso Customizada para que se vea verde como en la imagen */}
               <div className="mb-6">
                 <div className="flex justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700">
@@ -174,7 +177,6 @@ export default function ProjectDetails() {
             </Card>
           </div>
 
-          {/* --- 3. TEAM MEMBERS (1/3 del ancho) --- */}
           <div className="lg:col-span-1">
             <Card className="bg-white! border-none shadow-sm h-full">
               <div className="flex items-center gap-2 mb-2">
@@ -190,12 +192,10 @@ export default function ProjectDetails() {
                       key={index}
                       className="flex items-center gap-4 p-3 rounded-lg bg-gray-50 border border-gray-100"
                     >
-                      {/* Avatar Circular con Inicial */}
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
                         {member.name.charAt(0)}
                       </div>
 
-                      {/* Texto */}
                       <div>
                         <p className="text-sm font-medium text-gray-900">
                           {member.name}
@@ -210,18 +210,15 @@ export default function ProjectDetails() {
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-4">
-        {/* Título de la Sección */}
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold tracking-tight text-gray-900 pl-3">
             Project Expenses
           </h2>
-          {/* Opcional: Podrías poner un botón de "Exportar" o "Filtros" aquí */}
         </div>
 
-        {/* Contenedor estilo Card para la Tabla */}
         <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           <TableComponent<Expense>
-            titles={titles}
+            titles={finalTitles}
             rows={expenses}
             renderRow={(expense) => (
               <ExpenseRowComponent
@@ -229,6 +226,7 @@ export default function ProjectDetails() {
                 expense={expense}
                 handleDelete={handleDelete}
                 handleEdit={handleEdit}
+                canDoActions={isAdmin}
               />
             )}
           />

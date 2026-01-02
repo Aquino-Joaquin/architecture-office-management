@@ -65,7 +65,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
             onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("user");
-              navigate("/login");
+              navigate("/");
             }}
           >
             Log out

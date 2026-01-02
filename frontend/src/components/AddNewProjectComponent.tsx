@@ -21,6 +21,10 @@ export default function AddNewProjectComponent() {
   const navigate = useNavigate();
   const isEditMode = Boolean(id);
 
+  const user = localStorage.getItem("user");
+  const userRole = user ? JSON.parse(user).role : null;
+  const isAdmin = userRole === "Admin";
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
@@ -56,8 +60,10 @@ export default function AddNewProjectComponent() {
   }
 
   useEffect(() => {
-    fetchUsers();
-    fetchClients();
+    if (isAdmin) {
+      fetchUsers();
+      fetchClients();
+    }
 
     if (isEditMode && id) {
       fetchProject(id);
@@ -90,8 +96,6 @@ export default function AddNewProjectComponent() {
         await api.post("projects", payload);
         toast.success("Project created successfully");
       }
-
-      navigate("/projects");
     } catch (error) {
       toast.error("Error saving project");
     }
@@ -117,6 +121,7 @@ export default function AddNewProjectComponent() {
               <TextInput
                 value={name}
                 required
+                readOnly={!isAdmin}
                 onChange={(e) => setName(e.target.value)}
                 color="white"
               />
@@ -127,6 +132,7 @@ export default function AddNewProjectComponent() {
               <Select
                 value={clientId}
                 required
+                disabled={!isAdmin}
                 onChange={(e) => setClientId(Number(e.target.value))}
                 color="white"
               >
@@ -163,6 +169,7 @@ export default function AddNewProjectComponent() {
               <TextInput
                 type="number"
                 value={totalPrice}
+                readOnly={!isAdmin}
                 onChange={(e) => setTotalPrice(Number(e.target.value))}
                 color="white"
               />
@@ -173,6 +180,7 @@ export default function AddNewProjectComponent() {
               <TextInput
                 type="number"
                 value={amountPaid}
+                readOnly={!isAdmin}
                 onChange={(e) => setAmountPaid(Number(e.target.value))}
                 color="white"
               />
@@ -183,6 +191,7 @@ export default function AddNewProjectComponent() {
               <Textarea
                 rows={4}
                 value={description}
+                readOnly={!isAdmin}
                 onChange={(e) => setDescription(e.target.value)}
                 color="white"
               />
@@ -191,33 +200,36 @@ export default function AddNewProjectComponent() {
         </Card>
 
         {/* Assign Users */}
-        <Card className="bg-white! border-none">
-          <h3 className="text-lg font-semibold mb-2">Assign Team Members</h3>
+        {isAdmin && (
+          <Card className="bg-white! border-none">
+            <h3 className="text-lg font-semibold mb-2">Assign Team Members</h3>
 
-          <div className="flex flex-col gap-4">
-            {users.map(({ id, name, role }) => (
-              <label
-                key={id}
-                className="flex items-center gap-4 border p-4 rounded-lg cursor-pointer"
-              >
-                <Checkbox
-                  checked={userIds.includes(id)}
-                  onChange={(e) =>
-                    setUserIds((prev) =>
-                      e.target.checked
-                        ? [...prev, id]
-                        : prev.filter((uid) => uid !== id)
-                    )
-                  }
-                />
-                <div className="font-medium">
-                  {name}
-                  <div className="text-xs text-gray-500">{role}</div>
-                </div>
-              </label>
-            ))}
-          </div>
-        </Card>
+            <div className="flex flex-col gap-4">
+              {users.map(({ id, name, role }) => (
+                <label
+                  key={id}
+                  className="flex items-center gap-4 border p-4 rounded-lg cursor-pointer"
+                >
+                  <Checkbox
+                    disabled={!isAdmin}
+                    checked={userIds.includes(id)}
+                    onChange={(e) =>
+                      setUserIds((prev) =>
+                        e.target.checked
+                          ? [...prev, id]
+                          : prev.filter((uid) => uid !== id)
+                      )
+                    }
+                  />
+                  <div className="font-medium">
+                    {name}
+                    <div className="text-xs text-gray-500">{role}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </Card>
+        )}
 
         <div className="flex justify-end">
           <Button type="submit">
