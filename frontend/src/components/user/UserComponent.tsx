@@ -1,18 +1,18 @@
 import { Card } from "flowbite-react";
-import TableComponent from "./TableComponent";
-import type { User } from "../types/User";
-import UserRowComponent from "./UserRowComponent";
-import type { CardInfomation } from "../types/CardInformation";
 import {
   HiOutlineBriefcase,
   HiOutlineShieldCheck,
   HiOutlineUsers,
 } from "react-icons/hi";
-import Header from "./common/Header";
 import { useEffect, useState } from "react";
-import { api } from "../helper/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import type { User } from "../../types/User";
+import type { CardInfomation } from "../../types/CardInformation";
+import { api } from "../../helper/api";
+import Header from "../common/Header";
+import TableComponent from "../common/TableComponent";
+import UserRowComponent from "./UserRowComponent";
 
 const titles: string[] = ["Id", "Name", "Email", "Role", "Projects", "Actions"];
 

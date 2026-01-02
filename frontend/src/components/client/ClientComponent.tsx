@@ -1,12 +1,12 @@
 import { Card } from "flowbite-react";
-import type { Client } from "../types/Client";
 import { MdContacts, MdEmail, MdPhone } from "react-icons/md";
-import { api } from "../helper/api";
 import { useEffect, useState } from "react";
-import Header from "./common/Header";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../helper/api";
+import type { Client } from "../../types/Client";
+import Header from "../common/Header";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);

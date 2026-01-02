@@ -1,7 +1,8 @@
-import { TableCell, TableRow } from "flowbite-react";
-import type { Project } from "../types/Project";
+import { Badge, TableCell, TableRow } from "flowbite-react";
+import type { Project } from "../../types/Project";
 import { useNavigate } from "react-router-dom";
 import { HiPencil, HiTrash } from "react-icons/hi";
+import { getBadgeColor } from "../../helper/getBadgeColor";
 
 export type Props = {
   project: Project;
@@ -26,7 +27,11 @@ export default function ProjectRowComponent({
         {project.name}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.status}
+        {
+          <Badge color={getBadgeColor(project.status)} size="xs">
+            {project.status}
+          </Badge>
+        }
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {project.totalPrice}

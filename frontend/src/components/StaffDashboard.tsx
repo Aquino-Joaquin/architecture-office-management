@@ -2,15 +2,7 @@ import { Badge, Card } from "flowbite-react";
 import type { CardInfomation } from "../types/CardInformation";
 import type { Project } from "../types/Project";
 import Header from "./common/Header";
-
-const getBadgeColor = (type: string) => {
-  switch (type.toLowerCase()) {
-    case "office":
-      return "purple";
-    case "project":
-      return "blue";
-  }
-};
+import { getBadgeColor } from "../helper/getBadgeColor";
 
 type StaffDashboardProps = {
   itemsInformation: CardInfomation[];

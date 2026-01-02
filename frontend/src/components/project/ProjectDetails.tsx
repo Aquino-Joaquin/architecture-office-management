@@ -1,15 +1,16 @@
-import type { CardInfomation } from "../types/CardInformation";
+import type { CardInfomation } from "../../types/CardInformation";
 import { HiOutlineCurrencyDollar, HiOutlineTrendingUp } from "react-icons/hi";
-import TableComponent from "./TableComponent";
-import type { Expense } from "../types/Expense";
-import ExpenseRowComponent from "./ExpenseRowComponent";
-import Header from "./common/Header";
+import TableComponent from "../common/TableComponent";
+import type { Expense } from "../../types/Expense";
+import ExpenseRowComponent from "../expense/ExpenseRowComponent";
+import Header from "../common/Header";
 import { Card } from "flowbite-react";
-import { api } from "../helper/api";
+import { api } from "../../helper/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import type { Project } from "../types/Project";
+import type { Project } from "../../types/Project";
 import { toast } from "react-toastify";
+import { checkAdmin } from "../../helper/checkAdmin";
 const titles: string[] = [
   "Id",
   "Description",
@@ -25,9 +26,7 @@ export default function ProjectDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const user = localStorage.getItem("user");
-  const userRole = user ? JSON.parse(user).role : null;
-  const isAdmin = userRole === "Admin";
+  const isAdmin = checkAdmin();
   const finalTitles = isAdmin ? [...titles, "Actions"] : titles;
 
   async function fetchProject(id: number) {

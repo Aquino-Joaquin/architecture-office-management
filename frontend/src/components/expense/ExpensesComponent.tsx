@@ -1,14 +1,15 @@
 import { Card } from "flowbite-react";
-import TableComponent from "./TableComponent";
-import type { CardInfomation } from "../types/CardInformation";
+import TableComponent from "../common/TableComponent";
+import type { CardInfomation } from "../../types/CardInformation";
 import { MdAttachMoney, MdTrendingDown, MdTrendingUp } from "react-icons/md";
-import type { Expense } from "../types/Expense";
+import type { Expense } from "../../types/Expense";
 import ExpenseRowComponent from "./ExpenseRowComponent";
-import Header from "./common/Header";
-import { api } from "../helper/api";
+import Header from "../common/Header";
+import { api } from "../../helper/api";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { checkAdmin } from "../../helper/checkAdmin";
 
 const titles: string[] = [
   "Id",
@@ -23,9 +24,7 @@ export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
 
-  const user = localStorage.getItem("user");
-  const userRole = user ? JSON.parse(user).role : null;
-  const isAdmin = userRole === "Admin";
+  const isAdmin = checkAdmin();
 
   async function fetchExpenses() {
     await api.get("expenses").then((res) => setExpenses(res.data));

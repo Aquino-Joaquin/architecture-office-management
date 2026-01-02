@@ -1,11 +1,12 @@
-import type { Project } from "../types/Project";
-import TableComponent from "./TableComponent";
+import type { Project } from "../../types/Project";
+import TableComponent from "../common/TableComponent";
 import ProjectRowComponent from "./ProjectRowComponent";
-import Header from "./common/Header";
-import { api } from "../helper/api";
+import Header from "../common/Header";
+import { api } from "../../helper/api";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { checkAdmin } from "../../helper/checkAdmin";
 
 const titles: string[] = [
   "Id",
@@ -20,9 +21,7 @@ export default function ProjectComponent() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
 
-  const user = localStorage.getItem("user");
-  const userRole = user ? JSON.parse(user).role : null;
-  const isAdmin = userRole === "Admin";
+  const isAdmin = checkAdmin();
   function fetchProjects() {
     api.get("projects").then((res) => setProjects(res.data));
   }

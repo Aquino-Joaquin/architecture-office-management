@@ -1,8 +1,8 @@
 import { Card, Label, TextInput, Button } from "flowbite-react";
 import { HiUserAdd } from "react-icons/hi";
-import Header from "./common/Header";
+import Header from "../common/Header";
 import { useEffect, useState } from "react";
-import { api } from "../helper/api";
+import { api } from "../../helper/api";
 import { toast, ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
 

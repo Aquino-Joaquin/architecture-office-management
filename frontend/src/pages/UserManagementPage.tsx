@@ -1,4 +1,4 @@
-import UserComponent from "../components/UserComponent";
+import UserComponent from "../components/user/UserComponent";
 
 export default function UserManagementPage() {
   return <UserComponent />;

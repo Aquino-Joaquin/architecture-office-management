@@ -5,9 +5,9 @@ import {
   SidebarItems,
 } from "flowbite-react";
 import { HiChartPie } from "react-icons/hi";
-import type { LeftBarType } from "../types/LeftBarType";
 import { useNavigate } from "react-router-dom";
-import type { User } from "../types/User";
+import type { LeftBarType } from "../../types/LeftBarType";
+import type { User } from "../../types/User";
 type LeftBarProps = {
   items: LeftBarType[];
   user?: User;

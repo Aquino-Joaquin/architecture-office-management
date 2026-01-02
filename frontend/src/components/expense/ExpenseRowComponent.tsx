@@ -1,7 +1,8 @@
-import { TableCell, TableRow } from "flowbite-react";
-import type { Expense } from "../types/Expense";
+import { Badge, TableCell, TableRow } from "flowbite-react";
+import type { Expense } from "../../types/Expense";
 import { HiPencil, HiTrash } from "react-icons/hi";
-import { formatDateDMY } from "../helper/formatDateDMY";
+import { formatDateDMY } from "../../helper/formatDateDMY";
+import { getBadgeColor } from "../../helper/getBadgeColor";
 export type Props = {
   expense: Expense;
   handleDelete: (id: number) => void;
@@ -26,7 +27,9 @@ export default function ExpenseRowComponent({
         {formatDateDMY(expense.createdAt)}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {expense.type}
+        <Badge color={getBadgeColor(expense.type)} size="xs">
+          {expense.type}
+        </Badge>
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {expense.project?.name || "--"}

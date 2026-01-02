@@ -9,13 +9,13 @@ import UserManagementPage from "../pages/UserManagementPage";
 import NewProjectPage from "../pages/NewProjectPage";
 import NewClientPage from "../pages/NewClientPage";
 import ProjectDetailsPage from "../pages/ProjectDetailsPage";
-import CreateClientComponent from "../components/CreateClientComponent";
-import CreateUserComponent from "../components/CreateUserComponent";
-import AddNewProjectComponent from "../components/AddNewProjectComponent";
-import CreateExpenseComponent from "../components/CreateExpenseComponent";
 import RequireRole from "../components/RequireRole";
 import StaffOverview from "../pages/StaffOverview";
 import StaffDashboardPage from "../pages/StaffDashboardPage";
+import CreateClientComponent from "../components/client/CreateClientComponent";
+import CreateUserComponent from "../components/user/CreateUserComponent";
+import AddNewProjectComponent from "../components/project/AddNewProjectComponent";
+import CreateExpenseComponent from "../components/expense/CreateExpenseComponent";
 
 export const router = createBrowserRouter([
   {

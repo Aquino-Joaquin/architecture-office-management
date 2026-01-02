@@ -1,4 +1,4 @@
-import AddNewProjectComponent from "../components/AddNewProjectComponent";
+import AddNewProjectComponent from "../components/project/AddNewProjectComponent";
 
 export default function NewProjectPage() {
   return <AddNewProjectComponent />;

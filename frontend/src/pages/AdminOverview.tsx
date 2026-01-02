@@ -1,5 +1,4 @@
 import { MdOutlineDashboard } from "react-icons/md";
-import LeftBar from "../components/LeftBar";
 import type { LeftBarType } from "../types/LeftBarType";
 import { LuFolders } from "react-icons/lu";
 import { CiMoneyCheck1 } from "react-icons/ci";
@@ -7,6 +6,7 @@ import { PiUsers } from "react-icons/pi";
 import { Outlet } from "react-router-dom";
 import type { User } from "../types/User";
 import { useEffect, useState } from "react";
+import LeftBar from "../components/common/LeftBar";
 
 export default function AdminOverview() {
   const leftBarInfomation: LeftBarType[] = [

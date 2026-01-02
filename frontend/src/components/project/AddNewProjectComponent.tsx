@@ -8,22 +8,20 @@ import {
   TextInput,
 } from "flowbite-react";
 import { HiPlus, HiPencil } from "react-icons/hi";
-import Header from "./common/Header";
-import { api } from "../helper/api";
-import type { User } from "../types/User";
-import type { Client } from "../types/Client";
+import Header from "../common/Header";
+import { api } from "../../helper/api";
+import type { User } from "../../types/User";
+import type { Client } from "../../types/Client";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { checkAdmin } from "../../helper/checkAdmin";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const isEditMode = Boolean(id);
 
-  const user = localStorage.getItem("user");
-  const userRole = user ? JSON.parse(user).role : null;
-  const isAdmin = userRole === "Admin";
+  const isAdmin = checkAdmin();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
