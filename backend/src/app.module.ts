@@ -22,25 +22,28 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ExpensesModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        url: process.env.DATABASE_URL,
-        autoLoadEntities: true,
-        synchronize: true,
-        ssl:
-          process.env.NODE_ENV === 'production' ||
-          !!(
-            process.env.DATABASE_URL &&
-            process.env.DATABASE_URL.includes('neon.tech')
-          ),
-        extra: {
-          ssl: {
-            rejectUnauthorized: false,
-          },
-        },
+      useFactory: (config: ConfigService) => {
+        const dbUrl = process.env.DATABASE_URL;
 
-        entities: [User, Client, Project, Expense],
-      }),
+        const isSslEnabled =
+          process.env.NODE_ENV === 'production' ||
+          (dbUrl &&
+            (dbUrl.includes('railway.app') || dbUrl.includes('neon.tech')));
+
+        return {
+          type: 'postgres',
+          url: dbUrl,
+          autoLoadEntities: true,
+          synchronize: true,
+
+          ssl: isSslEnabled ? { rejectUnauthorized: false } : false,
+          extra: isSslEnabled
+            ? { ssl: { rejectUnauthorized: false } }
+            : undefined,
+
+          entities: [User, Client, Project, Expense],
+        };
+      },
     }),
     AuthModule,
   ],
