@@ -24,13 +24,19 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: config.get<string>('APP_HOST'),
-        port: config.get<number>('DB_PORT'),
-        username: config.get<string>('DB_USERNAME'),
-        password: config.get<string>('DB_PASSWORD'),
-        database: config.get<string>('DB_NAME'),
-        entities: [User, Client, Project, Expense],
+        url: process.env.DATABASE_URL,
+        autoLoadEntities: true,
         synchronize: true,
+        ssl:
+          process.env.NODE_ENV === 'production' ||
+          process.env.DATABASE_URL.includes('neon.tech'),
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        },
+
+        entities: [User, Client, Project, Expense],
       }),
     }),
     AuthModule,

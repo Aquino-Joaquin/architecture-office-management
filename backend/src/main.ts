@@ -14,11 +14,16 @@ async function bootstrap() {
   );
   //to be able to get request from my frontend
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      // 'https://mi-frontend.vercel.app',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-  const configService = app.get(ConfigService);
-  const port = configService.get<number>('APP_PORT')!;
-  await app.listen(process.env.PORT ?? port);
+
+  await app.listen(process.env.PORT || 3000, '0.0.0.0');
+
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
