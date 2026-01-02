@@ -15,9 +15,11 @@ export class AuthService {
   ) {}
 
   async validateUser(loginUser: LoginUserDto) {
-    const user = await this.userRepository.findOneBy({
-      name: loginUser.userName,
-    });
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.name = :name', { name: loginUser.userName })
+      .getOne();
     if (!user) return null;
 
     const comaparePassword = await bcrypt.compare(
