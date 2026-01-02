@@ -79,6 +79,7 @@ export default function UserComponent() {
         subTitle={"Here you can manage all the users"}
         buttonTitle={"Add new user"}
         buttonPath="newuser"
+        showButton={true}
       />
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
         {usersInformation.map(({ title, value, Icon }, index) => (

@@ -41,6 +41,7 @@ export default function ClientComponent() {
         subTitle={"Here you can see all the Clients"}
         buttonTitle={"Add new client"}
         buttonPath="newclient"
+        showButton={true}
       />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3 ">

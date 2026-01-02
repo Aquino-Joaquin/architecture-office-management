@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from "flowbite-react";
-import type { User } from "../types/User";
 import { HiPencil, HiTrash } from "react-icons/hi";
+import type { User } from "../../types/User";
 
 export type Props = {
   user: User;

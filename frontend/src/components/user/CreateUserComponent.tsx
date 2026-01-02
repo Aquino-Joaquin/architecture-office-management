@@ -1,4 +1,4 @@
-import { Card, Label, TextInput, Button } from "flowbite-react";
+import { Card, Label, TextInput, Button, Select } from "flowbite-react";
 import { HiUserAdd } from "react-icons/hi";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
@@ -120,17 +120,20 @@ export default function CreateUserComponent() {
 
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="phone" />
+                <Label htmlFor="role" />
               </div>
-              <TextInput
-                id="phone"
-                type="tel"
+              <Select
                 value={role}
-                placeholder="Select the user role"
                 required
-                color="white"
                 onChange={(e) => setRole(e.target.value)}
-              />
+                color="white"
+              >
+                <option value="" disabled>
+                  Select User Role
+                </option>
+                <option value="Office">Admin</option>
+                <option value="Project">Staff</option>
+              </Select>
             </div>
 
             <div className="md:col-span-2 flex justify-end mt-4">
