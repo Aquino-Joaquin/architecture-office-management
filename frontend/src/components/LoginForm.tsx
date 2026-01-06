@@ -37,7 +37,7 @@ export default function LoginForm() {
     }
   }
   return (
-    <>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <ToastContainer position="top-center" autoClose={2000} />
       <Card className="w-full max-w-md  bg-white! border-none!">
         <div className="flex items-center justify-center">
@@ -95,6 +95,6 @@ export default function LoginForm() {
           </Button>
         </form>
       </Card>
-    </>
+    </div>
   );
 }

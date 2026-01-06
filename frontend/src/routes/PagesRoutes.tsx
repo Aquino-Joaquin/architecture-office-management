@@ -1,41 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
-import AdminOverview from "../pages/AdminOverview";
 import AdminDashboardPage from "../pages/AdminDashboardPage";
-import ProjectsPage from "../pages/ProjectsPage";
-import ClientsPage from "../pages/ClientsPage";
-import LoginPage from "../pages/LoginPage";
-import ExpensesPage from "../pages/ExpensesPage";
-import UserManagementPage from "../pages/UserManagementPage";
-import NewProjectPage from "../pages/NewProjectPage";
-import NewClientPage from "../pages/NewClientPage";
-import ProjectDetailsPage from "../pages/ProjectDetailsPage";
 import RequireRole from "../components/RequireRole";
-import StaffOverview from "../pages/StaffOverview";
 import StaffDashboardPage from "../pages/StaffDashboardPage";
 import CreateClientComponent from "../components/client/CreateClientComponent";
 import CreateUserComponent from "../components/user/CreateUserComponent";
 import AddNewProjectComponent from "../components/project/AddNewProjectComponent";
 import CreateExpenseComponent from "../components/expense/CreateExpenseComponent";
+import ClientComponent from "../components/client/ClientComponent";
+import ExpensesComponent from "../components/expense/ExpensesComponent";
+import ProjectComponent from "../components/project/ProjectComponent";
+import UserComponent from "../components/user/UserComponent";
+import ProjectDetails from "../components/project/ProjectDetails";
+import GeneralOverview from "../pages/GeneralOverview";
+import LoginForm from "../components/LoginForm";
 
 export const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
       <RequireRole allowedRoles={["Admin"]}>
-        <AdminOverview />
+        <GeneralOverview />
       </RequireRole>
     ),
     children: [
       { index: true, element: <AdminDashboardPage /> },
-      { path: "projects", element: <ProjectsPage /> },
-      { path: "clients", element: <ClientsPage /> },
-      { path: "expenses", element: <ExpensesPage /> },
-      { path: "users", element: <UserManagementPage /> },
-      { path: "projects/newproject", element: <NewProjectPage /> },
+      { path: "projects", element: <ProjectComponent /> },
+      { path: "clients", element: <ClientComponent /> },
+      { path: "expenses", element: <ExpensesComponent /> },
+      { path: "users", element: <UserComponent /> },
+      { path: "projects/newproject", element: <AddNewProjectComponent /> },
       { path: "projects/editproject/:id", element: <AddNewProjectComponent /> },
-      { path: "clients/newclient", element: <NewClientPage /> },
+      { path: "clients/newclient", element: <CreateClientComponent /> },
       { path: "clients/editClient/:id", element: <CreateClientComponent /> },
-      { path: "projects/projectDetail/:id", element: <ProjectDetailsPage /> },
+      { path: "projects/projectDetail/:id", element: <ProjectDetails /> },
       { path: "users/newuser", element: <CreateUserComponent /> },
       { path: "users/editUser/:id", element: <CreateUserComponent /> },
       { path: "expenses/newexpense", element: <CreateExpenseComponent /> },
@@ -50,13 +47,13 @@ export const router = createBrowserRouter([
     path: "/staff",
     element: (
       <RequireRole allowedRoles={["Admin", "Staff"]}>
-        <StaffOverview />
+        <GeneralOverview />
       </RequireRole>
     ),
     children: [
       { index: true, element: <StaffDashboardPage /> },
-      { path: "projects", element: <ProjectsPage /> },
-      { path: "projects/projectDetail/:id", element: <ProjectDetailsPage /> },
+      { path: "projects", element: <ProjectComponent /> },
+      { path: "projects/projectDetail/:id", element: <ProjectDetails /> },
       {
         path: "projects/editproject/:id",
         element: <AddNewProjectComponent />,
@@ -65,6 +62,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <LoginPage />,
+    element: <LoginForm />,
   },
 ]);

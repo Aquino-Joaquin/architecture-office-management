@@ -18,6 +18,7 @@ const titles: string[] = [
   "Type",
   "Project",
   "Amount",
+  "Actions",
 ];
 
 export default function ExpensesComponent() {

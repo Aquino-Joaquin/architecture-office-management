@@ -109,7 +109,6 @@ export default function AddNewProjectComponent() {
       />
 
       <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
-        {/* Basic Information */}
         <Card className="bg-white! border-none">
           <h3 className="text-lg font-semibold mb-2">Basic Information</h3>
 
@@ -197,7 +196,6 @@ export default function AddNewProjectComponent() {
           </div>
         </Card>
 
-        {/* Assign Users */}
         {isAdmin && (
           <Card className="bg-white! border-none">
             <h3 className="text-lg font-semibold mb-2">Assign Team Members</h3>

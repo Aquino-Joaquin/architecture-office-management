@@ -87,9 +87,7 @@ export default function CreateExpenseComponent() {
         title={isEditMode ? "Edit Expense" : "Create New Expense"}
         subTitle="Enter expense information "
       />
-
       <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
-        {/* Basic Information */}
         <Card className="bg-white! border-none">
           <h3 className="text-lg font-semibold mb-2">Basic Information</h3>
 

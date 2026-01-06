@@ -8,29 +8,35 @@ import type { Expense } from "../types/Expense";
 import { useEffect, useState } from "react";
 import { api } from "../helper/api";
 import type { Client } from "../types/Client";
+import { checkAdmin } from "../helper/checkAdmin";
 
 export default function AdminDashboardPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
 
-  async function fetchExpenses() {
-    await api.get("expenses").then((res) => setExpenses(res.data));
-  }
-
   async function fetchProjects() {
     await api.get("projects").then((res) => setProjects(res.data));
   }
 
-  async function fetchClients() {
-    await api.get("clients").then((res) => setClients(res.data));
+  const isAdmin = checkAdmin();
+  if (isAdmin) {
+    async function fetchExpenses() {
+      await api.get("expenses").then((res) => setExpenses(res.data));
+    }
+    async function fetchClients() {
+      await api.get("clients").then((res) => setClients(res.data));
+    }
+    useEffect(() => {
+      fetchExpenses();
+      fetchProjects();
+      fetchClients();
+    }, []);
+  } else {
+    useEffect(() => {
+      fetchProjects();
+    }, []);
   }
-
-  useEffect(() => {
-    fetchExpenses();
-    fetchProjects();
-    fetchClients();
-  }, []);
 
   const activeProjects = projects.length;
   const clientNumber = clients.length;

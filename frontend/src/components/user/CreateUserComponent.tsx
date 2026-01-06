@@ -3,7 +3,7 @@ import { HiUserAdd } from "react-icons/hi";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
 import { api } from "../../helper/api";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 export default function CreateUserComponent() {
@@ -58,7 +58,6 @@ export default function CreateUserComponent() {
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
-      <ToastContainer position="top-center" autoClose={2000} />
       <Header
         title={isEditMode ? "Edit the user" : "Create new user"}
         subTitle={"Enter the user information"}

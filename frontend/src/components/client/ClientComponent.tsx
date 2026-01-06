@@ -2,7 +2,7 @@ import { Card } from "flowbite-react";
 import { MdContacts, MdEmail, MdPhone } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { HiPencil, HiTrash } from "react-icons/hi";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../helper/api";
 import type { Client } from "../../types/Client";
@@ -35,7 +35,6 @@ export default function ClientComponent() {
 
   return (
     <div>
-      <ToastContainer position="top-center" autoClose={2000} />
       <Header
         title={"Clients"}
         subTitle={"Here you can see all the Clients"}
