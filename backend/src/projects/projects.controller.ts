@@ -52,14 +52,6 @@ export class ProjectsController {
     return this.projectService.updateProject(id, updateProject, req.user);
   }
 
-  @Patch(':id/status')
-  updateProjectStatus(
-    @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) status: string,
-  ) {
-    return this.projectService.updateProjectStatus(id, status);
-  }
-
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Role('Admin')
   @Delete(':id')

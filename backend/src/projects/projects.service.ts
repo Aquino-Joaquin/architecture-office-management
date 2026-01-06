@@ -144,13 +144,6 @@ export class ProjectsService {
     return this.projectRepository.save(project);
   }
 
-  async updateProjectStatus(id: number, newStatus: string) {
-    const project = await this.projectRepository.findOneBy({ id });
-    if (!project) throw new NotFoundException();
-    Object.assign(project, { status: newStatus });
-    return await this.projectRepository.save(project);
-  }
-
   async deleteProject(id: number) {
     const project = await this.projectRepository.findOneBy({ id });
     if (!project) throw new NotFoundException();
