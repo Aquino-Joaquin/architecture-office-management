@@ -13,6 +13,8 @@ import UserComponent from "../components/user/UserComponent";
 import ProjectDetails from "../components/project/ProjectDetails";
 import GeneralOverview from "../pages/GeneralOverview";
 import LoginForm from "../components/LoginForm";
+import UnauthorizedPage from "../pages/UnathorizedPage";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -63,5 +65,13 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginForm />,
+  },
+  {
+    path: "/unauthorized",
+    element: <UnauthorizedPage />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
