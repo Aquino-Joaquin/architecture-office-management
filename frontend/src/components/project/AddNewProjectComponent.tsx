@@ -13,7 +13,7 @@ import { api } from "../../helper/api";
 import type { User } from "../../types/User";
 import type { Client } from "../../types/Client";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 
@@ -26,9 +26,9 @@ export default function AddNewProjectComponent() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [amountPaid, setAmountPaid] = useState(0);
-  const [clientId, setClientId] = useState<number | "">("");
+  const [totalPrice, setTotalPrice] = useState<number | string>("");
+  const [amountPaid, setAmountPaid] = useState<number | string>("");
+  const [clientId, setClientId] = useState<number | string>("");
   const [userIds, setUserIds] = useState<number[]>([]);
 
   const [users, setUsers] = useState<User[]>([]);
@@ -101,8 +101,6 @@ export default function AddNewProjectComponent() {
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
-      <ToastContainer position="top-center" autoClose={2000} />
-
       <Header
         title={isEditMode ? "Edit Project" : "Create New Project"}
         subTitle="Enter project information and assign team members"
@@ -118,6 +116,7 @@ export default function AddNewProjectComponent() {
               <TextInput
                 value={name}
                 required
+                placeholder="Enter the project name"
                 readOnly={!isAdmin}
                 onChange={(e) => setName(e.target.value)}
                 color="white"
@@ -165,6 +164,7 @@ export default function AddNewProjectComponent() {
               <Label>Total Budget</Label>
               <TextInput
                 type="number"
+                placeholder="Total Budget"
                 value={totalPrice}
                 readOnly={!isAdmin}
                 onChange={(e) => setTotalPrice(Number(e.target.value))}
@@ -176,6 +176,7 @@ export default function AddNewProjectComponent() {
               <Label>Amount Paid</Label>
               <TextInput
                 type="number"
+                placeholder="Amount Paid"
                 value={amountPaid}
                 readOnly={!isAdmin}
                 onChange={(e) => setAmountPaid(Number(e.target.value))}
@@ -187,6 +188,7 @@ export default function AddNewProjectComponent() {
               <Label>Description</Label>
               <Textarea
                 rows={4}
+                placeholder="Enter the description"
                 value={description}
                 readOnly={!isAdmin}
                 onChange={(e) => setDescription(e.target.value)}
