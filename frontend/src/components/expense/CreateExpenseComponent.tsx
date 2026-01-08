@@ -75,7 +75,7 @@ export default function CreateExpenseComponent() {
         toast.success("Expense created successfully");
       }
 
-      navigate("/expenses");
+      navigate(-1);
     } catch (error) {
       toast.error("Error expense");
     }
