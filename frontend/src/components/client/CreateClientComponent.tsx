@@ -43,7 +43,7 @@ export default function CreateClientComponent() {
         .then(() => {
           toast.success(
             isEditMode
-              ? "Clien edited successfully"
+              ? "Client edited successfully"
               : "Client created successfully"
           );
           setName("");

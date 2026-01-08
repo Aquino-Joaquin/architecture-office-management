@@ -11,7 +11,11 @@ export class UsersService {
   ) {}
 
   async getAllUsers() {
-    return await this.userRepository.find();
+    return await this.userRepository.find({
+      relations: {
+        projects: true,
+      },
+    });
   }
 
   async getOneUser(id: number) {
@@ -30,6 +34,6 @@ export class UsersService {
   async deleteUser(id: number) {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) throw new NotFoundException();
-    return await this.userRepository.delete(user);
+    return await this.userRepository.delete(id);
   }
 }

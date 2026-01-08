@@ -130,8 +130,8 @@ export default function CreateUserComponent() {
                 <option value="" disabled>
                   Select User Role
                 </option>
-                <option value="Office">Admin</option>
-                <option value="Project">Staff</option>
+                <option value="Admin">Admin</option>
+                <option value="Staff">Staff</option>
               </Select>
             </div>
 
