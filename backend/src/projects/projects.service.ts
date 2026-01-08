@@ -59,9 +59,9 @@ export class ProjectsService {
     return project;
   }
 
-  async createProject(dto: CreateProjectDto) {
+  async createProject(createProject: CreateProjectDto) {
     const client = await this.clientRepository.findOneBy({
-      id: dto.clientId,
+      id: createProject.clientId,
     });
 
     if (!client) {
@@ -69,22 +69,22 @@ export class ProjectsService {
     }
 
     let users: User[] = [];
-    if (dto.userIds?.length) {
+    if (createProject.userIds?.length) {
       users = await this.userRepository.findBy({
-        id: In(dto.userIds),
+        id: In(createProject.userIds),
       });
 
-      if (users.length !== dto.userIds.length) {
+      if (users.length !== createProject.userIds.length) {
         throw new BadRequestException('Some users not found');
       }
     }
 
     const project = this.projectRepository.create({
-      name: dto.name,
-      description: dto.description,
-      status: dto.status,
-      totalPrice: dto.totalPrice,
-      amountPaid: dto.amountPaid,
+      name: createProject.name,
+      description: createProject.description,
+      status: createProject.status,
+      totalPrice: createProject.totalPrice,
+      amountPaid: createProject.amountPaid,
       client,
       users,
     });
