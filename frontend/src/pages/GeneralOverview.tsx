@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom";
 import type { User } from "../types/User";
 import { useEffect, useState } from "react";
 import LeftBar from "../components/common/LeftBar";
+import { ToastContainer } from "react-toastify";
 
 export default function GeneralOverview() {
   const leftBarInfomationAdmin: LeftBarType[] = [
@@ -61,6 +62,7 @@ export default function GeneralOverview() {
     user?.role == "Admin" ? leftBarInfomationAdmin : leftBarInfomationStaff;
   return (
     <div className="flex h-screen overflow-hidden">
+      <ToastContainer position="top-center" autoClose={2000} />
       <aside className="w-64 shrink-0 overflow-y-auto">
         {user && <LeftBar items={leftBarInfomation} user={user} />}
       </aside>
