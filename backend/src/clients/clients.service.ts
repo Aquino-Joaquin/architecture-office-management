@@ -4,6 +4,7 @@ import { Client } from './clients.entity';
 import { Repository } from 'typeorm';
 import { CreateClientDto } from './dtos/createClientDto';
 import { UpdateClientDto } from './dtos/updateClientDto';
+import { Project } from 'src/projects/projects.entity';
 
 @Injectable()
 export class ClientsService {
@@ -14,6 +15,9 @@ export class ClientsService {
   async getAllClients() {
     return await this.clientRepository.find({
       order: { id: 'ASC' },
+      relations: {
+        projects: true,
+      },
     });
   }
 

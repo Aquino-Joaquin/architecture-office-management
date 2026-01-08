@@ -58,7 +58,11 @@ export default function UnauthorizedPage() {
 
           <Button
             color="light"
-            onClick={() => navigate("/")}
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              navigate("/");
+            }}
             className="w-full border-gray-200 hover:bg-gray-50 focus:ring-4 focus:ring-gray-100"
           >
             Back to Login
