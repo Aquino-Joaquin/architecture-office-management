@@ -66,7 +66,19 @@ export class ExpensesService {
   async updateExpense(id: number, updateExpense: UpdateExpenseDto) {
     const expense = await this.expenseRepository.findOneBy({ id });
     if (!expense) throw new NotFoundException();
-    Object.assign(expense, updateExpense);
+
+    const { amount, description, type, projectId } = updateExpense;
+
+    if (amount !== undefined) expense.amount = amount;
+    if (description !== undefined) expense.description = description;
+    if (type !== undefined) expense.type = type;
+    if (projectId !== undefined) {
+      const project = await this.projectRepository.findOneBy({
+        id: projectId,
+      });
+      if (!project) throw new NotFoundException('Project not found');
+      expense.project = project;
+    }
     return await this.expenseRepository.save(expense);
   }
   async deleteExpense(id: number) {

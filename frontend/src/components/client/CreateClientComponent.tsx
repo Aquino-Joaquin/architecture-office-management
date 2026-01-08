@@ -35,7 +35,7 @@ export default function CreateClientComponent() {
         method: isEditMode ? "patch" : "post",
         data: {
           name,
-          email,
+          email: email.trim() === "" ? null : email,
           phone,
           companyName,
         },
