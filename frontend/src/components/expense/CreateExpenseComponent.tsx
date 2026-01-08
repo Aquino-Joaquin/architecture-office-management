@@ -17,7 +17,7 @@ import { api } from "../../helper/api";
 
 export default function CreateExpenseComponent() {
   const navigate = useNavigate();
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | string>("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
   const [projectId, setProjectId] = useState<number | "">("");
@@ -97,6 +97,7 @@ export default function CreateExpenseComponent() {
               <TextInput
                 value={amount}
                 type="number"
+                placeholder="Expense amount"
                 required
                 onChange={(e) => setAmount(Number(e.target.value))}
                 color="white"
@@ -142,6 +143,7 @@ export default function CreateExpenseComponent() {
               <Label>Description</Label>
               <Textarea
                 rows={4}
+                placeholder="Expense description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 color="white"
