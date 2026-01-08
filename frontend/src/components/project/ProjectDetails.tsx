@@ -77,7 +77,7 @@ export default function ProjectDetails() {
     fetchExpenses(Number(id));
   }, [id]);
 
-  const budget = project?.totalPrice ?? 0;
+  const budget = project?.totalPrice || 0;
   const totalExpense = expenses.reduce(
     (total, expense) => total + expense.amount,
     0
