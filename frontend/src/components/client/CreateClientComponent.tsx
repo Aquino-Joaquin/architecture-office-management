@@ -3,14 +3,15 @@ import { HiUserAdd } from "react-icons/hi";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
 import { api } from "../../helper/api";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 
 export default function CreateClientComponent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -29,28 +30,22 @@ export default function CreateClientComponent() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
-      await api
-        .request({
-          url: isEditMode ? `clients/${id}` : "clients",
-          method: isEditMode ? "patch" : "post",
-          data: {
-            name,
-            email,
-            phone,
-            companyName,
-          },
-        })
-        .then(() => {
-          toast.success(
-            isEditMode
-              ? "Client edited successfully"
-              : "Client created successfully"
-          );
-          setName("");
-          setEmail("");
-          setPhone("");
-          setCompanyName("");
-        });
+      await api.request({
+        url: isEditMode ? `clients/${id}` : "clients",
+        method: isEditMode ? "patch" : "post",
+        data: {
+          name,
+          email,
+          phone,
+          companyName,
+        },
+      });
+      toast.success(
+        isEditMode
+          ? "Client edited successfully"
+          : "Client created successfully"
+      );
+      navigate(-1);
     } catch (error) {
       toast.error("Error");
     }

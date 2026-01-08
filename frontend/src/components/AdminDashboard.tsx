@@ -4,16 +4,7 @@ import type { Project } from "../types/Project";
 import type { Expense } from "../types/Expense";
 import Header from "./common/Header";
 import { formatDateDMY } from "../helper/formatDateDMY";
-
-const getBadgeColor = (type: string) => {
-  switch (type.toLowerCase()) {
-    case "office":
-      return "purple";
-    case "project":
-      return "blue";
-  }
-};
-
+import { getBadgeColor } from "../helper/getBadgeColor";
 type AdminDashboardProps = {
   itemsInformation: CardInfomation[];
   itemsProjects: Project[];

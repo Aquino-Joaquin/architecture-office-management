@@ -14,12 +14,13 @@ import type { User } from "../../types/User";
 import type { Client } from "../../types/Client";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
   const isEditMode = Boolean(id);
+  const navigate = useNavigate();
 
   const isAdmin = checkAdmin();
 
@@ -94,6 +95,7 @@ export default function AddNewProjectComponent() {
         await api.post("projects", payload);
         toast.success("Project created successfully");
       }
+      navigate(-1);
     } catch (error) {
       toast.error("Error saving project");
     }
