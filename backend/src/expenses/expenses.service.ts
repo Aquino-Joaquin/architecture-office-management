@@ -84,6 +84,6 @@ export class ExpensesService {
   async deleteExpense(id: number) {
     const expense = await this.expenseRepository.findOneBy({ id });
     if (!expense) throw new NotFoundException();
-    return await this.expenseRepository.delete(expense);
+    return await this.expenseRepository.delete(id);
   }
 }
