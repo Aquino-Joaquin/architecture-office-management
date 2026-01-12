@@ -12,6 +12,8 @@ import { Project } from './projects/projects.entity';
 import { Expense } from './expenses/expenses.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ExpenseType } from './expense-types/expense-types.entity';
+import { ExpenseTypesModule } from './expense-types/expense-types.module';
 
 @Module({
   imports: [
@@ -20,6 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ClientsModule,
     ProjectsModule,
     ExpensesModule,
+    ExpenseTypesModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
@@ -41,7 +44,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
             ? { ssl: { rejectUnauthorized: false } }
             : undefined,
 
-          entities: [User, Client, Project, Expense],
+          entities: [User, Client, Project, Expense, ExpenseType],
         };
       },
     }),

@@ -1,3 +1,4 @@
+import { ExpenseType } from 'src/expense-types/expense-types.entity';
 import { Project } from 'src/projects/projects.entity';
 import {
   Column,
@@ -23,6 +24,8 @@ export class Expense {
 
   @Column()
   type: string;
+  @ManyToOne(() => ExpenseType, (type) => type.expenses)
+  expenseType: ExpenseType;
 
   @ManyToOne(() => Project, (project) => project.expenses, {
     nullable: true,
