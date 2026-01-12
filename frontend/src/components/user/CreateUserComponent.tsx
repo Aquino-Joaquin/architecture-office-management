@@ -138,7 +138,7 @@ export default function CreateUserComponent() {
             <div className="md:col-span-2 flex justify-end mt-4">
               <Button color="blue" type="submit">
                 <HiUserAdd className="mr-2 h-5 w-5" />
-                {isEditMode ? "Edit Client" : "Create Client"}
+                {isEditMode ? "Edit User" : "Create User"}
               </Button>
             </div>
           </form>
