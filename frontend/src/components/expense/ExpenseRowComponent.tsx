@@ -27,8 +27,13 @@ export default function ExpenseRowComponent({
         {formatDateDMY(expense.createdAt)}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        <Badge color={getBadgeColor(expense.type)} size="xs">
-          {expense.type}
+        <Badge
+          color={getBadgeColor(
+            expense.expenseType ? expense.expenseType.name : "Office"
+          )}
+          size="xs"
+        >
+          {expense.expenseType ? expense.expenseType.name : "--"}
         </Badge>
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">

@@ -16,7 +16,8 @@ export class CreateExpenseDto {
   description: string;
 
   @IsNotEmpty()
-  type: string;
+  @IsNumber()
+  expenseTypeId: number;
 
   @IsOptional()
   @IsNumber()

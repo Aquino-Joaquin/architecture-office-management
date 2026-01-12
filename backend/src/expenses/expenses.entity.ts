@@ -22,8 +22,6 @@ export class Expense {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
-  type: string;
   @ManyToOne(() => ExpenseType, (type) => type.expenses)
   expenseType: ExpenseType;
 

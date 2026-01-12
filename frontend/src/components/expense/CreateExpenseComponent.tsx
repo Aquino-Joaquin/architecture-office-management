@@ -14,14 +14,16 @@ import type { Project } from "../../types/Project";
 import type { Expense } from "../../types/Expense";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
+import type { ExpenseType } from "../../types/ExpenseType";
 
 export default function CreateExpenseComponent() {
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number | string>("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
   const [projectId, setProjectId] = useState<number | "">("");
   const [projects, setProjects] = useState<Project[]>([]);
+  const [expenseTypeId, setExpenseTypeId] = useState<number | "">("");
+  const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -30,6 +32,10 @@ export default function CreateExpenseComponent() {
     const res = await api.get("projects");
     setProjects(res.data);
   }
+  async function fetchExpenseTypes() {
+    const res = await api.get("expense-types");
+    setExpenseTypes(res.data);
+  }
 
   async function fetchExpense(expenseId: string) {
     const res = await api.get<Expense>(`expenses/${expenseId}`);
@@ -37,19 +43,24 @@ export default function CreateExpenseComponent() {
 
     setAmount(expense?.amount);
     setDescription(expense.description);
-    setType(expense?.type);
-    setProjectId(expense.project?.id ?? "");
+    if (expense.project) {
+      setProjectId(expense.project.id);
+    }
+    if (expense.expenseType) {
+      setExpenseTypeId(expense.expenseType.id);
+    }
   }
 
   useEffect(() => {
     fetchProjects();
+    fetchExpenseTypes();
   }, []);
 
   useEffect(() => {
-    if (isEditMode && id && projects.length > 0) {
+    if (isEditMode && id && projects.length > 0 && expenseTypes.length > 0) {
       fetchExpense(id);
     }
-  }, [id, projects]);
+  }, [id, projects, expenseTypes]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -62,10 +73,10 @@ export default function CreateExpenseComponent() {
     const payload = {
       amount,
       description,
-      type,
+      expenseTypeId: Number(expenseTypeId),
       projectId: Number(projectId),
     };
-
+    console.log(payload);
     try {
       if (isEditMode) {
         await api.patch(`expenses/${id}`, payload);
@@ -126,16 +137,19 @@ export default function CreateExpenseComponent() {
             <div>
               <Label>Type</Label>
               <Select
-                value={type}
-                required
-                onChange={(e) => setType(e.target.value)}
+                value={expenseTypeId}
+                required={!isEditMode}
+                onChange={(e) => setExpenseTypeId(Number(e.target.value))}
                 color="white"
               >
                 <option value="" disabled>
                   Select status
                 </option>
-                <option value="Office">Office</option>
-                <option value="Project">Project</option>
+                {expenseTypes.map(({ id, name }) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
               </Select>
             </div>
 

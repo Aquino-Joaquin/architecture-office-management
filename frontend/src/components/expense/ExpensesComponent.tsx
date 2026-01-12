@@ -38,12 +38,16 @@ export default function ExpensesComponent() {
     (total, expense) => total + expense.amount,
     0
   );
-  const totalOfficeExpense = expenses
-    .filter((expense) => expense.type === "Office")
-    .reduce((total, officeExpense) => total + officeExpense.amount, 0);
-  const totalProjectExpense = expenses
-    .filter((expense) => expense.type === "Project")
-    .reduce((total, projectExpense) => total + projectExpense.amount, 0);
+  const totalOfficeExpense = true
+    ? 1
+    : expenses
+        .filter((expense) => expense.expenseType.name === "Office")
+        .reduce((total, officeExpense) => total + officeExpense.amount, 0);
+  const totalProjectExpense = true
+    ? 1
+    : expenses
+        .filter((expense) => expense.expenseType.name === "Project")
+        .reduce((total, projectExpense) => total + projectExpense.amount, 0);
 
   const expenseInformation: CardInfomation[] = [
     {

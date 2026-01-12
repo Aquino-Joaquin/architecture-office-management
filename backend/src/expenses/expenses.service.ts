@@ -7,12 +7,15 @@ import { UpdateExpenseDto } from './dtos/updateExpenseDto';
 import { Project } from 'src/projects/projects.entity';
 import { User } from 'src/users/users.entity';
 import { JwtUser } from 'src/auth/jwt-user.type';
+import { ExpenseType } from 'src/expense-types/expense-types.entity';
 
 @Injectable()
 export class ExpensesService {
   constructor(
     @InjectRepository(Expense) private expenseRepository: Repository<Expense>,
     @InjectRepository(Project) private projectRepository: Repository<Project>,
+    @InjectRepository(ExpenseType)
+    private expenseTypeRepository: Repository<ExpenseType>,
   ) {}
 
   async getAllExpenses(user: JwtUser) {
@@ -20,6 +23,7 @@ export class ExpensesService {
       return await this.expenseRepository.find({
         relations: {
           project: true,
+          expenseType: true,
         },
       });
     } else {
@@ -33,6 +37,7 @@ export class ExpensesService {
         },
         relations: {
           project: true,
+          expenseType: true,
         },
       });
     }
@@ -52,11 +57,15 @@ export class ExpensesService {
       if (!project) {
         throw new NotFoundException('Project not found');
       }
+      const expenseType = await this.expenseTypeRepository.findOneBy({
+        id: createExpense.expenseTypeId,
+      });
+      if (!expenseType) throw new NotFoundException();
 
       const newExpense = this.expenseRepository.create({
         amount: createExpense.amount,
         description: createExpense.description,
-        type: createExpense.type,
+        expenseType,
         project,
       });
       return await this.expenseRepository.save(newExpense);
@@ -67,11 +76,17 @@ export class ExpensesService {
     const expense = await this.expenseRepository.findOneBy({ id });
     if (!expense) throw new NotFoundException();
 
-    const { amount, description, type, projectId } = updateExpense;
+    const { amount, description, expenseTypeId, projectId } = updateExpense;
 
     if (amount !== undefined) expense.amount = amount;
     if (description !== undefined) expense.description = description;
-    if (type !== undefined) expense.type = type;
+    if (expenseTypeId !== undefined) {
+      const expenseType = await this.expenseTypeRepository.findOneBy({
+        id: expenseTypeId,
+      });
+      if (!expenseType) throw new NotFoundException('Expense type not found');
+      expense.expenseType = expenseType;
+    }
     if (projectId !== undefined) {
       const project = await this.projectRepository.findOneBy({
         id: projectId,

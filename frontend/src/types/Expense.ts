@@ -1,3 +1,4 @@
+import type { ExpenseType } from "./ExpenseType";
 import type { Project } from "./Project";
 
 export type Expense = {
@@ -5,6 +6,6 @@ export type Expense = {
   amount: number;
   description: string;
   createdAt: string;
-  type: string;
   project?: Project;
+  expenseType: ExpenseType;
 };
