@@ -1,4 +1,5 @@
 import { Client } from 'src/clients/clients.entity';
+import { Status } from 'src/common/status';
 import { Expense } from 'src/expenses/expenses.entity';
 import { User } from 'src/users/users.entity';
 import {
@@ -22,8 +23,12 @@ export class Project {
   @Column({ type: 'text' })
   description: string;
 
-  @Column()
-  status: string;
+  @Column({
+    type: 'enum',
+    enum: Status,
+    default: Status.PLANNNING,
+  })
+  status: Status;
 
   @Column()
   totalPrice: number;

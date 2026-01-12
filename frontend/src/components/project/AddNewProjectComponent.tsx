@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
+import { Status } from "../../types/Status";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
@@ -26,7 +27,7 @@ export default function AddNewProjectComponent() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<Status | "">("");
   const [totalPrice, setTotalPrice] = useState<number | string>("");
   const [amountPaid, setAmountPaid] = useState<number | string>("");
   const [clientId, setClientId] = useState<number | string>("");
@@ -86,6 +87,7 @@ export default function AddNewProjectComponent() {
       clientId: Number(clientId),
       userIds,
     };
+    console.log("PAYLOAD:", payload);
 
     try {
       if (isEditMode) {
@@ -150,15 +152,15 @@ export default function AddNewProjectComponent() {
               <Select
                 value={status}
                 required
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={(e) => setStatus(e.target.value as Status)}
                 color="white"
               >
                 <option value="" disabled>
                   Select status
                 </option>
-                <option value="Planning">Planning</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
+                <option value={Status.PLANNING}>Planning</option>
+                <option value={Status.IN_PROGRESS}>In Progress</option>
+                <option value={Status.COMPLETED}>Completed</option>
               </Select>
             </div>
 

@@ -1,10 +1,12 @@
 import {
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
+import { Status } from 'src/common/status';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -16,8 +18,8 @@ export class CreateProjectDto {
   description: string;
 
   @IsNotEmpty()
-  @IsString()
-  status: string;
+  @IsEnum(Status)
+  status: Status;
 
   @IsNotEmpty()
   @IsNumber()
