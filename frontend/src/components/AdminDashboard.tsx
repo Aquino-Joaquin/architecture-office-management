@@ -89,7 +89,7 @@ export default function AdminDashboard({
           <div className="flow-root">
             <ul className="divide-y divide-gray-200 dark:divide-gray-700">
               {itemsExpenses.map(
-                ({ id, description, amount, createdAt, type }) => (
+                ({ id, description, amount, createdAt, expenseType }) => (
                   <li key={id} className="py-3 sm:py-4">
                     <div className="flex items-center justify-between space-x-4">
                       <div className="min-w-0 flex-1">
@@ -100,8 +100,11 @@ export default function AdminDashboard({
                           <span className="truncate text-sm text-gray-500 ">
                             {formatDateDMY(createdAt)}
                           </span>
-                          <Badge color={getBadgeColor(type)} size="xs">
-                            {type}
+                          <Badge
+                            color={getBadgeColor(expenseType.name)}
+                            size="xs"
+                          >
+                            {expenseType.name}
                           </Badge>
                         </div>
                       </div>
