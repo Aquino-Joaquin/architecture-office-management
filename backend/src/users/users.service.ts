@@ -34,6 +34,8 @@ export class UsersService {
   async deleteUser(id: number) {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) throw new NotFoundException();
+    user.projects = [];
+    await this.userRepository.save(user);
     return await this.userRepository.delete(id);
   }
 }
