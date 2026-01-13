@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ExpenseType } from './expense-types/expense-types.entity';
 import { ExpenseTypesModule } from './expense-types/expense-types.module';
+import { MilestonesModule } from './milestones/milestones.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { ExpenseTypesModule } from './expense-types/expense-types.module';
       },
     }),
     AuthModule,
+    MilestonesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
