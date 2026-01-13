@@ -1,11 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './tasks.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Milestone } from 'src/milestones/milestones.entity';
 import { Project } from 'src/projects/projects.entity';
 import { CreateTaskDto } from './dtos/createTaskDto';
 import { UpadateTaskDto } from './dtos/updateTaksDto';
+import { User } from 'src/users/users.entity';
 
 @Injectable()
 export class TasksService {
@@ -14,6 +19,7 @@ export class TasksService {
     @InjectRepository(Milestone)
     private milestoneRepository: Repository<Milestone>,
     @InjectRepository(Project) private projectRepository: Repository<Project>,
+    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
   async getAllTaskFromMilestone(milestoneId: number) {
     const milestone = await this.milestoneRepository.findOne({
@@ -47,18 +53,30 @@ export class TasksService {
       project = milestone.project;
       if (!project) throw new NotFoundException();
     }
+
+    let users: User[] = [];
+    if (createTask.userIds?.length) {
+      users = await this.userRepository.findBy({
+        id: In(createTask.userIds),
+      });
+
+      if (users.length !== createTask.userIds.length) {
+        throw new BadRequestException('Some users not found');
+      }
+    }
     const newTask = this.taskRepository.create({
       title: createTask.title,
       description: createTask.description,
       project,
       milestone: milestone ?? undefined,
+      users,
     });
     return this.taskRepository.save(newTask);
   }
   async updateTask(id: number, updateTask: UpadateTaskDto) {
     const task = await this.taskRepository.findOneBy({ id });
     if (!task) throw new NotFoundException();
-    const { title, description, completed, projectId, milestoneId } =
+    const { title, description, completed, projectId, milestoneId, userIds } =
       updateTask;
     if (title !== undefined) task.title = title;
     if (description !== undefined) task.description = description;
@@ -76,6 +94,11 @@ export class TasksService {
       const project = await this.projectRepository.findOneBy({ id: projectId });
       if (!project) throw new NotFoundException();
       task.project = project;
+    }
+    if (userIds !== undefined) {
+      task.users = await this.userRepository.find({
+        where: { id: In(userIds) },
+      });
     }
     return this.taskRepository.save(task);
   }

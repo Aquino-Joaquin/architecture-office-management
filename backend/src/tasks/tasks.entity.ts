@@ -1,6 +1,14 @@
 import { Milestone } from 'src/milestones/milestones.entity';
 import { Project } from 'src/projects/projects.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/users.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'tasks' })
 export class Task {
@@ -21,4 +29,8 @@ export class Task {
 
   @ManyToOne(() => Milestone, (milestone) => milestone.tasks)
   milestone: Milestone;
+
+  @ManyToMany(() => User, (users) => users.tasks)
+  @JoinTable()
+  users: User[];
 }

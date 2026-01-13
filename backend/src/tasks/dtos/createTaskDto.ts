@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsBoolean,
   IsNotEmpty,
   IsNumber,
@@ -27,4 +28,9 @@ export class CreateTaskDto {
   @IsOptional()
   @IsNumber()
   milestoneId: number;
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  userIds: number[];
 }
