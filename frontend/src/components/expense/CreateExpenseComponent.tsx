@@ -20,9 +20,9 @@ export default function CreateExpenseComponent() {
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number | string>("");
   const [description, setDescription] = useState("");
-  const [projectId, setProjectId] = useState<number | "">("");
+  const [projectId, setProjectId] = useState<string>();
   const [projects, setProjects] = useState<Project[]>([]);
-  const [expenseTypeId, setExpenseTypeId] = useState<number | "">("");
+  const [expenseTypeId, setExpenseTypeId] = useState<string>();
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
 
   const { id } = useParams();
@@ -44,10 +44,10 @@ export default function CreateExpenseComponent() {
     setAmount(expense?.amount);
     setDescription(expense.description);
     if (expense.project) {
-      setProjectId(expense.project.id);
+      setProjectId(String(expense.project.id));
     }
     if (expense.expenseType) {
-      setExpenseTypeId(expense.expenseType.id);
+      setExpenseTypeId(String(expense.expenseType.id));
     }
   }
 
@@ -73,10 +73,9 @@ export default function CreateExpenseComponent() {
     const payload = {
       amount,
       description,
-      expenseTypeId: Number(expenseTypeId),
-      projectId: Number(projectId),
+      expenseTypeId: expenseTypeId ? Number(expenseTypeId) : null,
+      projectId: projectId ? Number(projectId) : null,
     };
-    console.log(payload);
     try {
       if (isEditMode) {
         await api.patch(`expenses/${id}`, payload);
@@ -120,7 +119,7 @@ export default function CreateExpenseComponent() {
               <Select
                 value={projectId}
                 required={!isEditMode}
-                onChange={(e) => setProjectId(Number(e.target.value))}
+                onChange={(e) => setProjectId(e.target.value)}
                 color="white"
               >
                 <option value="" disabled>
@@ -139,7 +138,7 @@ export default function CreateExpenseComponent() {
               <Select
                 value={expenseTypeId}
                 required={!isEditMode}
-                onChange={(e) => setExpenseTypeId(Number(e.target.value))}
+                onChange={(e) => setExpenseTypeId(e.target.value)}
                 color="white"
               >
                 <option value="" disabled>
