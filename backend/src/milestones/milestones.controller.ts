@@ -9,9 +9,9 @@ import {
   Post,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateMilestoneDto } from './dtos/CreateMilestoneDto';
 import { UpdateMilestoneDto } from './dtos/updateMilestoneDto';
 import { MilestonesService } from './milestones.service';
+import { CreateMilestoneDto } from './dtos/createMilestoneDto';
 
 @Controller('milestones')
 export class MilestonesController {

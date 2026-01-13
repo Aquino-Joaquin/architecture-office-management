@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Milestone } from './milestones.entity';
 import { Repository } from 'typeorm';
-import { CreateMilestoneDto } from './dtos/CreateMilestoneDto';
+import { CreateMilestoneDto } from './dtos/createMilestoneDto';
 import { UpdateMilestoneDto } from './dtos/updateMilestoneDto';
 import { Project } from 'src/projects/projects.entity';
 
