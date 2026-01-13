@@ -122,7 +122,6 @@ export class ProjectsService {
       clientId,
       userIds,
     } = updateProject;
-    console.log(status);
 
     if (name !== undefined) project.name = name;
     if (description !== undefined) project.description = description;

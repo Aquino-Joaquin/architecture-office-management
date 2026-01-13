@@ -2,6 +2,7 @@ import { Client } from 'src/clients/clients.entity';
 import { Status } from 'src/common/status';
 import { Expense } from 'src/expenses/expenses.entity';
 import { Milestone } from 'src/milestones/milestones.entity';
+import { Task } from 'src/tasks/tasks.entity';
 import { User } from 'src/users/users.entity';
 import {
   Column,
@@ -49,4 +50,7 @@ export class Project {
 
   @OneToMany(() => Milestone, (milestones) => milestones.project)
   milestones: Milestone[];
+
+  @OneToMany(() => Task, (tasks) => tasks.project)
+  tasks: Task[];
 }
