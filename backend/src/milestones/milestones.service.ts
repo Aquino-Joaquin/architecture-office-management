@@ -25,7 +25,7 @@ export class MilestonesService {
   }
 
   async getOneMilestone(id: number) {
-    const milestone = this.milestoneRepository.findOneBy({ id });
+    const milestone = await this.milestoneRepository.findOneBy({ id });
     if (!milestone) throw new NotFoundException();
     return milestone;
   }

@@ -23,14 +23,14 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsNumber()
-  projectId: number;
+  projectId?: number;
 
   @IsOptional()
   @IsNumber()
-  milestoneId: number;
+  milestoneId?: number;
 
   @IsOptional()
   @IsArray()
   @IsNumber({}, { each: true })
-  userIds: number[];
+  userIds?: number[];
 }
