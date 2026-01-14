@@ -4,13 +4,15 @@ import TableComponent from "../common/TableComponent";
 import type { Expense } from "../../types/Expense";
 import ExpenseRowComponent from "../expense/ExpenseRowComponent";
 import Header from "../common/Header";
-import { Card } from "flowbite-react";
+import { Badge, Card, Progress } from "flowbite-react";
 import { api } from "../../helper/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Project } from "../../types/Project";
 import { toast } from "react-toastify";
 import { checkAdmin } from "../../helper/checkAdmin";
+import { LuTarget } from "react-icons/lu";
+import type { Milestone } from "../../types/Milestone";
 const titles: string[] = [
   "Id",
   "Description",
@@ -23,6 +25,7 @@ const titles: string[] = [
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [milestones, setMilestones] = useState<Milestone[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -37,6 +40,12 @@ export default function ProjectDetails() {
     const res = (await api.get<Expense[]>("expenses")).data;
 
     setExpenses(res.filter((expense) => expense.project?.id === projectId));
+  }
+  async function fetchMilestones(projectId: number) {
+    const res = (await api.get<Milestone[]>(`milestones/projects/${projectId}`))
+      .data;
+    setMilestones(res);
+    console.log(res);
   }
 
   async function handleDelete(id: number) {
@@ -75,6 +84,7 @@ export default function ProjectDetails() {
   useEffect(() => {
     fetchProject(Number(id));
     fetchExpenses(Number(id));
+    fetchMilestones(Number(id));
   }, [id]);
 
   const budget = project?.totalPrice || 0;
@@ -207,6 +217,66 @@ export default function ProjectDetails() {
             </Card>
           </div>
         </div>
+      </div>
+      <div className="p-4 w-full bg-gray-50 ">
+        <Card className="bg-white! border-none shadow-sm h-full">
+          <div className="flex items-center gap-2 mb-4">
+            <LuTarget className="text-gray-600" />
+            <h2 className="text-lg font-semibold">Milestones</h2>
+          </div>
+          <div>
+            {milestones &&
+              milestones.map((milestone) => (
+                <Card
+                  key={milestone.id}
+                  className="bg-white! border-none shadow-md mb-4"
+                >
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-medium">{milestone.title}</h3>
+                    <Badge color="info">in-progress</Badge>
+                  </div>
+
+                  <p className="text-sm text-gray-500">
+                    {milestone.description}
+                  </p>
+
+                  <div className="mt-4">
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Progress</span>
+                      <span>
+                        {milestone.tasks
+                          ? Math.min(
+                              (milestone.tasks.filter(
+                                (task) => task.completed === true
+                              ).length /
+                                milestones.length) *
+                                100,
+                              100
+                            )
+                          : 0}
+                        %
+                      </span>
+                    </div>
+                    <Progress
+                      color="green"
+                      progress={
+                        milestone.tasks
+                          ? Math.min(
+                              (milestone.tasks.filter(
+                                (task) => task.completed === true
+                              ).length /
+                                milestones.length) *
+                                100,
+                              100
+                            )
+                          : 0
+                      }
+                    />
+                  </div>
+                </Card>
+              ))}
+          </div>
+        </Card>
       </div>
       <div className="mt-8 flex flex-col gap-4">
         <div className="flex items-center justify-between">

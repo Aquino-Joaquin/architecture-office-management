@@ -15,13 +15,11 @@ export class MilestonesService {
   ) {}
 
   async getAllMilestonesFromProject(projecId: number) {
-    const project = await this.projectRepository.findOne({
-      where: { id: projecId },
-      relations: { milestones: true },
+    const milestone = await this.milestoneRepository.find({
+      where: { project: { id: projecId } },
+      relations: { tasks: true },
     });
-    if (!project) throw new NotFoundException();
-    const milestones = project.milestones;
-    return milestones;
+    return milestone;
   }
 
   async getOneMilestone(id: number) {
