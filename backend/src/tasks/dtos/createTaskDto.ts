@@ -21,7 +21,7 @@ export class CreateTaskDto {
   @IsBoolean()
   completed?: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   projectId: number;
 

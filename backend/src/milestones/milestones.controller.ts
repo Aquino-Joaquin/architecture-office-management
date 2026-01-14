@@ -16,11 +16,11 @@ import { CreateMilestoneDto } from './dtos/createMilestoneDto';
 @Controller('milestones')
 export class MilestonesController {
   constructor(private readonly milestoneService: MilestonesService) {}
-  @Get('id')
+  @Get('projects/:id')
   getAllMilestonesFromProject(@Param('id', ParseIntPipe) id: number) {
     return this.milestoneService.getAllMilestonesFromProject(id);
   }
-  @Get('id')
+  @Get(':id')
   getOneMilestone(@Param('id', ParseIntPipe) id: number) {
     return this.milestoneService.getOneMilestone(id);
   }
@@ -29,7 +29,7 @@ export class MilestonesController {
     return this.milestoneService.createMilestone(createMilestone);
   }
 
-  @Patch('id')
+  @Patch(':id')
   updateMilestone(
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe) updateMilestone: UpdateMilestoneDto,
@@ -37,7 +37,7 @@ export class MilestonesController {
     return this.milestoneService.updateMilestone(id, updateMilestone);
   }
 
-  @Delete('id')
+  @Delete(':id')
   deleteMilestone(@Param('id', ParseIntPipe) id: number) {
     return this.milestoneService.deleteMilestone(id);
   }
