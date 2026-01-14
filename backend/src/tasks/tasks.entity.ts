@@ -24,10 +24,13 @@ export class Task {
   @Column({ default: false })
   completed: boolean;
 
-  @ManyToOne(() => Project, (project) => project.tasks)
+  @ManyToOne(() => Project, (project) => project.tasks, { nullable: false })
   project: Project;
 
-  @ManyToOne(() => Milestone, (milestone) => milestone.tasks)
+  @ManyToOne(() => Milestone, (milestone) => milestone.tasks, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   milestone: Milestone;
 
   @ManyToMany(() => User, (users) => users.tasks)
