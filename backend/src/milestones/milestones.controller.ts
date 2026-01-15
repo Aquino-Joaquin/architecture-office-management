@@ -24,12 +24,9 @@ export class MilestonesController {
   getOneMilestone(@Param('id', ParseIntPipe) id: number) {
     return this.milestoneService.getOneMilestone(id);
   }
-  @Post(':id')
-  createMilestone(
-    @Param('id', ParseIntPipe) projectId: number,
-    @Body(ValidationPipe) createMilestone: CreateMilestoneDto[],
-  ) {
-    return this.milestoneService.createMilestone(projectId, createMilestone);
+  @Post()
+  createMilestone(@Body(ValidationPipe) createMilestone: CreateMilestoneDto) {
+    return this.milestoneService.createMilestone(createMilestone);
   }
 
   @Patch(':id')
