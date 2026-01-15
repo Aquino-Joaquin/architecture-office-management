@@ -25,10 +25,12 @@ export default function AddNewProjectComponent() {
   const { id } = useParams();
   const isEditMode = Boolean(id);
   const navigate = useNavigate();
-
   const isAdmin = checkAdmin();
 
   const milestoneTitles = ["Id", "Title", "Description", "Status", "Actions"];
+
+  const [isEditMilestone, setIsEditMilestone] = useState(false);
+  const [editMilestoneId, setEditMilestoneId] = useState(0);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -44,11 +46,56 @@ export default function AddNewProjectComponent() {
   const [milestoneDescription, setMilestoneDescription] = useState("");
   const [milestoneArray, setMilestoneArray] = useState<Milestone[]>([]);
 
-  async function handleMilestoneAdd() {}
+  async function handleMilestoneAdd(isEditing: boolean) {
+    try {
+      if (!isEditing) {
+        await api.post("milestones", {
+          title: milestoneTitle,
+          description: milestoneDescription,
+          projectId: Number(id),
+        });
+        toast.success("Milestone Created successfully");
+      }
+      if (isEditing) {
+        await api.patch(`milestones/${editMilestoneId}`, {
+          title: milestoneTitle,
+          description: milestoneDescription,
+        });
+        toast.success("Milestone edited successfully");
+        setIsEditMilestone(false);
+        setEditMilestoneId(0);
+      }
+      fetchMilestones();
+      setMilestoneTitle("");
+      setMilestoneDescription("");
+    } catch (error) {
+      toast.error("Error Creating milestone");
+    }
+  }
+  async function handleMilestoneDelete(milestoneId: number) {
+    try {
+      await api.delete(`milestones/${milestoneId}`);
+      fetchMilestones();
+      toast.success("Milestone deleted successfully");
+    } catch (error) {
+      toast.error("There was an error");
+    }
+  }
 
-  async function handleMilestoneDelete() {}
+  async function handleMilestoneEdit(milestoneId: number) {
+    const editMilestone = milestoneArray.find((m) => m.id === milestoneId);
+    if (editMilestone) {
+      setMilestoneTitle(editMilestone.title);
+      setMilestoneDescription(editMilestone.description);
+      setIsEditMilestone(true);
+      setEditMilestoneId(milestoneId);
+    }
+  }
 
-  async function handleMilestoneEdit() {}
+  async function fetchMilestones() {
+    const res = await api.get(`milestones/projects/${id}`);
+    setMilestoneArray(res.data);
+  }
 
   async function fetchUsers() {
     const res = await api.get("users");
@@ -60,8 +107,8 @@ export default function AddNewProjectComponent() {
     setClients(res.data);
   }
 
-  async function fetchProject(projectId: string) {
-    const res = await api.get(`projects/${projectId}`);
+  async function fetchProject() {
+    const res = await api.get(`projects/${id}`);
     const project = res.data;
 
     setName(project.name);
@@ -80,7 +127,8 @@ export default function AddNewProjectComponent() {
     }
 
     if (isEditMode && id) {
-      fetchProject(id);
+      fetchProject();
+      fetchMilestones();
     }
   }, [id]);
 
@@ -101,7 +149,6 @@ export default function AddNewProjectComponent() {
       clientId: Number(clientId),
       userIds,
     };
-    console.log("PAYLOAD:", payload);
 
     try {
       if (isEditMode) {
@@ -253,7 +300,10 @@ export default function AddNewProjectComponent() {
                 Enter the information for the milestone
               </h3>
 
-              <Button type="button" onClick={handleMilestoneAdd}>
+              <Button
+                type="button"
+                onClick={() => handleMilestoneAdd(isEditMilestone)}
+              >
                 <HiPlus className="mr-2" /> Create Milestone
               </Button>
             </div>
@@ -263,7 +313,6 @@ export default function AddNewProjectComponent() {
                 <Label>Milestone Title</Label>
                 <TextInput
                   value={milestoneTitle}
-                  required
                   placeholder="Enter the milestone title"
                   readOnly={!isAdmin}
                   onChange={(e) => setMilestoneTitle(e.target.value)}

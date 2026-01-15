@@ -20,6 +20,9 @@ export default function MilestoneRowComponent({
         {milestone.id}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
+        {milestone.title}
+      </TableCell>
+      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {milestone.description}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -37,6 +40,7 @@ export default function MilestoneRowComponent({
         <TableCell className="whitespace-nowrap font-medium text-gray-900">
           <div className="flex items-center gap-4">
             <button
+              type="button"
               onClick={() => handleEdit(milestone.id)}
               className="text-blue-600 hover:text-blue-800 transition-colors"
             >
@@ -44,6 +48,7 @@ export default function MilestoneRowComponent({
             </button>
 
             <button
+              type="button"
               onClick={() => handleDelete(milestone.id)}
               className="text-red-600 hover:text-red-800 transition-colors"
             >
