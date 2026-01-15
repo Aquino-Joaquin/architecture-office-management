@@ -17,6 +17,9 @@ import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { Status } from "../../types/Status";
+import type { Milestone } from "../../types/Milestone";
+import TableComponent from "../common/TableComponent";
+import MilestoneRowComponent from "./MilestoneRowComponent";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
@@ -24,6 +27,8 @@ export default function AddNewProjectComponent() {
   const navigate = useNavigate();
 
   const isAdmin = checkAdmin();
+
+  const milestoneTitles = ["Id", "Title", "Description", "Status", "Actions"];
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,6 +40,15 @@ export default function AddNewProjectComponent() {
 
   const [users, setUsers] = useState<User[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
+  const [milestoneTitle, setMilestoneTitle] = useState("");
+  const [milestoneDescription, setMilestoneDescription] = useState("");
+  const [milestoneArray, setMilestoneArray] = useState<Milestone[]>([]);
+
+  async function handleMilestoneAdd() {}
+
+  async function handleMilestoneDelete() {}
+
+  async function handleMilestoneEdit() {}
 
   async function fetchUsers() {
     const res = await api.get("users");
@@ -229,6 +243,59 @@ export default function AddNewProjectComponent() {
                   </div>
                 </label>
               ))}
+            </div>
+          </Card>
+        )}
+        {isEditMode && isAdmin && (
+          <Card className="bg-white! border-none">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold">
+                Enter the information for the milestone
+              </h3>
+
+              <Button type="button" onClick={handleMilestoneAdd}>
+                <HiPlus className="mr-2" /> Create Milestone
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 -mt-7">
+              <div className="md:col-span-2">
+                <Label>Milestone Title</Label>
+                <TextInput
+                  value={milestoneTitle}
+                  required
+                  placeholder="Enter the milestone title"
+                  readOnly={!isAdmin}
+                  onChange={(e) => setMilestoneTitle(e.target.value)}
+                  color="white"
+                />
+              </div>
+              <div className="md:col-span-2 -mt-5">
+                <Label>Milestone Description</Label>
+                <Textarea
+                  rows={4}
+                  placeholder="Enter the milestone description "
+                  value={milestoneDescription}
+                  readOnly={!isAdmin}
+                  onChange={(e) => setMilestoneDescription(e.target.value)}
+                  color="white"
+                />
+              </div>
+            </div>
+            <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+              <TableComponent<Milestone>
+                titles={milestoneTitles}
+                rows={milestoneArray}
+                renderRow={(milestone) => (
+                  <MilestoneRowComponent
+                    key={milestone.id}
+                    milestone={milestone}
+                    handleDelete={handleMilestoneDelete}
+                    handleEdit={handleMilestoneEdit}
+                    canDoActions={isAdmin}
+                  />
+                )}
+              />
             </div>
           </Card>
         )}
