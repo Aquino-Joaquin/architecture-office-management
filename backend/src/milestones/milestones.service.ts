@@ -27,19 +27,24 @@ export class MilestonesService {
     if (!milestone) throw new NotFoundException();
     return milestone;
   }
-  async createMilestone(createMilestone: CreateMilestoneDto) {
+  async createMilestone(
+    projectId: number,
+    createMilestone: CreateMilestoneDto[],
+  ) {
     const project = await this.projectRepository.findOneBy({
-      id: createMilestone.projectId,
+      id: projectId,
     });
     if (!project) throw new NotFoundException();
-    const newMilestone = this.milestoneRepository.create({
-      title: createMilestone.title,
-      description: createMilestone.description,
-      project,
-    });
-
-    return this.milestoneRepository.save(newMilestone);
+    const milestones = createMilestone.map((m) =>
+      this.milestoneRepository.create({
+        title: m.title,
+        description: m.description,
+        project,
+      }),
+    );
+    return await this.milestoneRepository.save(milestones);
   }
+
   async updateMilestone(id: number, updateMilestone: UpdateMilestoneDto) {
     const milestone = await this.milestoneRepository.findOneBy({ id });
     if (!milestone) throw new NotFoundException();
