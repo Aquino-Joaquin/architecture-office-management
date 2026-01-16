@@ -46,7 +46,7 @@ export default function AddNewTaskComponent() {
         toast.success("Task Created successfully");
       }
       if (isEditing) {
-        await api.patch(`milestones/${editTaskId}`, {
+        await api.patch(`tasks/${editTaskId}`, {
           title: taskTitle,
           description: taskDescription,
           userIds: userIds,
@@ -79,6 +79,7 @@ export default function AddNewTaskComponent() {
       setTaskDescription(editTask.description);
       setIsEditTask(true);
       setEditTaskId(taskId);
+      setUserIds(editTask.users.map((u: User) => u.id));
     }
   }
 
@@ -157,7 +158,7 @@ export default function AddNewTaskComponent() {
                 >
                   <Checkbox
                     disabled={!isAdmin}
-                    checked={userIds.includes(id)}
+                    checked={userIds && userIds.includes(id)}
                     onChange={(e) =>
                       setUserIds((prev) =>
                         e.target.checked
