@@ -244,12 +244,12 @@ export default function ProjectDetails() {
                     <div className="flex justify-between text-sm mb-1">
                       <span>Progress</span>
                       <span>
-                        {milestone.tasks
+                        {milestone.tasks.length > 0
                           ? Math.min(
                               (milestone.tasks.filter(
                                 (task) => task.completed === true
                               ).length /
-                                milestones.length) *
+                                milestone.tasks.length) *
                                 100,
                               100
                             )
@@ -260,12 +260,12 @@ export default function ProjectDetails() {
                     <Progress
                       color="green"
                       progress={
-                        milestone.tasks
+                        milestone.tasks.length > 0
                           ? Math.min(
                               (milestone.tasks.filter(
                                 (task) => task.completed === true
                               ).length /
-                                milestones.length) *
+                                milestone.tasks.length) *
                                 100,
                               100
                             )
