@@ -5,4 +5,5 @@ export type Task = {
   completed: boolean;
   projectId: number;
   milestoneId: number;
+  userIds: number[];
 };

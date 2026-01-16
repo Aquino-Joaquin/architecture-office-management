@@ -15,6 +15,7 @@ import GeneralOverview from "../pages/GeneralOverview";
 import LoginForm from "../components/LoginForm";
 import UnauthorizedPage from "../pages/UnathorizedPage";
 import ErrorPage from "../pages/ErrorPage";
+import AddNewTaskComponent from "../components/project/AddNewTaskComponent";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "projects/projectDetail/:id/editexpense/:id",
         element: <CreateExpenseComponent />,
+      },
+      {
+        path: "projects/projectDetail/:id/milestones/tasks/:id",
+        element: <AddNewTaskComponent />,
       },
     ],
   },

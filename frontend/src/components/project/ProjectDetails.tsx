@@ -63,6 +63,9 @@ export default function ProjectDetails() {
   function handleEdit(id: number) {
     navigate(`editexpense/${id}`);
   }
+  function handleMilestone(milestoneId: number) {
+    navigate(`milestones/tasks/${milestoneId}`);
+  }
 
   const projecInformation: CardInfomation[] = [
     {
@@ -229,6 +232,7 @@ export default function ProjectDetails() {
               milestones.map((milestone) => (
                 <Card
                   key={milestone.id}
+                  onClick={() => handleMilestone(milestone.id)}
                   className="bg-white! border-none shadow-md mb-4"
                 >
                   <div className="flex items-center justify-between">
