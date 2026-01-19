@@ -3,15 +3,18 @@ import type { CardInfomation } from "../types/CardInformation";
 import type { Project } from "../types/Project";
 import Header from "./common/Header";
 import { getBadgeColor } from "../helper/getBadgeColor";
+import type { Task } from "../types/Task";
 
 type StaffDashboardProps = {
   itemsInformation: CardInfomation[];
   itemsProjects: Project[];
+  itemsTasks: Task[];
 };
 
 export default function StaffDashboard({
   itemsInformation,
   itemsProjects,
+  itemsTasks,
 }: StaffDashboardProps) {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
@@ -38,7 +41,7 @@ export default function StaffDashboard({
         ))}
       </div>
 
-      <div className="w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6  w-full">
         <Card className="w-full shadow-sm bg-white! border-none ">
           <div className="mb-4 flex justify-between">
             <h5 className="text-xl font-bold leading-none text-black ">
@@ -65,6 +68,34 @@ export default function StaffDashboard({
                     </div>
                     <div className="inline-flex items-center text-base font-semibold text-gray-900">
                       {totalPrice}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Card>
+
+        <Card className="w-full shadow-sm bg-white! border-none">
+          <div className="mb-4 flex items-center justify-between">
+            <h5 className="text-xl font-bold leading-none text-black">Tasks</h5>
+          </div>
+
+          <div className="flow-root">
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+              {itemsTasks.map(({ id, title, description, milestone }) => (
+                <li key={id} className="py-3 sm:py-4">
+                  <div className="flex items-center justify-between space-x-4">
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-black ">
+                        {title}
+                      </p>
+                      <span className="truncate text-sm text-gray-500 ">
+                        {description}
+                      </span>
+                    </div>
+                    <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
+                      {milestone.title}
                     </div>
                   </div>
                 </li>

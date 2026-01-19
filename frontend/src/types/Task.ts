@@ -1,3 +1,4 @@
+import type { Milestone } from "./Milestone";
 import type { User } from "./User";
 
 export type Task = {
@@ -6,6 +7,6 @@ export type Task = {
   description: string;
   completed: boolean;
   projectId: number;
-  milestoneId: number;
+  milestone: Milestone;
   users: User[];
 };
