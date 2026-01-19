@@ -65,6 +65,10 @@ export const router = createBrowserRouter([
         path: "projects/editproject/:id",
         element: <AddNewProjectComponent />,
       },
+      {
+        path: "projects/projectDetail/:id/milestones/tasks/:id",
+        element: <AddNewTaskComponent />,
+      },
     ],
   },
   {
