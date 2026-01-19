@@ -22,14 +22,9 @@ export default function AddNewTaskComponent() {
   const { id } = useParams();
   const isAdmin = checkAdmin();
 
-  const taskTitles = [
-    "Id",
-    "Title",
-    "Description",
-    "Assigned Users",
-    "Status",
-    "Actions",
-  ];
+  const taskTitles = isAdmin
+    ? ["Id", "Title", "Description", "Assigned Users", "Status", "Actions"]
+    : ["Id", "Title", "Description", "Assigned Users", "Status"];
 
   const [isEditTask, setIsEditTask] = useState(false);
   const [editTaskId, setEditTaskId] = useState(0);
@@ -123,8 +118,12 @@ export default function AddNewTaskComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <Header
-        title="Create new task"
-        subTitle="Enter project information and assign team members"
+        title={isAdmin ? "Create new task" : "Project's Task"}
+        subTitle={
+          isAdmin
+            ? "Enter project information and assign team members"
+            : "Here you can see all the tasks"
+        }
       />
 
       <form
@@ -210,16 +209,17 @@ export default function AddNewTaskComponent() {
             )}
           />
         </div>
-
-        <div className="flex justify-end">
-          <Button type="submit">
-            {
-              <>
-                <HiPencil className="mr-2" /> Create Task
-              </>
-            }
-          </Button>
-        </div>
+        {isAdmin && (
+          <div className="flex justify-end">
+            <Button type="submit">
+              {
+                <>
+                  <HiPencil className="mr-2" /> Create Task
+                </>
+              }
+            </Button>
+          </div>
+        )}
       </form>
     </div>
   );
