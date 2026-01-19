@@ -4,10 +4,10 @@ import {
   SidebarItemGroup,
   SidebarItems,
 } from "flowbite-react";
-import { HiChartPie } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import type { LeftBarType } from "../../types/LeftBarType";
 import type { User } from "../../types/User";
+import { SlLogout } from "react-icons/sl";
 type LeftBarProps = {
   items: LeftBarType[];
   user?: User;
@@ -61,7 +61,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
 
           <SidebarItem
             className="text-black! hover:text-gray-50"
-            icon={HiChartPie}
+            icon={SlLogout}
             onClick={() => {
               localStorage.removeItem("token");
               localStorage.removeItem("user");
