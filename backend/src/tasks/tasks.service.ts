@@ -21,6 +21,14 @@ export class TasksService {
     @InjectRepository(Project) private projectRepository: Repository<Project>,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
+  async getAllTaskFromUser(userId: number) {
+    const tasks = await this.taskRepository.find({
+      where: { users: { id: userId } },
+      relations: { milestone: true },
+    });
+    if (!tasks) return new NotFoundException();
+    return tasks;
+  }
   async getAllTaskFromMilestone(milestoneId: number) {
     const tasks = await this.taskRepository.find({
       where: { milestone: { id: milestoneId } },

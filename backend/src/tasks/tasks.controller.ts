@@ -24,6 +24,10 @@ export class TasksController {
   getAllTaskFromMilestone(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.getAllTaskFromMilestone(id);
   }
+  @Get('users/:id')
+  getAllTaskFromUser(@Param('id', ParseIntPipe) id: number) {
+    return this.tasksService.getAllTaskFromUser(id);
+  }
   @Post()
   createTask(@Body(ValidationPipe) createTask: CreateTaskDto) {
     return this.tasksService.createTask(createTask);
