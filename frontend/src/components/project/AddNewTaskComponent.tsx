@@ -90,6 +90,17 @@ export default function AddNewTaskComponent() {
     }
   }
 
+  async function handleStatusUpdate(taskId: number) {
+    const editTask = taskArray.find((t) => t.id === taskId);
+    if (editTask) {
+      await api.patch(`tasks/${taskId}`, {
+        completed: !editTask.completed,
+      });
+      toast.success("Status changed successfully");
+      fetchTasks();
+    }
+  }
+
   async function fetchTasks() {
     const res = await api.get(`tasks/milestones/${id}`);
     setTaskArray(res.data);
@@ -193,6 +204,7 @@ export default function AddNewTaskComponent() {
                 task={task}
                 handleDelete={handleTaskDelete}
                 handleEdit={handleTaskEdit}
+                handleDoubleClick={handleStatusUpdate}
                 canDoActions={isAdmin}
               />
             )}

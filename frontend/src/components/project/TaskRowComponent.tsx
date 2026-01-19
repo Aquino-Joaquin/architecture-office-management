@@ -6,16 +6,18 @@ export type Props = {
   task: Task;
   handleDelete: (id: number) => void;
   handleEdit: (id: number) => void;
+  handleDoubleClick: (id: number) => void;
   canDoActions: boolean;
 };
 export default function TaskRowComponent({
   task,
   handleEdit,
   handleDelete,
+  handleDoubleClick,
   canDoActions,
 }: Props) {
   return (
-    <TableRow>
+    <TableRow onDoubleClick={() => handleDoubleClick(task.id)}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {task.id}
       </TableCell>
