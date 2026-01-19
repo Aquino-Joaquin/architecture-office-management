@@ -26,6 +26,11 @@ export default function TaskRowComponent({
         {task.description}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
+        {task.users.length > 0
+          ? task.users.map((user) => user.name).join(", ")
+          : "----------"}
+      </TableCell>
+      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         <Badge
           color={getBadgeColor(task.completed ? "completed" : "incompleted")}
           size="xs"

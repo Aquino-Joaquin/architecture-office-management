@@ -22,7 +22,14 @@ export default function AddNewTaskComponent() {
   const { id } = useParams();
   const isAdmin = checkAdmin();
 
-  const taskTitles = ["Id", "Title", "Description", "Status", "Actions"];
+  const taskTitles = [
+    "Id",
+    "Title",
+    "Description",
+    "Assigned Users",
+    "Status",
+    "Actions",
+  ];
 
   const [isEditTask, setIsEditTask] = useState(false);
   const [editTaskId, setEditTaskId] = useState(0);
