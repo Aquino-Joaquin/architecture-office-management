@@ -10,5 +10,7 @@ export function getBadgeColor(type: string) {
       return "yellow";
     case "completed":
       return "green";
+    case "incompleted":
+      return "failure";
   }
 }
