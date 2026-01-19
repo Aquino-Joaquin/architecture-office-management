@@ -249,13 +249,15 @@ export default function ProjectDetails() {
                       <span>Progress</span>
                       <span>
                         {milestone.tasks.length > 0
-                          ? Math.min(
-                              (milestone.tasks.filter(
-                                (task) => task.completed === true
-                              ).length /
-                                milestone.tasks.length) *
-                                100,
-                              100
+                          ? Math.round(
+                              Math.min(
+                                (milestone.tasks.filter(
+                                  (task) => task.completed === true
+                                ).length /
+                                  milestone.tasks.length) *
+                                  100,
+                                100
+                              )
                             )
                           : 0}
                         %
@@ -265,13 +267,15 @@ export default function ProjectDetails() {
                       color="green"
                       progress={
                         milestone.tasks.length > 0
-                          ? Math.min(
-                              (milestone.tasks.filter(
-                                (task) => task.completed === true
-                              ).length /
-                                milestone.tasks.length) *
-                                100,
-                              100
+                          ? Math.round(
+                              Math.min(
+                                (milestone.tasks.filter(
+                                  (task) => task.completed === true
+                                ).length /
+                                  milestone.tasks.length) *
+                                  100,
+                                100
+                              )
                             )
                           : 0
                       }
