@@ -15,17 +15,15 @@ export default function StaffDashboardPage() {
   async function fetchProjects() {
     await api.get("projects").then((res) => setProjects(res.data));
   }
-  async function fetchTasks(userId: number) {
-    const res: Task[] = (await api.get(`tasks/users/${userId}`)).data;
+  async function fetchTasks() {
+    const res: Task[] = (await api.get("tasks/users")).data;
     const activeTasks = res.filter((task) => !task.completed);
     setTasks(activeTasks);
   }
-  const user = localStorage.getItem("user");
-  const userId = user ? JSON.parse(user).id : null;
 
   useEffect(() => {
     fetchProjects();
-    fetchTasks(userId);
+    fetchTasks();
   }, []);
 
   const activeProjects = projects.length;

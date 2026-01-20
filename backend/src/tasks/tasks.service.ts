@@ -11,6 +11,7 @@ import { Project } from 'src/projects/projects.entity';
 import { CreateTaskDto } from './dtos/createTaskDto';
 import { UpadateTaskDto } from './dtos/updateTaksDto';
 import { User } from 'src/users/users.entity';
+import { JwtUser } from 'src/auth/jwt-user.type';
 
 @Injectable()
 export class TasksService {
@@ -21,9 +22,9 @@ export class TasksService {
     @InjectRepository(Project) private projectRepository: Repository<Project>,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
-  async getAllTaskFromUser(userId: number) {
+  async getAllTaskFromUser(user: JwtUser) {
     const tasks = await this.taskRepository.find({
-      where: { users: { id: userId } },
+      where: { users: { id: user.id } },
       relations: { milestone: true },
     });
     if (!tasks) return new NotFoundException();

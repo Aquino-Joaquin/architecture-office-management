@@ -7,31 +7,47 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Req,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dtos/createTaskDto';
 import { UpadateTaskDto } from './dtos/updateTaksDto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Role } from 'src/auth/role.decorator';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
+
+  @UseGuards(AuthGuard('jwt'))
   @Get('projects/:id')
   getAllTaskFromProject(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.getAllTaskFromProject(id);
   }
+
+  @UseGuards(AuthGuard('jwt'))
   @Get('milestones/:id')
   getAllTaskFromMilestone(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.getAllTaskFromMilestone(id);
   }
-  @Get('users/:id')
-  getAllTaskFromUser(@Param('id', ParseIntPipe) id: number) {
-    return this.tasksService.getAllTaskFromUser(id);
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('users')
+  getAllTaskFromUser(@Req() req) {
+    return this.tasksService.getAllTaskFromUser(req.user);
   }
+
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Role('Admin')
   @Post()
   createTask(@Body(ValidationPipe) createTask: CreateTaskDto) {
     return this.tasksService.createTask(createTask);
   }
+
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   updateTask(
     @Param('id', ParseIntPipe) id: number,
@@ -39,6 +55,9 @@ export class TasksController {
   ) {
     return this.tasksService.updateTask(id, updateTask);
   }
+
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Role('Admin')
   @Delete(':id')
   deleteTask(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.deleteTask(id);
