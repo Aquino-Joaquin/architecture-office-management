@@ -52,8 +52,9 @@ export class TasksController {
   updateTask(
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe) updateTask: UpadateTaskDto,
+    @Req() req,
   ) {
-    return this.tasksService.updateTask(id, updateTask);
+    return this.tasksService.updateTask(id, updateTask, req.user);
   }
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)

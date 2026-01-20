@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -98,12 +99,25 @@ export class TasksService {
 
     return this.taskRepository.save(newTask);
   }
-  async updateTask(id: number, updateTask: UpadateTaskDto) {
+  async updateTask(id: number, updateTask: UpadateTaskDto, user: JwtUser) {
     const task = await this.taskRepository.findOne({
       where: { id },
       relations: { milestone: true, project: true, users: true },
     });
     if (!task) throw new NotFoundException();
+
+    if (user.role !== 'Admin') {
+      const isAssigned = task.users.some((u) => u.id === user.id);
+      if (!isAssigned) {
+        throw new ForbiddenException(
+          'You can only update tasks assigned to you',
+        );
+      }
+      if (updateTask.completed !== undefined) {
+        task.completed = updateTask.completed;
+        return this.taskRepository.save(task);
+      }
+    }
 
     const { title, description, completed, projectId, milestoneId, userIds } =
       updateTask;
