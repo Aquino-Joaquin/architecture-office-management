@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../helper/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { showErrors } from "../../helper/showError";
 
 export default function CreateClientComponent() {
   const [name, setName] = useState("");
@@ -47,7 +48,7 @@ export default function CreateClientComponent() {
       );
       navigate(-1);
     } catch (error) {
-      toast.error("Error");
+      showErrors(error);
     }
   }
 

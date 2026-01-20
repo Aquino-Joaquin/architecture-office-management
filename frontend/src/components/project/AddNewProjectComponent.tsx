@@ -20,6 +20,7 @@ import { Status } from "../../types/Status";
 import type { Milestone } from "../../types/Milestone";
 import TableComponent from "../common/TableComponent";
 import MilestoneRowComponent from "./MilestoneRowComponent";
+import { showErrors } from "../../helper/showError";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
@@ -69,7 +70,7 @@ export default function AddNewProjectComponent() {
       setMilestoneTitle("");
       setMilestoneDescription("");
     } catch (error) {
-      toast.error("Error Creating milestone");
+      showErrors(error);
     }
   }
   async function handleMilestoneDelete(milestoneId: number) {

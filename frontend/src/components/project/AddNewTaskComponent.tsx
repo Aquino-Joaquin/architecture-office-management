@@ -17,6 +17,7 @@ import { checkAdmin } from "../../helper/checkAdmin";
 import TableComponent from "../common/TableComponent";
 import TaskRowComponent from "./TaskRowComponent";
 import type { Task } from "../../types/Task";
+import { showErrors } from "../../helper/showError";
 
 export default function AddNewTaskComponent() {
   const { id } = useParams();
@@ -61,7 +62,7 @@ export default function AddNewTaskComponent() {
       setTaskTitle("");
       setTaskDescription("");
     } catch (error) {
-      toast.error("Error Creating task");
+      showErrors(error);
     }
   }
   async function handleTaskDelete(taskId: number) {

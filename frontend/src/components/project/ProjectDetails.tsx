@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { LuTarget } from "react-icons/lu";
 import type { Milestone } from "../../types/Milestone";
+import { showErrors } from "../../helper/showError";
 const titles: string[] = [
   "Id",
   "Description",
@@ -57,7 +58,7 @@ export default function ProjectDetails() {
       toast.success("Expense deleted successfully");
       fetchExpenses(id);
     } catch (error) {
-      toast.error("Error deleting project");
+      showErrors(error);
     }
   }
   function handleEdit(id: number) {

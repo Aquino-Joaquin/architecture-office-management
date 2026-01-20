@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
+import { showErrors } from "../../helper/showError";
 
 const titles: string[] = [
   "Id",
@@ -37,7 +38,7 @@ export default function ProjectComponent() {
       toast.success("Project deleted successfully");
       fetchProjects();
     } catch (error) {
-      toast.error("Error deleting project");
+      showErrors(error);
     }
   }
   function handleEdit(id: number) {

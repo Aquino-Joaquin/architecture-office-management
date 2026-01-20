@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../helper/api";
 import type { Client } from "../../types/Client";
 import Header from "../common/Header";
+import { showErrors } from "../../helper/showError";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
@@ -25,7 +26,7 @@ export default function ClientComponent() {
       toast.success("Client deleted successfully");
       fetchClient();
     } catch (error) {
-      toast.error("Error deleting client");
+      showErrors(error);
     }
   }
 

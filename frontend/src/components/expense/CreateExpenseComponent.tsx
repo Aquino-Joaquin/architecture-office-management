@@ -15,6 +15,7 @@ import type { Expense } from "../../types/Expense";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
 import type { ExpenseType } from "../../types/ExpenseType";
+import { showErrors } from "../../helper/showError";
 
 export default function CreateExpenseComponent() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function CreateExpenseComponent() {
 
       navigate(-1);
     } catch (error) {
-      toast.error("Error expense");
+      showErrors(error);
     }
   }
 
