@@ -13,13 +13,21 @@ import { api } from "../../helper/api";
 import Header from "../common/Header";
 import TableComponent from "../common/TableComponent";
 import UserRowComponent from "./UserRowComponent";
-
-const titles: string[] = ["Id", "Name", "Email", "Role", "Projects", "Actions"];
+import { useTranslation } from "react-i18next";
 
 export default function UserComponent() {
   const [users, setUsers] = useState<User[]>([]);
   const [usersInformation, setUsersInfomation] = useState<CardInfomation[]>([]);
   const navigate = useNavigate();
+  const { t } = useTranslation("user");
+  const titles: string[] = [
+    "Id",
+    t("tableUserName"),
+    t("tableUserEmail"),
+    t("tableUserRole"),
+    t("tableUserProjects"),
+    t("tableUserActions"),
+  ];
 
   async function fetchUser() {
     const res = await api.get<User[]>("users");
@@ -35,17 +43,17 @@ export default function UserComponent() {
 
     setUsersInfomation([
       {
-        title: "Total Users",
+        title: t("totalUsers"),
         value: totalUsersCount,
         Icon: HiOutlineUsers,
       },
       {
-        title: "Admins",
+        title: t("admins"),
         value: totalAdminsCount,
         Icon: HiOutlineShieldCheck,
       },
       {
-        title: "Staff",
+        title: t("staff"),
         value: totalStaffCount,
         Icon: HiOutlineBriefcase,
       },
@@ -75,9 +83,9 @@ export default function UserComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
       <Header
-        title={"User Management"}
-        subTitle={"Here you can manage all the users"}
-        buttonTitle={"Add new user"}
+        title={t("title")}
+        subTitle={t("subTitle")}
+        buttonTitle={t("buttonTitle")}
         buttonPath="newuser"
         showButton={true}
       />

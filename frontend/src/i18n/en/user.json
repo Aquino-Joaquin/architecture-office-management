@@ -1,0 +1,24 @@
+{
+    "title": "User Management",
+    "subTitle": "Here you can manage all the users",
+    "buttonTitle": "Add new user",
+    "totalUser": "Total Users",
+    "admins": "Admins",
+    "Staff": "Staff",
+    "tableUserName": "Name",
+    "tableUserEmail": "Email",
+    "tableUserRole": "Role",
+    "tableUserProjects": "Projects",
+    "tableUserActions": "Actions",
+    "createUser": "Create new User",
+    "editUser": "Edit User",
+    "createSubtitle": "Enter the user information",
+    "basicInformation": "Basic user information",
+    "holderUserName": "Enter user's name",
+    "holderUserPassword": "Enter user's password",
+    "holderUserEmail": "Enter user's email",
+    "holderSelectRole": "Select Role",
+    "createButton": "Create User",
+    "editButton": "Edit User"
+
+}

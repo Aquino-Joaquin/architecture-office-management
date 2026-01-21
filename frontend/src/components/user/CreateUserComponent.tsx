@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { api } from "../../helper/api";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CreateUserComponent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const { t } = useTranslation("user");
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -59,14 +61,14 @@ export default function CreateUserComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <Header
-        title={isEditMode ? "Edit the user" : "Create new user"}
-        subTitle={"Enter the user information"}
+        title={isEditMode ? t("editUser") : t("createUser")}
+        subTitle={t("createSubtitle")}
       />
 
       <div className="w-full mx-auto space-y-6">
         <Card className="bg-white! w-full border-none shadow-sm">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Basic Information
+            {t("basicInformation")}
           </h3>
 
           <form
@@ -80,7 +82,7 @@ export default function CreateUserComponent() {
               <TextInput
                 id="name"
                 type="text"
-                placeholder="Enter the user name"
+                placeholder={t("holderUserName")}
                 value={name}
                 required
                 color="white"
@@ -90,12 +92,12 @@ export default function CreateUserComponent() {
 
             <div className="md:col-span-2">
               <div className="mb-2 block">
-                <Label htmlFor="companyName" />
+                <Label htmlFor="password" />
               </div>
               <TextInput
-                id="companyName"
+                id="password"
                 type="text"
-                placeholder="Enter the password"
+                placeholder={t("holderUserPassword")}
                 value={password}
                 color="white"
                 onChange={(e) => setPassword(e.target.value)}
@@ -109,7 +111,7 @@ export default function CreateUserComponent() {
               <TextInput
                 id="email"
                 type="email"
-                placeholder="Enter the users' email"
+                placeholder={t("holderUserEmail")}
                 value={email}
                 icon={() => <span className="text-gray-500">@</span>}
                 color="white"
@@ -128,7 +130,7 @@ export default function CreateUserComponent() {
                 color="white"
               >
                 <option value="" disabled>
-                  Select User Role
+                  {t("holderSelectRole")}
                 </option>
                 <option value="Admin">Admin</option>
                 <option value="Staff">Staff</option>
@@ -138,7 +140,7 @@ export default function CreateUserComponent() {
             <div className="md:col-span-2 flex justify-end mt-4">
               <Button color="blue" type="submit">
                 <HiUserAdd className="mr-2 h-5 w-5" />
-                {isEditMode ? "Edit User" : "Create User"}
+                {isEditMode ? t("editButton") : t("createButton")}
               </Button>
             </div>
           </form>

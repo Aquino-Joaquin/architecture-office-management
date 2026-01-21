@@ -1,0 +1,24 @@
+{
+    "title": "Administracion de Usuarios",
+    "subTitle": "Aqui puedes ver todos los usuarios",
+    "buttonTitle": "Agregar nuevo usuario",
+    "totalUser": "Usuarios Totales",
+    "admins": "Admins",
+    "Staff": "Staff",
+    "tableUserName": "Nombre",
+    "tableUserEmail": "Correo",
+    "tableUserRole": "Rol",
+    "tableUserProjects": "Proyectos",
+    "tableUserActions": "Acciones",
+    "createUser": "Crear nuevo usuario",
+    "editUser": "Editar Usuario",
+    "createSubtitle": "Ingresa la informacion del usuario",
+    "basicInformation": "Informacion basica del Usuario",
+    "holderUserName": "Ingresa el nombre del usuario",
+    "holderUserPassword": "Ingresa la contraseña del usuario",
+    "holderUserEmail": "Ingresa el correo del usuario",
+    "holderSelectRole": "Selecciona un Rol",
+    "createButton": "Crear Usuario",
+    "editButton": "Editar Usuario"
+
+}
