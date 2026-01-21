@@ -6,6 +6,7 @@ import { api } from "../../helper/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { showErrors } from "../../helper/showError";
+import { useTranslation } from "react-i18next";
 
 export default function CreateClientComponent() {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ export default function CreateClientComponent() {
   const [phone, setPhone] = useState("");
   const [companyName, setCompanyName] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation("client");
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -55,14 +57,14 @@ export default function CreateClientComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <Header
-        title={isEditMode ? "Edit the client" : "Create new client"}
-        subTitle={"Enter client information"}
+        title={isEditMode ? t("editTitle") : t("createTitle")}
+        subTitle={t("createSubtitle")}
       />
 
       <div className="w-full mx-auto space-y-6">
         <Card className="bg-white! w-full border-none shadow-sm">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Basic Information
+            {t("basicInformation")}
           </h3>
 
           <form
@@ -76,7 +78,7 @@ export default function CreateClientComponent() {
               <TextInput
                 id="name"
                 type="text"
-                placeholder="Enter the client name"
+                placeholder={t("holderClientName")}
                 value={name}
                 required
                 color="white"
@@ -91,7 +93,7 @@ export default function CreateClientComponent() {
               <TextInput
                 id="companyName"
                 type="text"
-                placeholder="Enter the client's company name"
+                placeholder={t("holderClientCompany")}
                 value={companyName}
                 color="white"
                 onChange={(e) => setCompanyName(e.target.value)}
@@ -105,7 +107,7 @@ export default function CreateClientComponent() {
               <TextInput
                 id="email"
                 type="email"
-                placeholder="Enter the clien's email"
+                placeholder={t("holderClientEmail")}
                 value={email}
                 icon={() => <span className="text-gray-500">@</span>}
                 color="white"
@@ -121,7 +123,7 @@ export default function CreateClientComponent() {
                 id="phone"
                 type="tel"
                 value={phone}
-                placeholder="Enter the client phone number"
+                placeholder={t("holderClientPhone")}
                 required
                 color="white"
                 onChange={(e) => setPhone(e.target.value)}
@@ -131,7 +133,7 @@ export default function CreateClientComponent() {
             <div className="md:col-span-2 flex justify-end mt-4">
               <Button color="blue" type="submit">
                 <HiUserAdd className="mr-2 h-5 w-5" />
-                {isEditMode ? "Edit Client" : "Create Client"}
+                {isEditMode ? t("editButton") : t("createButton")}
               </Button>
             </div>
           </form>

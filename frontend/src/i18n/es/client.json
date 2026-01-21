@@ -1,0 +1,16 @@
+{
+    "title": "Clientes",
+    "subTitle": "Aqui puedes ver todos tus clientes",
+    "buttonTitle": "Agregar nuevos clientes",
+    "activeProjects": "Proyectos Activos",
+    "createTitle": "Crear nuevo Cliente",
+    "editTitle": "Editar Cliente",
+    "createSubtitle": "Aqui puedes ingresar la informacion del nuevo cliente",
+    "basicInformation": "Informacion basica del cliente",
+    "holderClientName": "Ingresa el nombre del cliente",
+    "holderClientCompany": "Ingresa el nombre del compañia",
+    "holderClientEmail": "Ingresa el correo del cliente",
+    "holderClientPhone": "Ingresa el numero de telefono del cliente",
+    "createButton": "Crear Cliente",
+    "editButton": "Editar Cliente"
+}

@@ -8,10 +8,13 @@ import { api } from "../../helper/api";
 import type { Client } from "../../types/Client";
 import Header from "../common/Header";
 import { showErrors } from "../../helper/showError";
+import { useTranslation } from "react-i18next";
+import { Status } from "../../types/Status";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
   const navigate = useNavigate();
+  const { t } = useTranslation("client");
 
   async function fetchClient() {
     await api.get("clients").then((res) => setClients(res.data));
@@ -37,9 +40,9 @@ export default function ClientComponent() {
   return (
     <div>
       <Header
-        title={"Clients"}
-        subTitle={"Here you can see all the Clients"}
-        buttonTitle={"Add new client"}
+        title={t("title")}
+        subTitle={t("subTitle")}
+        buttonTitle={t("buttonTitle")}
         buttonPath="newclient"
         showButton={true}
       />
@@ -103,10 +106,12 @@ export default function ClientComponent() {
               <div className="border-t border-gray-100 pt-4">
                 <div className="flex flex-col">
                   <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                    Active Projects
+                    {t("activeProjects")}
                   </span>
                   <span className="text-lg font-semibold text-gray-900 mt-1">
-                    {projects?.length || 0}
+                    {projects?.filter(
+                      (project) => project.status !== Status.COMPLETED
+                    ).length || 0}
                   </span>
                 </div>
               </div>
