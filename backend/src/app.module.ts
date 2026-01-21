@@ -16,6 +16,7 @@ import { ExpenseType } from './expense-types/expense-types.entity';
 import { ExpenseTypesModule } from './expense-types/expense-types.module';
 import { MilestonesModule } from './milestones/milestones.module';
 import { TasksModule } from './tasks/tasks.module';
+import { DocumentsModule } from './documents/documents.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { TasksModule } from './tasks/tasks.module';
     AuthModule,
     MilestonesModule,
     TasksModule,
+    DocumentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

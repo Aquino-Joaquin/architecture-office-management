@@ -4,6 +4,7 @@ import { Expense } from 'src/expenses/expenses.entity';
 import { Milestone } from 'src/milestones/milestones.entity';
 import { Task } from 'src/tasks/tasks.entity';
 import { User } from 'src/users/users.entity';
+import { Document } from 'src/documents/documents.entity';
 import {
   Column,
   Entity,
@@ -53,4 +54,7 @@ export class Project {
 
   @OneToMany(() => Task, (tasks) => tasks.project)
   tasks: Task[];
+
+  @OneToMany(() => Document, (documents) => documents.project)
+  documents: Document[];
 }
