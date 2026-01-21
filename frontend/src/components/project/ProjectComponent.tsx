@@ -8,19 +8,22 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { showErrors } from "../../helper/showError";
+import { useTranslation } from "react-i18next";
 
-const titles: string[] = [
-  "Id",
-  "Name",
-  "Status",
-  "Total Price",
-  "Amount Paid",
-  "Client Name",
-  "Actions",
-];
 export default function ProjectComponent() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
+  const { t } = useTranslation("project");
+
+  const titles: string[] = [
+    t("tableId"),
+    t("tableName"),
+    t("tableStatus"),
+    t("tableTotalPrice"),
+    t("tableAmountPaid"),
+    t("tableClientName"),
+    t("tableActions"),
+  ];
 
   const isAdmin = checkAdmin();
   function fetchProjects() {
@@ -47,9 +50,9 @@ export default function ProjectComponent() {
   return (
     <div>
       <Header
-        title={"Projects"}
-        subTitle={"Here you can see all the projects"}
-        buttonTitle={"Add new project"}
+        title={t("title")}
+        subTitle={t("subTitle")}
+        buttonTitle={t("buttonTitle")}
         buttonPath="newproject"
         showButton={isAdmin}
       />

@@ -1,0 +1,26 @@
+{
+    "title": "Proyectos",
+    "subTitle": "Aqui puedes ver todos tus proyectos",
+    "buttonTitle": "Agregar nuevo proyecto",
+    "tableId": "Id",
+    "tableName": "Nombre",
+    "tableStatus": "Estado",
+    "tableTotalPrice": "Precio Total",
+    "tableAmountPaid": "Monto Pagado",
+    "tableClientName": "Nombre del Cliente",
+    "tableActions": "Acciones",
+    "editProject": "Editar Proyecto",
+    "createProject" : "Crear nuevo Proyecto",
+    "createEditSubTitle": "Ingresa la informacion del proyecto y asigna los miembros del equipo",
+    "basicInfomation": "Informacion Basica del Proyecto",
+    "holderProjectName": "Ingresa el nombre del proyecto",
+    "holderSelectClient": "Selecciona un Cliente",
+    "holderTotalBudget": "Precio total del proyecto",
+    "holderDescription": "Ingresa una descripcion para el proyecto",
+    "holderSelectStatus": "Seleccina un estado",
+    "holderAmountPaid": "Monto pagado",
+    "titleAssingTeam": "Asignar miembros al proyecto",
+    "buttonCreate": "Crear Proyecto",
+    "buttonEdit": "Editar Proyecto"
+    
+}
