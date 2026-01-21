@@ -8,11 +8,13 @@ import type { Expense } from "../types/Expense";
 import { useEffect, useState } from "react";
 import { api } from "../helper/api";
 import type { Client } from "../types/Client";
+import { useTranslation } from "react-i18next";
 
 export default function AdminDashboardPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
+  const { t } = useTranslation("adminDashboard");
 
   async function fetchExpenses() {
     await api.get("expenses").then((res) => setExpenses(res.data));
@@ -45,22 +47,22 @@ export default function AdminDashboardPage() {
 
   const cardInformations: CardInfomation[] = [
     {
-      title: "Active Projects",
+      title: t("activeProjects"),
       value: activeProjects,
       Icon: VscFileSubmodule,
     },
     {
-      title: "Clients",
+      title: t("clients"),
       value: clientNumber,
       Icon: FiUsers,
     },
     {
-      title: "Budget",
+      title: t("budget"),
       value: generalBudget,
       Icon: GiMoneyStack,
     },
     {
-      title: "Expenses",
+      title: t("expenses"),
       value: generalExpense,
       Icon: GiExpense,
     },

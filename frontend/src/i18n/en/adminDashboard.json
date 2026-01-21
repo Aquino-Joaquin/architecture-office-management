@@ -1,0 +1,10 @@
+{
+    "headerTitle": "Admin Dashboard",
+    "headerSubtitle": "Welcome back! Here's your office overview.",
+    "activeProjects": "Active Projects",
+    "clients" : "Clients",
+    "budget": "Budget",
+    "expenses": "Expenses",
+    "recentProjects": "Recent Projects",
+    "recentExpenses" : "Recent Expenses"
+}

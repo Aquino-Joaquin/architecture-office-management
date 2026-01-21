@@ -5,6 +5,7 @@ import type { Expense } from "../types/Expense";
 import Header from "./common/Header";
 import { formatDateDMY } from "../helper/formatDateDMY";
 import { getBadgeColor } from "../helper/getBadgeColor";
+import { useTranslation } from "react-i18next";
 type AdminDashboardProps = {
   itemsInformation: CardInfomation[];
   itemsProjects: Project[];
@@ -16,12 +17,11 @@ export default function AdminDashboard({
   itemsProjects,
   itemsExpenses,
 }: AdminDashboardProps) {
+  const { t } = useTranslation("adminDashboard");
+
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
-      <Header
-        title={"Admin Dashboard"}
-        subTitle={"Welcome back! Here's your office overview."}
-      />
+      <Header title={t("headerTitle")} subTitle={t("headerSubtitle")} />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-4">
         {itemsInformation.map(({ title, value, Icon }, index) => (
@@ -48,7 +48,7 @@ export default function AdminDashboard({
         <Card className="w-full shadow-sm bg-white! border-none ">
           <div className="mb-4 flex justify-between">
             <h5 className="text-xl font-bold leading-none text-black ">
-              Recent Projects
+              {t("recentProjects")}
             </h5>
           </div>
           <div className="flow-root">
@@ -82,7 +82,7 @@ export default function AdminDashboard({
         <Card className="w-full shadow-sm bg-white! border-none">
           <div className="mb-4 flex items-center justify-between">
             <h5 className="text-xl font-bold leading-none text-black">
-              Recent Expenses
+              {t("recentExpenses")}
             </h5>
           </div>
 

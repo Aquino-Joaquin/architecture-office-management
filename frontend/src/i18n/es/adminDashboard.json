@@ -1,0 +1,10 @@
+{
+    "headerTitle": "Panel de Administracion",
+    "headerSubtitle": "Bienvenido! Aqui esta el resumen de su oficina",
+    "activeProjects": "Proyectos Activos",
+    "clients" : "Clientes",
+    "budget": "Presupuesto",
+    "expenses": "Gastos",
+    "recentProjects": "Proyectos Recientes",
+    "recentExpenses" : "Gastos Recientes"
+}
