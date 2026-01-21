@@ -10,6 +10,8 @@ import enClient from "./en/client.json";
 import esClient from "./es/client.json";
 import enUser from "./en/user.json";
 import esUser from "./es/user.json";
+import enExpense from "./en/expense.json";
+import esExpense from "./es/expense.json";
 
 const resources = {
   en: {
@@ -18,6 +20,7 @@ const resources = {
     project: enProject,
     client: enClient,
     user: enUser,
+    expense: enExpense,
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
@@ -25,13 +28,14 @@ const resources = {
     project: esProject,
     client: esClient,
     user: esUser,
+    expense: esExpense,
   },
 };
 
 i18n.use(initReactI18next).init({
   resources,
   lng: "es",
-  ns: ["adminDashboard", "leftBar", "project", "client", "user"],
+  ns: ["adminDashboard", "leftBar", "project", "client", "user", "expense"],
   defaultNS: "adminDashboard",
 
   interpolation: {

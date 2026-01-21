@@ -10,20 +10,22 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
-
-const titles: string[] = [
-  "Id",
-  "Description",
-  "Created at",
-  "Type",
-  "Project",
-  "Amount",
-  "Actions",
-];
+import { useTranslation } from "react-i18next";
 
 export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
+  const { t } = useTranslation("expense");
+
+  const titles: string[] = [
+    "Id",
+    t("tableExpenseDescription"),
+    t("tableExpenseCreatedAt"),
+    t("tableExpenseType"),
+    t("tableExpenseProject"),
+    t("tableExpenseAmount"),
+    t("tableExpenseActions"),
+  ];
 
   const isAdmin = checkAdmin();
 
@@ -38,30 +40,30 @@ export default function ExpensesComponent() {
     (total, expense) => total + expense.amount,
     0
   );
-  const totalOfficeExpense = true
-    ? 1
-    : expenses
-        .filter((expense) => expense.expenseType.name === "Office")
-        .reduce((total, officeExpense) => total + officeExpense.amount, 0);
-  const totalProjectExpense = true
-    ? 1
-    : expenses
-        .filter((expense) => expense.expenseType.name === "Project")
-        .reduce((total, projectExpense) => total + projectExpense.amount, 0);
+  const totalOfficeExpense =
+    expenses &&
+    expenses
+      .filter((expense) => expense.expenseType.name === "Office")
+      .reduce((total, officeExpense) => total + officeExpense.amount, 0);
+  const totalProjectExpense =
+    expenses &&
+    expenses
+      .filter((expense) => expense.expenseType.name === "Project")
+      .reduce((total, projectExpense) => total + projectExpense.amount, 0);
 
   const expenseInformation: CardInfomation[] = [
     {
-      title: "Total Expense",
+      title: t("totalExpense"),
       value: totalExpense,
       Icon: MdAttachMoney,
     },
     {
-      title: "Project Expenses",
+      title: t("officeExpense"),
       value: totalOfficeExpense,
       Icon: MdTrendingUp,
     },
     {
-      title: "Office Expenses",
+      title: t("projectExpense"),
       value: totalProjectExpense,
       Icon: MdTrendingDown,
     },
@@ -85,9 +87,9 @@ export default function ExpensesComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
       <Header
-        title={"Expense"}
-        subTitle={"Here you can see your expense overview"}
-        buttonTitle="Create new expense"
+        title={t("title")}
+        subTitle={t("subtitle")}
+        buttonTitle={t("buttonTitle")}
         buttonPath="newexpense"
         showButton={true}
       />

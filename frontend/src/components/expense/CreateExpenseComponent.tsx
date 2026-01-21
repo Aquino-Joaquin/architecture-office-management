@@ -16,6 +16,7 @@ import Header from "../common/Header";
 import { api } from "../../helper/api";
 import type { ExpenseType } from "../../types/ExpenseType";
 import { showErrors } from "../../helper/showError";
+import { useTranslation } from "react-i18next";
 
 export default function CreateExpenseComponent() {
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ export default function CreateExpenseComponent() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [expenseTypeId, setExpenseTypeId] = useState<string>();
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
+
+  const { t } = useTranslation("expense");
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -95,12 +98,14 @@ export default function CreateExpenseComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <Header
-        title={isEditMode ? "Edit Expense" : "Create New Expense"}
-        subTitle="Enter expense information "
+        title={isEditMode ? t("editExpense") : t("createExpense")}
+        subTitle={t("createSubtitle")}
       />
       <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
         <Card className="bg-white! border-none">
-          <h3 className="text-lg font-semibold mb-2">Basic Information</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            {t("basicInformation")}
+          </h3>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
@@ -108,7 +113,7 @@ export default function CreateExpenseComponent() {
               <TextInput
                 value={amount}
                 type="number"
-                placeholder="Expense amount"
+                placeholder={t("holderExpenseAmount")}
                 required
                 onChange={(e) => setAmount(Number(e.target.value))}
                 color="white"
@@ -124,7 +129,7 @@ export default function CreateExpenseComponent() {
                 color="white"
               >
                 <option value="" disabled>
-                  Select a project
+                  {t("holderSelectProject")}
                 </option>
                 {projects.map(({ id, name }) => (
                   <option key={id} value={id}>
@@ -143,7 +148,7 @@ export default function CreateExpenseComponent() {
                 color="white"
               >
                 <option value="" disabled>
-                  Select status
+                  {t("holderSelectType")}
                 </option>
                 {expenseTypes.map(({ id, name }) => (
                   <option key={id} value={id}>
@@ -157,7 +162,7 @@ export default function CreateExpenseComponent() {
               <Label>Description</Label>
               <Textarea
                 rows={4}
-                placeholder="Expense description"
+                placeholder={t("holderExpenseDescription")}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 color="white"
@@ -170,11 +175,11 @@ export default function CreateExpenseComponent() {
           <Button type="submit">
             {isEditMode ? (
               <>
-                <HiPencil className="mr-2" /> Update Expense
+                <HiPencil className="mr-2" /> {t("editButton")}
               </>
             ) : (
               <>
-                <HiPlus className="mr-2" /> Create Expense
+                <HiPlus className="mr-2" /> {t("createButton")}
               </>
             )}
           </Button>

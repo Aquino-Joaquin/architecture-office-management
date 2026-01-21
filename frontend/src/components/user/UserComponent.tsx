@@ -43,7 +43,7 @@ export default function UserComponent() {
 
     setUsersInfomation([
       {
-        title: t("totalUsers"),
+        title: t("totalUser"),
         value: totalUsersCount,
         Icon: HiOutlineUsers,
       },
