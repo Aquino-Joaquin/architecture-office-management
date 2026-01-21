@@ -8,31 +8,33 @@ import type { User } from "../types/User";
 import { useEffect, useState } from "react";
 import LeftBar from "../components/common/LeftBar";
 import { ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function GeneralOverview() {
+  const { t } = useTranslation("leftBar");
   const leftBarInfomationAdmin: LeftBarType[] = [
     {
-      title: "Dashboard",
+      title: t("dashboard"),
       Icon: MdOutlineDashboard,
       path: "",
     },
     {
-      title: "Projects",
+      title: t("projects"),
       Icon: LuFolders,
       path: "projects",
     },
     {
-      title: "Clients",
+      title: t("clients"),
       Icon: PiUsers,
       path: "clients",
     },
     {
-      title: "Expenses",
+      title: t("expenses"),
       Icon: CiMoneyCheck1,
       path: "expenses",
     },
     {
-      title: "User Management",
+      title: t("userManagement"),
       Icon: PiUsers,
       path: "users",
     },

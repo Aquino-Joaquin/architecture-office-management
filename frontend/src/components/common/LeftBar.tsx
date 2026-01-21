@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import type { LeftBarType } from "../../types/LeftBarType";
 import type { User } from "../../types/User";
 import { SlLogout } from "react-icons/sl";
+import { useTranslation } from "react-i18next";
 type LeftBarProps = {
   items: LeftBarType[];
   user?: User;
@@ -15,6 +16,7 @@ type LeftBarProps = {
 
 export default function LeftBar({ items, user }: LeftBarProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation("leftBar");
 
   return (
     <Sidebar
@@ -28,7 +30,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
             alt="Architecture Office Logo"
             className="w-12 h-12 rounded-lg"
           />
-          <h1 className="font-medium">Architecture Office</h1>
+          <h1 className="font-medium">{t("title")}</h1>
         </div>
 
         <SidebarItemGroup>
@@ -68,7 +70,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
               navigate("/");
             }}
           >
-            Log out
+            {t("logOut")}
           </SidebarItem>
         </SidebarItemGroup>
       </SidebarItems>
