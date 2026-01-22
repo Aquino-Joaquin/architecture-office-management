@@ -1,0 +1,16 @@
+{
+    "title":"Create new Task",
+    "subtitle":"Enter task information and assign team members",
+    "titleStaff": "Project's Task",
+    "subtitleStaff": "Here you can see the task of a project",
+    "basicInformation": "Enter the information for the task",
+    "holderTaskTitle": "Enter the task title",
+    "holderTaskDescription": "Enter the task description",
+    "assingTeam": "Assing users to the task",
+    "tableTaskTitle": "Title",
+    "tableTaskDescription": "Description",
+    "tableTaskAssingUsers": "Assigned Users",
+    "tableTaskStatus": "Status",
+    "tableTaskActions": "Actions",
+    "buttonCreate": "Create Task"
+}

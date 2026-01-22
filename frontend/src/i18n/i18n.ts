@@ -16,6 +16,8 @@ import enProjectDetails from "./en/projectDetails.json";
 import esProjectDetails from "./es/projectDetails.json";
 import enMilestone from "./en/milestone.json";
 import esMilestone from "./es/milestone.json";
+import enTask from "./en/task.json";
+import esTask from "./es/task.json";
 
 const resources = {
   en: {
@@ -27,6 +29,7 @@ const resources = {
     expense: enExpense,
     projectDetails: enProjectDetails,
     milestone: enMilestone,
+    task: enTask,
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
@@ -37,6 +40,7 @@ const resources = {
     expense: esExpense,
     projectDetails: esProjectDetails,
     milestone: esMilestone,
+    task: esTask,
   },
 };
 
@@ -51,6 +55,7 @@ i18n.use(initReactI18next).init({
     "user",
     "expense",
     "milestone",
+    "task",
   ],
   defaultNS: "adminDashboard",
 

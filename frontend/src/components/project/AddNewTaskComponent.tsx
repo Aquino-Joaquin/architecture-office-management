@@ -18,14 +18,29 @@ import TableComponent from "../common/TableComponent";
 import TaskRowComponent from "./TaskRowComponent";
 import type { Task } from "../../types/Task";
 import { showErrors } from "../../helper/showError";
+import { useTranslation } from "react-i18next";
 
 export default function AddNewTaskComponent() {
   const { id } = useParams();
   const isAdmin = checkAdmin();
+  const { t } = useTranslation("task");
 
   const taskTitles = isAdmin
-    ? ["Id", "Title", "Description", "Assigned Users", "Status", "Actions"]
-    : ["Id", "Title", "Description", "Assigned Users", "Status"];
+    ? [
+        "Id",
+        t("tableTaskTitle"),
+        t("tableTaskDescription"),
+        t("tableTaskAssingUsers"),
+        t("tableTaskStatus"),
+        t("tableTaskActions"),
+      ]
+    : [
+        "Id",
+        t("tableTaskTitle"),
+        t("tableTaskDescription"),
+        t("tableTaskAssingUsers"),
+        t("tableTaskStatus"),
+      ];
 
   const [isEditTask, setIsEditTask] = useState(false);
   const [editTaskId, setEditTaskId] = useState(0);
@@ -119,12 +134,8 @@ export default function AddNewTaskComponent() {
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <Header
-        title={isAdmin ? "Create new task" : "Project's Task"}
-        subTitle={
-          isAdmin
-            ? "Enter project information and assign team members"
-            : "Here you can see all the tasks"
-        }
+        title={isAdmin ? t("title") : t("titleStaff")}
+        subTitle={isAdmin ? t("subtitle") : t("subtitleStaff")}
       />
 
       <form
@@ -134,16 +145,14 @@ export default function AddNewTaskComponent() {
         {isAdmin && (
           <Card className="bg-white! border-none">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold">
-                Enter the information for the milestone
-              </h3>
+              <h3 className="text-lg font-semibold">{t("basicInformation")}</h3>
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 -mt-7">
               <div className="md:col-span-2">
                 <Label>Milestone Title</Label>
                 <TextInput
                   value={taskTitle}
-                  placeholder="Enter the task title"
+                  placeholder={t("holderTaskTitle")}
                   readOnly={!isAdmin}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   color="white"
@@ -153,7 +162,7 @@ export default function AddNewTaskComponent() {
                 <Label>Milestone Description</Label>
                 <Textarea
                   rows={4}
-                  placeholder="Enter the task description "
+                  placeholder={t("holderTaskDescription")}
                   value={taskDescription}
                   readOnly={!isAdmin}
                   onChange={(e) => setTaskDescription(e.target.value)}
@@ -166,7 +175,7 @@ export default function AddNewTaskComponent() {
 
         {isAdmin && (
           <Card className="bg-white! border-none">
-            <h3 className="text-lg font-semibold mb-2">Assign Team Members</h3>
+            <h3 className="text-lg font-semibold mb-2">{t("assingTeam")}</h3>
 
             <div className="flex flex-col gap-4">
               {users.map(({ id, name, role }) => (
@@ -181,7 +190,7 @@ export default function AddNewTaskComponent() {
                       setUserIds((prev) =>
                         e.target.checked
                           ? [...prev, id]
-                          : prev.filter((uid) => uid !== id)
+                          : prev.filter((uid) => uid !== id),
                       )
                     }
                   />
@@ -215,7 +224,7 @@ export default function AddNewTaskComponent() {
             <Button type="submit">
               {
                 <>
-                  <HiPencil className="mr-2" /> Create Task
+                  <HiPencil className="mr-2" /> {t("buttonCreate")}
                 </>
               }
             </Button>

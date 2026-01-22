@@ -1,0 +1,16 @@
+{
+    "title":"Crea una nueva tarea",
+    "subtitle":"Ingresa la informacion de la tarea y asigna miembros del equipo a la tarea",
+    "titleStaff": "Tareas del Proyecto",
+    "subtitleStaff": "Aqui puedes ver todas las tareas del proyecto",
+    "basicInformation": "Ingresa la informacion de la tarea",
+    "holderTaskTitle": "Ingresa el titulo de la tarea",
+    "holderTaskDescription": "Ingresa la descripcion de la tarea",
+    "assingTeam": "Asigna Usuarios a la tarea",
+    "tableTaskTitle": "Titulo",
+    "tableTaskDescription": "Descripcion",
+    "tableTaskAssingUsers": "Usuarios Asignados",
+    "tableTaskStatus": "Estado",
+    "tableTaskActions": "Acciones",
+    "buttonCreate": "Guardar Tarea"
+}
