@@ -14,14 +14,7 @@ import { checkAdmin } from "../../helper/checkAdmin";
 import { LuTarget } from "react-icons/lu";
 import type { Milestone } from "../../types/Milestone";
 import { showErrors } from "../../helper/showError";
-const titles: string[] = [
-  "Id",
-  "Description",
-  "Created at",
-  "Type",
-  "Project",
-  "Amount",
-];
+import { useTranslation } from "react-i18next";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
@@ -29,9 +22,21 @@ export default function ProjectDetails() {
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { t } = useTranslation(["projectDetails", "expense"]);
+
+  const titles: string[] = [
+    "Id",
+    t("expense:tableExpenseDescription"),
+    t("expense:tableExpenseCreatedAt"),
+    t("expense:tableExpenseType"),
+    t("expense:tableExpenseProject"),
+    t("expense:tableExpenseAmount"),
+  ];
 
   const isAdmin = checkAdmin();
-  const finalTitles = isAdmin ? [...titles, "Actions"] : titles;
+  const finalTitles = isAdmin
+    ? [...titles, t("expense:tableExpenseActions")]
+    : titles;
 
   async function fetchProject(id: number) {
     await api.get(`projects/${id}`).then((res) => setProject(res.data));
@@ -70,17 +75,17 @@ export default function ProjectDetails() {
 
   const projecInformation: CardInfomation[] = [
     {
-      title: "Budget",
+      title: t("budget"),
       value: project?.totalPrice || 0,
       Icon: HiOutlineCurrencyDollar,
     },
     {
-      title: "Paid",
+      title: t("paid"),
       value: project?.amountPaid || 0,
       Icon: HiOutlineTrendingUp,
     },
     {
-      title: "Remaning",
+      title: t("remaning"),
       value: project ? project?.totalPrice - project?.amountPaid : 0,
       Icon: HiOutlineCurrencyDollar,
     },
@@ -94,7 +99,7 @@ export default function ProjectDetails() {
   const budget = project?.totalPrice || 0;
   const totalExpense = expenses.reduce(
     (total, expense) => total + expense.amount,
-    0
+    0,
   );
   const remaining = budget - totalExpense;
 
@@ -103,10 +108,7 @@ export default function ProjectDetails() {
 
   return (
     <div>
-      <Header
-        title={"Project Details"}
-        subTitle={"Here you can see all your project details"}
-      />
+      <Header title={t("title")} subTitle={t("subtitle")} />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
         {projecInformation.map(({ title, value, Icon }, index) => (
@@ -133,13 +135,13 @@ export default function ProjectDetails() {
           <div className="lg:col-span-3">
             <Card className="bg-white! border-none shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Project Information
+                {t("projectInformation")}
               </h3>
 
               <div className="space-y-6">
                 <div>
                   <h4 className="text-sm font-medium text-gray-500 mb-1">
-                    Description
+                    {t("description")}
                   </h4>
                   <p className="text-gray-600 leading-relaxed">
                     {project?.description}
@@ -152,13 +154,13 @@ export default function ProjectDetails() {
           <div className="lg:col-span-2">
             <Card className="bg-white! border-none shadow-sm h-full">
               <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Budget Overview
+                {t("budgetOverview")}
               </h3>
 
               <div className="mb-6">
                 <div className="flex justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700">
-                    Budget Usage
+                    {t("budgetUsage")}
                   </span>
                   <span className="text-sm font-bold text-gray-900">
                     {`${percentage}%`}
@@ -173,17 +175,23 @@ export default function ProjectDetails() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Budget</p>
+                  <p className="text-sm text-gray-500 mb-1">
+                    {t("totalBudget")}
+                  </p>
                   <p className="text-lg font-bold text-gray-900">{budget}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Spent</p>
+                  <p className="text-sm text-gray-500 mb-1">
+                    {t("totalSpent")}
+                  </p>
                   <p className="text-lg font-bold text-gray-900">
                     {totalExpense}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">Remaining</p>
+                  <p className="text-sm text-gray-500 mb-1">
+                    {t("totalRemaning")}
+                  </p>
                   <p className="text-lg font-bold text-gray-900">{remaining}</p>
                 </div>
               </div>
@@ -194,7 +202,7 @@ export default function ProjectDetails() {
             <Card className="bg-white! border-none shadow-sm h-full">
               <div className="flex items-center gap-2 mb-2">
                 <h3 className="text-xl font-bold text-gray-900">
-                  Team Members
+                  {t("teamMember")}
                 </h3>
               </div>
 
@@ -226,7 +234,7 @@ export default function ProjectDetails() {
         <Card className="bg-white! border-none shadow-sm h-full">
           <div className="flex items-center gap-2 mb-4">
             <LuTarget className="text-gray-600" />
-            <h2 className="text-lg font-semibold">Milestones</h2>
+            <h2 className="text-lg font-semibold">{t("milestones")}</h2>
           </div>
           <div>
             {milestones &&
@@ -253,12 +261,12 @@ export default function ProjectDetails() {
                           ? Math.round(
                               Math.min(
                                 (milestone.tasks.filter(
-                                  (task) => task.completed === true
+                                  (task) => task.completed === true,
                                 ).length /
                                   milestone.tasks.length) *
                                   100,
-                                100
-                              )
+                                100,
+                              ),
                             )
                           : 0}
                         %
@@ -271,12 +279,12 @@ export default function ProjectDetails() {
                           ? Math.round(
                               Math.min(
                                 (milestone.tasks.filter(
-                                  (task) => task.completed === true
+                                  (task) => task.completed === true,
                                 ).length /
                                   milestone.tasks.length) *
                                   100,
-                                100
-                              )
+                                100,
+                              ),
                             )
                           : 0
                       }
@@ -290,7 +298,7 @@ export default function ProjectDetails() {
       <div className="mt-8 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold tracking-tight text-gray-900 pl-3">
-            Project Expenses
+            {t("projectExpense")}
           </h2>
         </div>
 

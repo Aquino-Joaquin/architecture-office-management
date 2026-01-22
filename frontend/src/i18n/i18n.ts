@@ -12,6 +12,8 @@ import enUser from "./en/user.json";
 import esUser from "./es/user.json";
 import enExpense from "./en/expense.json";
 import esExpense from "./es/expense.json";
+import enProjectDetails from "./en/projectDetails.json";
+import esProjectDetails from "./es/projectDetails.json";
 
 const resources = {
   en: {
@@ -21,6 +23,7 @@ const resources = {
     client: enClient,
     user: enUser,
     expense: enExpense,
+    projectDetails: enProjectDetails,
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
@@ -29,6 +32,7 @@ const resources = {
     client: esClient,
     user: esUser,
     expense: esExpense,
+    projectDetails: esProjectDetails,
   },
 };
 

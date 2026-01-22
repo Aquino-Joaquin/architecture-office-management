@@ -1,0 +1,18 @@
+{
+    "title": "Projec Details",
+    "subtitle": "Here you can see all your project details",
+    "budget": "Budget",
+    "paid": "Paid",
+    "remaning": "Remaning",
+    "projectInformation": "Project Information",
+    "description": "Description",
+    "budgetOverview": "Budget Overview",
+    "budgetUsage" : "Budget Usage",
+    "totalBudget": "Total Budget",
+    "totalSpent": "Total Spent",
+    "totalRemaning": "Remaning",
+    "teamMember": "Team Member",
+    "milestones": "Milestones",
+    "projectExpense": "Project Expense"
+
+}

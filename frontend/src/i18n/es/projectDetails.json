@@ -1,0 +1,18 @@
+{
+    "title": "Detalles del Proyecto",
+    "subtitle": "Aqui puedes ver todos los detalles de tu proyecto",
+    "budget": "Presupuesto",
+    "paid": "Pagado",
+    "remaning": "Restante",
+    "projectInformation": "Informacion del Proyecto",
+    "description": "Descripcion",
+    "budgetOverview": "Vista del Presupuesto",
+    "budgetUsage" : "Uso del Presupuesto",
+    "totalBudget": "Presupuesto Total",
+    "totalSpent": "Gastos Total",
+    "totalRemaning": "Presupuesto Restante",
+    "teamMember": "Miembros del Equipo",
+    "milestones": "Pasos del Proyecto",
+    "projectExpense": "Gastos del Proyecto"
+
+}
