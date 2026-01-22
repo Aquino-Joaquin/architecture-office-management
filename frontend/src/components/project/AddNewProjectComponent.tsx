@@ -28,9 +28,15 @@ export default function AddNewProjectComponent() {
   const isEditMode = Boolean(id);
   const navigate = useNavigate();
   const isAdmin = checkAdmin();
-  const { t } = useTranslation("project");
+  const { t } = useTranslation(["project", "milestone"]);
 
-  const milestoneTitles = ["Id", "Title", "Description", "Status", "Actions"];
+  const milestoneTitles = [
+    "Id",
+    t("milestone:tableMilestoneTitle"),
+    t("milestone:tableMilestoneDescription"),
+    t("milestone:tableMilestoneStatus"),
+    t("milestone:tableMilestoneActions"),
+  ];
 
   const [isEditMilestone, setIsEditMilestone] = useState(false);
   const [editMilestoneId, setEditMilestoneId] = useState(0);
@@ -285,7 +291,7 @@ export default function AddNewProjectComponent() {
                       setUserIds((prev) =>
                         e.target.checked
                           ? [...prev, id]
-                          : prev.filter((uid) => uid !== id)
+                          : prev.filter((uid) => uid !== id),
                       )
                     }
                   />
@@ -301,15 +307,13 @@ export default function AddNewProjectComponent() {
         {isEditMode && isAdmin && (
           <Card className="bg-white! border-none">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold">
-                Enter the information for the milestone
-              </h3>
+              <h3 className="text-lg font-semibold">{t("milestone:title")}</h3>
 
               <Button
                 type="button"
                 onClick={() => handleMilestoneAdd(isEditMilestone)}
               >
-                <HiPlus className="mr-2" /> Create Milestone
+                <HiPlus className="mr-2" /> {t("milestone:buttonTitle")}
               </Button>
             </div>
 
@@ -318,7 +322,7 @@ export default function AddNewProjectComponent() {
                 <Label>Milestone Title</Label>
                 <TextInput
                   value={milestoneTitle}
-                  placeholder="Enter the milestone title"
+                  placeholder={t("milestone:holderMilestoneTitle")}
                   readOnly={!isAdmin}
                   onChange={(e) => setMilestoneTitle(e.target.value)}
                   color="white"
@@ -328,7 +332,7 @@ export default function AddNewProjectComponent() {
                 <Label>Milestone Description</Label>
                 <Textarea
                   rows={4}
-                  placeholder="Enter the milestone description "
+                  placeholder={t("milestone:holderMilestoneDescription")}
                   value={milestoneDescription}
                   readOnly={!isAdmin}
                   onChange={(e) => setMilestoneDescription(e.target.value)}

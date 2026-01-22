@@ -1,0 +1,10 @@
+{
+    "title": "Enter the information for the milestone",
+    "buttonTitle": "Create Milestone",
+    "holderMilestoneTitle": "Enter the milestone title",
+    "holderMilestoneDescription": "Enter the milestone description",
+    "tableMilestoneTitle": "Title",
+    "tableMilestoneDescription": "Description",
+    "tableMilestoneStatus": "Status",
+    "tableMilestoneActions": "Actions"
+}

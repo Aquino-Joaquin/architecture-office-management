@@ -14,6 +14,8 @@ import enExpense from "./en/expense.json";
 import esExpense from "./es/expense.json";
 import enProjectDetails from "./en/projectDetails.json";
 import esProjectDetails from "./es/projectDetails.json";
+import enMilestone from "./en/milestone.json";
+import esMilestone from "./es/milestone.json";
 
 const resources = {
   en: {
@@ -24,6 +26,7 @@ const resources = {
     user: enUser,
     expense: enExpense,
     projectDetails: enProjectDetails,
+    milestone: enMilestone,
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
@@ -33,13 +36,22 @@ const resources = {
     user: esUser,
     expense: esExpense,
     projectDetails: esProjectDetails,
+    milestone: esMilestone,
   },
 };
 
 i18n.use(initReactI18next).init({
   resources,
   lng: "es",
-  ns: ["adminDashboard", "leftBar", "project", "client", "user", "expense"],
+  ns: [
+    "adminDashboard",
+    "leftBar",
+    "project",
+    "client",
+    "user",
+    "expense",
+    "milestone",
+  ],
   defaultNS: "adminDashboard",
 
   interpolation: {

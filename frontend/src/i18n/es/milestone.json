@@ -1,0 +1,10 @@
+{
+    "title": "Ingresa la informacion del paso del proyecto",
+    "buttonTitle": "Crear Paso",
+    "holderMilestoneTitle": "Ingresa el titulo del paso",
+    "holderMilestoneDescription": "Ingresa la descripcion del paso",
+    "tableMilestoneTitle": "Titulo",
+    "tableMilestoneDescription": "Descripcion",
+    "tableMilestoneStatus": "Estado",
+    "tableMilestoneActions": "Acciones"
+}
