@@ -7,6 +7,10 @@ export class Document {
   id: number;
   @Column()
   title: string;
+
+  @Column()
+  url: string;
+
   @Column()
   type: string;
 
