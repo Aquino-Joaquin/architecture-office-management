@@ -1,5 +1,12 @@
 import { Project } from 'src/projects/projects.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/users.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'documents' })
 export class Document {
@@ -13,6 +20,12 @@ export class Document {
 
   @Column()
   type: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @ManyToOne(() => User, (user) => user.documents)
+  user: User;
 
   @ManyToOne(() => Project, (project) => project.documents)
   project: Project;
