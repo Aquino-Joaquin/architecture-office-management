@@ -27,6 +27,7 @@ export class DocumentsService {
     if (project.users.find((u) => u.id === user.id)) {
       const documents = await this.documentRepository.find({
         where: { project: { id: projectId } },
+        relations: { user: true },
       });
       return documents;
     }
