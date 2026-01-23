@@ -8,15 +8,18 @@ import {
   Patch,
   Post,
   Req,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateDocumentDto } from './dtos/createDocumentDto';
 import { UpdateDocumentDto } from './dtos/updateDocumentDto';
 import { DocumentsService } from './documents.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
+  @UseGuards(AuthGuard('jwt'))
   @Get('projects/:id')
   getAllDocumentsFromProject(
     @Param('id', ParseIntPipe) id: number,

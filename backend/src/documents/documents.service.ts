@@ -22,7 +22,10 @@ export class DocumentsService {
   ) {}
 
   async getAllDocumentsFromProject(projectId: number, user: JwtUser) {
-    const project = await this.projectRepository.findOneBy({ id: projectId });
+    const project = await this.projectRepository.findOne({
+      where: { id: projectId },
+      relations: { users: true },
+    });
     if (!project) throw new NotFoundException();
     if (project.users.find((u) => u.id === user.id)) {
       const documents = await this.documentRepository.find({
