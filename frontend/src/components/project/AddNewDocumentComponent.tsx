@@ -1,21 +1,61 @@
-import { Card, FileInput, Label, TextInput } from "flowbite-react";
+import { Button, Card, FileInput, Label, TextInput } from "flowbite-react";
 import Header from "../common/Header";
+import { HiPlus } from "react-icons/hi";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { supabase } from "../../helper/supabaseClient";
+import { api } from "../../helper/api";
+import { useParams } from "react-router-dom";
+import { uploadDocument } from "../../helper/uploadDocument";
 
 export default function AddNewDocumentComponent() {
+  const { id } = useParams();
+  const [file, setFile] = useState<File | null>(null);
+  const [documentName, setDocumentName] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!file) {
+      toast.warning("You shoud add a file");
+      return;
+    }
+    if (!id) {
+      toast.error("Invalid project");
+      return;
+    }
+
+    const filePath = await uploadDocument(file, documentName, Number(id));
+
+    const { data } = supabase.storage.from("documents").getPublicUrl(filePath);
+
+    const publicUrl = data.publicUrl;
+    console.log(publicUrl);
+
+    await api.post("documents", {
+      title: documentName,
+      url: publicUrl,
+      type: file.name.split(".").pop(),
+      projectId: Number(id),
+    });
+    toast.success("Upload successfully");
+  }
   return (
     <div>
       <Header
         title="Add new document "
         subTitle="Here you can add a new document to the project"
       />
-      <form>
+      <form onSubmit={handleSubmit}>
         <Card className="bg-white! border-none">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
               <Label>Document Name</Label>
               <TextInput
                 required
+                value={documentName}
                 placeholder={"Enter the document name"}
+                onChange={(e) => setDocumentName(e.target.value)}
                 color="white"
               />
             </div>
@@ -50,10 +90,21 @@ export default function AddNewDocumentComponent() {
                   SVG, PNG, JPG or GIF (MAX. 800x400px)
                 </p>
               </div>
-              <FileInput id="dropzone-file" className="hidden " />
+              <FileInput
+                id="dropzone-file"
+                className="hidden "
+                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+              />
             </Label>
           </div>
         </Card>
+        <div className="flex justify-end mt-5">
+          <Button type="submit">
+            <>
+              <HiPlus className="mr-2" /> Add Document
+            </>
+          </Button>
+        </div>
       </form>
     </div>
   );
