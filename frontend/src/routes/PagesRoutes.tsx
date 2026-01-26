@@ -16,6 +16,7 @@ import LoginForm from "../components/LoginForm";
 import UnauthorizedPage from "../pages/UnathorizedPage";
 import ErrorPage from "../pages/ErrorPage";
 import AddNewTaskComponent from "../components/project/AddNewTaskComponent";
+import AddNewDocumentComponent from "../components/project/AddNewDocumentComponent";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
         path: "projects/projectDetail/:id/milestones/tasks/:id",
         element: <AddNewTaskComponent />,
       },
+      {
+        path: "projects/projectDetail/:id/documents",
+        element: <AddNewDocumentComponent />,
+      },
     ],
   },
   {
@@ -68,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: "projects/projectDetail/:id/milestones/tasks/:id",
         element: <AddNewTaskComponent />,
+      },
+      {
+        path: "project/projectDetail/:id/documents",
+        element: <AddNewDocumentComponent />,
       },
     ],
   },

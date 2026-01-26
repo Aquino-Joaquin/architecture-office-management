@@ -86,6 +86,9 @@ export default function ProjectDetails() {
   function handleMilestone(milestoneId: number) {
     navigate(`milestones/tasks/${milestoneId}`);
   }
+  function handleUploadDocument() {
+    navigate("documents");
+  }
 
   const projecInformation: CardInfomation[] = [
     {
@@ -341,7 +344,10 @@ export default function ProjectDetails() {
               Project Documents
             </h2>
           </div>
-          <Button className="border-blue-600 text-white! hover:bg-blue-50">
+          <Button
+            className="border-blue-600 text-white! hover:bg-blue-50"
+            onClick={handleUploadDocument}
+          >
             <HiOutlineUpload className="mr-2 h-5 w-5" />
             Upload Document
           </Button>
