@@ -16,8 +16,4 @@ export class CreateDocumentDto {
   @IsNotEmpty()
   @IsNumber()
   projectId: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  userId: number;
 }

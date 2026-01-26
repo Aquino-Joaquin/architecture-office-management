@@ -5,14 +5,12 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
   Req,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateDocumentDto } from './dtos/createDocumentDto';
-import { UpdateDocumentDto } from './dtos/updateDocumentDto';
 import { DocumentsService } from './documents.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -32,15 +30,11 @@ export class DocumentsController {
     return this.documentsService.getOneDocument(id);
   }
   @Post()
-  createDocument(@Body(ValidationPipe) createDocument: CreateDocumentDto) {
-    return this.documentsService.createDocument(createDocument);
-  }
-  @Patch(':id')
-  updateDocument(
-    @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) updateDocument: UpdateDocumentDto,
+  createDocument(
+    @Body(ValidationPipe) createDocument: CreateDocumentDto,
+    @Req() req,
   ) {
-    return this.documentsService.updateDocument(id, updateDocument);
+    return this.documentsService.createDocument(createDocument, req.user);
   }
   @Delete(':id')
   deleteDocument(@Param('id', ParseIntPipe) id: number) {
