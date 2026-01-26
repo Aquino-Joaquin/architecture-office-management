@@ -89,6 +89,26 @@ export default function ProjectDetails() {
   function handleUploadDocument() {
     navigate("documents");
   }
+  function handleDownloadDocument(documentId: number) {
+    const doc = docs.find((d) => d.id === documentId);
+    if (!doc) return;
+
+    const link = window.document.createElement("a");
+    link.href = doc.url;
+    link.download = doc.title || "document";
+    window.document.body.appendChild(link);
+    link.click();
+    window.document.body.removeChild(link);
+  }
+  async function handleDeleteDocument(documentId: number) {
+    try {
+      await api.delete(`documents/${documentId}`);
+      toast.success("Deleted successfully");
+      fetchDocuments(Number(id));
+    } catch (error) {
+      showErrors(error);
+    }
+  }
 
   const projecInformation: CardInfomation[] = [
     {
@@ -383,10 +403,16 @@ export default function ProjectDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                <button
+                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  onClick={() => handleDownloadDocument(doc.id)}
+                >
                   <HiOutlineDownload className="w-5 h-5" />
                 </button>
-                <button className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                <button
+                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  onClick={() => handleDeleteDocument(doc.id)}
+                >
                   <HiOutlineTrash className="w-5 h-5" />
                 </button>
               </div>
