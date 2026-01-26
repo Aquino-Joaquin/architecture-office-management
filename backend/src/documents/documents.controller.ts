@@ -29,6 +29,7 @@ export class DocumentsController {
   getOneDocument(@Param('id', ParseIntPipe) id: number) {
     return this.documentsService.getOneDocument(id);
   }
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   createDocument(
     @Body(ValidationPipe) createDocument: CreateDocumentDto,
