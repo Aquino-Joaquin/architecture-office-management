@@ -3,11 +3,13 @@ import { useState } from "react";
 import { api } from "../helper/api";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function LoginForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation("login");
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function LoginForm() {
           id: res.data.id,
           name: res.data.userName,
           role: res.data.role,
-        })
+        }),
       );
 
       if (res.data.role === "Admin") {
@@ -49,22 +51,22 @@ export default function LoginForm() {
         </div>
         <div>
           <h1 className="text-center text-lg font-medium text-black">
-            Architecture Office
+            {t("companyName")}
             <br />
-            <span className="text-gray-500">Management System</span>
+            <span className="text-gray-500">{t("managementSystem")}</span>
           </h1>
         </div>
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>
           <div>
             <div className="mb-2 block">
               <Label color="black" htmlFor="userName">
-                User Name
+                {t("userName")}
               </Label>
             </div>
             <TextInput
               id="userName"
               type="userName"
-              placeholder="Enter your user name "
+              placeholder={t("holderUserName")}
               color="white"
               required
               value={userName}
@@ -74,13 +76,13 @@ export default function LoginForm() {
           <div>
             <div className="mb-2 block">
               <Label color="white" htmlFor="password1">
-                Password
+                {t("password")}
               </Label>
             </div>
             <TextInput
               id="password1"
               type="password"
-              placeholder="Enter your password"
+              placeholder={t("holderPassword")}
               color="white"
               required
               value={password}
@@ -91,7 +93,7 @@ export default function LoginForm() {
             type="submit"
             className="bg-[rgb(236,202,110)]! hover:brightness-105! border-transparent! focus:ring-4! focus:ring-[rgba(236,202,110,0.5)]! text-white"
           >
-            Sign In
+            {t("signIn")}
           </Button>
         </form>
       </Card>

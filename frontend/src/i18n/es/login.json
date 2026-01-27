@@ -1,0 +1,9 @@
+{
+    "companyName": "Gmax Consultora",
+    "managementSystem": "Sistema de Administración",
+    "userName": "Nombre de usuario",
+    "password": "Contraseña",
+    "holderUserName": "Ingrese su nombre de usuario",
+    "holderPassword":"Ingrese su contraseña",
+    "signIn": "Iniciar Sesión"
+}

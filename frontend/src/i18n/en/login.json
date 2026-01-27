@@ -1,0 +1,9 @@
+{
+    "companyName": "Architecture Office",
+    "managementSystem": "Management System",
+    "userName": "User name",
+    "password": "Password",
+    "holderUserName": "Enter your user name",
+    "holderPassword":"Enter your password",
+    "signIn": "Sign in"
+}
