@@ -35,6 +35,7 @@ export default function AddNewDocumentComponent() {
     await api.post("documents", {
       title: documentName,
       url: publicUrl,
+      path: filePath,
       type: file.name.split(".").pop(),
       projectId: Number(id),
     });

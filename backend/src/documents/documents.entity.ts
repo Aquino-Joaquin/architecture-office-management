@@ -18,6 +18,9 @@ export class Document {
   @Column()
   url: string;
 
+  @Column({ nullable: true })
+  path: string;
+
   @Column()
   type: string;
 

@@ -11,6 +11,10 @@ export class CreateDocumentDto {
 
   @IsNotEmpty()
   @IsString()
+  path: string;
+
+  @IsNotEmpty()
+  @IsString()
   type: string;
 
   @IsNotEmpty()
