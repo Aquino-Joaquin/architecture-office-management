@@ -7,11 +7,13 @@ import { supabase } from "../../helper/supabaseClient";
 import { api } from "../../helper/api";
 import { useParams } from "react-router-dom";
 import { uploadDocument } from "../../helper/uploadDocument";
+import { useTranslation } from "react-i18next";
 
 export default function AddNewDocumentComponent() {
   const { id } = useParams();
   const [file, setFile] = useState<File | null>(null);
   const [documentName, setDocumentName] = useState("");
+  const { t } = useTranslation("documents");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -43,10 +45,7 @@ export default function AddNewDocumentComponent() {
   }
   return (
     <div>
-      <Header
-        title="Add new document "
-        subTitle="Here you can add a new document to the project"
-      />
+      <Header title={t("title2")} subTitle={t("subtitle")} />
       <form onSubmit={handleSubmit}>
         <Card className="bg-white! border-none">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -55,7 +54,7 @@ export default function AddNewDocumentComponent() {
               <TextInput
                 required
                 value={documentName}
-                placeholder={"Enter the document name"}
+                placeholder={t("holderDocumentName")}
                 onChange={(e) => setDocumentName(e.target.value)}
                 color="white"
               />
@@ -84,11 +83,7 @@ export default function AddNewDocumentComponent() {
                   />
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span> or drag
-                  and drop
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  <span className="font-semibold">{t("uploadPlace")}</span>
                 </p>
               </div>
               <FileInput
@@ -102,7 +97,7 @@ export default function AddNewDocumentComponent() {
         <div className="flex justify-end mt-5">
           <Button type="submit">
             <>
-              <HiPlus className="mr-2" /> Add Document
+              <HiPlus className="mr-2" /> {t("buttonAddDocument")}
             </>
           </Button>
         </div>

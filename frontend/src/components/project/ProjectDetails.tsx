@@ -32,7 +32,7 @@ export default function ProjectDetails() {
   const [docs, setDocs] = useState<Document[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
-  const { t } = useTranslation(["projectDetails", "expense"]);
+  const { t } = useTranslation(["projectDetails", "expense", "documents"]);
 
   const titles: string[] = [
     "Id",
@@ -361,7 +361,7 @@ export default function ProjectDetails() {
           <div className="flex items-center gap-2">
             <HiDocumentText className="w-6 h-6 text-gray-600" />
             <h2 className="text-xl font-bold text-gray-900">
-              Project Documents
+              {t("documents:title1")}
             </h2>
           </div>
           <Button
@@ -369,7 +369,7 @@ export default function ProjectDetails() {
             onClick={handleUploadDocument}
           >
             <HiOutlineUpload className="mr-2 h-5 w-5" />
-            Upload Document
+            {t("documents:buttonUpload")}
           </Button>
         </div>
 
@@ -397,7 +397,9 @@ export default function ProjectDetails() {
                   >
                     {doc.type}
                   </Badge>
-                  <span>Uploaded by {doc.user.name}</span>
+                  <span>
+                    {t("documents:uploadBy")} {doc.user.name}
+                  </span>
                   <span className="hidden sm:inline">•</span>
                   <span>{formatDateDMY(doc.createdAt)}</span>
                 </div>
