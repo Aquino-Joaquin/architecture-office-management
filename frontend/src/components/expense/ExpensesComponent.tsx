@@ -11,11 +11,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { useTranslation } from "react-i18next";
+import { showErrors } from "../../helper/showError";
 
 export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
-  const { t } = useTranslation("expense");
+  const { t } = useTranslation(["expense", "successToast"]);
 
   const titles: string[] = [
     "Id",
@@ -38,7 +39,7 @@ export default function ExpensesComponent() {
 
   const totalExpense = expenses.reduce(
     (total, expense) => total + expense.amount,
-    0
+    0,
   );
   const totalOfficeExpense =
     expenses &&
@@ -75,10 +76,10 @@ export default function ExpensesComponent() {
         url: `expenses/${id}`,
         method: "delete",
       });
-      toast.success("Expense deleted successfully");
+      toast.success(t("successToast:deleteExpense"));
       fetchExpenses();
     } catch (error) {
-      toast.error("Error deleting project");
+      showErrors(error);
     }
   }
   function handleEdit(id: number) {

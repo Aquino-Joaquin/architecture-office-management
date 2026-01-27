@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 export default function AddNewTaskComponent() {
   const { id } = useParams();
   const isAdmin = checkAdmin();
-  const { t } = useTranslation("task");
+  const { t } = useTranslation(["task", "successToast"]);
 
   const taskTitles = isAdmin
     ? [
@@ -61,7 +61,7 @@ export default function AddNewTaskComponent() {
           milestoneId: Number(id),
           userIds: userIds,
         });
-        toast.success("Task Created successfully");
+        toast.success(t("successToast:createTask"));
       }
       if (isEditing) {
         await api.patch(`tasks/${editTaskId}`, {
@@ -69,7 +69,7 @@ export default function AddNewTaskComponent() {
           description: taskDescription,
           userIds: userIds,
         });
-        toast.success("Task edited successfully");
+        toast.success(t("successToast:editTask"));
         setIsEditTask(false);
         setEditTaskId(0);
       }
@@ -84,9 +84,9 @@ export default function AddNewTaskComponent() {
     try {
       await api.delete(`tasks/${taskId}`);
       fetchTasks();
-      toast.success("Task deleted successfully");
+      toast.success(t("successToast:deleteTask"));
     } catch (error) {
-      toast.error("There was an error");
+      showErrors(error);
     }
   }
 

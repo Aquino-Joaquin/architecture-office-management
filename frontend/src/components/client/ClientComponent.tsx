@@ -14,7 +14,7 @@ import { Status } from "../../types/Status";
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
   const navigate = useNavigate();
-  const { t } = useTranslation("client");
+  const { t } = useTranslation(["client", "successToast"]);
 
   async function fetchClient() {
     await api.get("clients").then((res) => setClients(res.data));
@@ -26,7 +26,7 @@ export default function ClientComponent() {
         url: `clients/${id}`,
         method: "delete",
       });
-      toast.success("Client deleted successfully");
+      toast.success(t("successToast:clientDelete"));
       fetchClient();
     } catch (error) {
       showErrors(error);
@@ -110,7 +110,7 @@ export default function ClientComponent() {
                   </span>
                   <span className="text-lg font-semibold text-gray-900 mt-1">
                     {projects?.filter(
-                      (project) => project.status !== Status.COMPLETED
+                      (project) => project.status !== Status.COMPLETED,
                     ).length || 0}
                   </span>
                 </div>

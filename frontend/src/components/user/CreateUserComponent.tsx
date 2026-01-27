@@ -6,13 +6,14 @@ import { api } from "../../helper/api";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { showErrors } from "../../helper/showError";
 
 export default function CreateUserComponent() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  const { t } = useTranslation("user");
+  const { t } = useTranslation(["user", "successToast"]);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -45,8 +46,8 @@ export default function CreateUserComponent() {
         .then(() => {
           toast.success(
             isEditMode
-              ? "User edited successfully"
-              : "User created successfully"
+              ? t("successToast:editUser")
+              : t("successToast:createUser"),
           );
           setName("");
           setEmail("");
@@ -54,7 +55,7 @@ export default function CreateUserComponent() {
           setRole("");
         });
     } catch (error) {
-      toast.error("Error");
+      showErrors(error);
     }
   }
 

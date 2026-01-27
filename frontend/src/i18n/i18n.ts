@@ -22,6 +22,10 @@ import enDocuments from "./en/documents.json";
 import esDocuments from "./es/documents.json";
 import enLogin from "./en/login.json";
 import esLogin from "./es/login.json";
+import enErrors from "./en/errors.json";
+import esErrors from "./es/errors.json";
+import enSuccessToast from "./en/successToast.json";
+import esSuccessToast from "./es/successToast.json";
 
 const resources = {
   en: {
@@ -36,6 +40,8 @@ const resources = {
     task: enTask,
     documents: enDocuments,
     login: enLogin,
+    errors: enErrors,
+    succesToast: enSuccessToast,
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
@@ -49,6 +55,8 @@ const resources = {
     task: esTask,
     documents: esDocuments,
     login: esLogin,
+    errors: esErrors,
+    successToast: esSuccessToast,
   },
 };
 
@@ -66,6 +74,8 @@ i18n.use(initReactI18next).init({
     "task",
     "documents",
     "login",
+    "errors",
+    "successToast",
   ],
   defaultNS: "adminDashboard",
 

@@ -9,7 +9,7 @@ export default function LoginForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { t } = useTranslation("login");
+  const { t } = useTranslation(["login", "errors"]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +33,7 @@ export default function LoginForm() {
         navigate("/staff");
       }
     } catch (error) {
-      toast.error("Login failed");
+      toast.error(t("errors:login"));
       setUserName("");
       setPassword("");
     }

@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 export default function ProjectComponent() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
-  const { t } = useTranslation("project");
+  const { t } = useTranslation(["project", "successToast"]);
 
   const titles: string[] = [
     t("tableId"),
@@ -38,7 +38,7 @@ export default function ProjectComponent() {
         url: `projects/${id}`,
         method: "delete",
       });
-      toast.success("Project deleted successfully");
+      toast.success(t("successToast:deleteProject"));
       fetchProjects();
     } catch (error) {
       showErrors(error);

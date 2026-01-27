@@ -28,7 +28,7 @@ export default function AddNewProjectComponent() {
   const isEditMode = Boolean(id);
   const navigate = useNavigate();
   const isAdmin = checkAdmin();
-  const { t } = useTranslation(["project", "milestone"]);
+  const { t } = useTranslation(["project", "milestone", "successToast"]);
 
   const milestoneTitles = [
     "Id",
@@ -63,14 +63,14 @@ export default function AddNewProjectComponent() {
           description: milestoneDescription,
           projectId: Number(id),
         });
-        toast.success("Milestone Created successfully");
+        toast.success(t("successToast:createMilestone"));
       }
       if (isEditing) {
         await api.patch(`milestones/${editMilestoneId}`, {
           title: milestoneTitle,
           description: milestoneDescription,
         });
-        toast.success("Milestone edited successfully");
+        toast.success(t("successToast:editMilestone"));
         setIsEditMilestone(false);
         setEditMilestoneId(0);
       }
@@ -85,9 +85,9 @@ export default function AddNewProjectComponent() {
     try {
       await api.delete(`milestones/${milestoneId}`);
       fetchMilestones();
-      toast.success("Milestone deleted successfully");
+      toast.success(t("successToast:deleteMilestone"));
     } catch (error) {
-      toast.error("There was an error");
+      showErrors(error);
     }
   }
 
@@ -162,14 +162,14 @@ export default function AddNewProjectComponent() {
     try {
       if (isEditMode) {
         await api.patch(`projects/${id}`, payload);
-        toast.success("Project updated successfully");
+        toast.success(t("successToast:editProject"));
       } else {
         await api.post("projects", payload);
-        toast.success("Project created successfully");
+        toast.success(t("successToast:createProject"));
       }
       navigate(-1);
     } catch (error) {
-      toast.error("Error saving project");
+      showErrors(error);
     }
   }
 

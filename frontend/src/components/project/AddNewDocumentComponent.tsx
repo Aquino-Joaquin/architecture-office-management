@@ -13,7 +13,7 @@ export default function AddNewDocumentComponent() {
   const { id } = useParams();
   const [file, setFile] = useState<File | null>(null);
   const [documentName, setDocumentName] = useState("");
-  const { t } = useTranslation("documents");
+  const { t } = useTranslation(["documents", "successToast"]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default function AddNewDocumentComponent() {
       type: file.name.split(".").pop(),
       projectId: Number(id),
     });
-    toast.success("Upload successfully");
+    toast.success(t("successToast:createDocument"));
   }
   return (
     <div>

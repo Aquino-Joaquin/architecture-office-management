@@ -14,12 +14,13 @@ import Header from "../common/Header";
 import TableComponent from "../common/TableComponent";
 import UserRowComponent from "./UserRowComponent";
 import { useTranslation } from "react-i18next";
+import { showErrors } from "../../helper/showError";
 
 export default function UserComponent() {
   const [users, setUsers] = useState<User[]>([]);
   const [usersInformation, setUsersInfomation] = useState<CardInfomation[]>([]);
   const navigate = useNavigate();
-  const { t } = useTranslation("user");
+  const { t } = useTranslation(["user", "successToast"]);
   const titles: string[] = [
     "Id",
     t("tableUserName"),
@@ -35,7 +36,7 @@ export default function UserComponent() {
 
     const totalUsersCount = data.length;
     const totalAdminsCount = data.filter(
-      (user) => user.role === "Admin"
+      (user) => user.role === "Admin",
     ).length;
     const totalStaffCount = data.filter((user) => user.role === "Staff").length;
 
@@ -70,10 +71,10 @@ export default function UserComponent() {
         url: `users/${id}`,
         method: "delete",
       });
-      toast.success("Client deleted successfully");
+      toast.success(t("successToast:deleteUser"));
       fetchUser();
     } catch (error) {
-      toast.error("Error deleting user");
+      showErrors(error);
     }
   }
   function handleEdit(id: number) {

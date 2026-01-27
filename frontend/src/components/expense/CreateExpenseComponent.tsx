@@ -27,7 +27,7 @@ export default function CreateExpenseComponent() {
   const [expenseTypeId, setExpenseTypeId] = useState<string>();
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
 
-  const { t } = useTranslation("expense");
+  const { t } = useTranslation(["expense", "successToast"]);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -83,10 +83,10 @@ export default function CreateExpenseComponent() {
     try {
       if (isEditMode) {
         await api.patch(`expenses/${id}`, payload);
-        toast.success("Expense updated successfully");
+        toast.success(t("successToast:editExpense"));
       } else {
         await api.post("expenses", payload);
-        toast.success("Expense created successfully");
+        toast.success("succesToast:createExpense");
       }
 
       navigate(-1);

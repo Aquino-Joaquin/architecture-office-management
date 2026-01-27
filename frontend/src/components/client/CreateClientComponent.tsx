@@ -14,7 +14,7 @@ export default function CreateClientComponent() {
   const [phone, setPhone] = useState("");
   const [companyName, setCompanyName] = useState("");
   const navigate = useNavigate();
-  const { t } = useTranslation("client");
+  const { t } = useTranslation(["client", "successToast"]);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -45,8 +45,8 @@ export default function CreateClientComponent() {
       });
       toast.success(
         isEditMode
-          ? "Client edited successfully"
-          : "Client created successfully"
+          ? t("successToast:clientEdit")
+          : t("successToast:clientCreate"),
       );
       navigate(-1);
     } catch (error) {

@@ -32,7 +32,12 @@ export default function ProjectDetails() {
   const [docs, setDocs] = useState<Document[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
-  const { t } = useTranslation(["projectDetails", "expense", "documents"]);
+  const { t } = useTranslation([
+    "projectDetails",
+    "expense",
+    "documents",
+    "successToast",
+  ]);
 
   const titles: string[] = [
     "Id",
@@ -74,7 +79,7 @@ export default function ProjectDetails() {
         url: `expenses/${id}`,
         method: "delete",
       });
-      toast.success("Expense deleted successfully");
+      toast.success(t("successToast:deleteExpense"));
       fetchExpenses(id);
     } catch (error) {
       showErrors(error);
@@ -103,7 +108,7 @@ export default function ProjectDetails() {
   async function handleDeleteDocument(documentId: number) {
     try {
       await api.delete(`documents/${documentId}`);
-      toast.success("Deleted successfully");
+      toast.success(t("successToast:deleteDocument"));
       fetchDocuments(Number(id));
     } catch (error) {
       showErrors(error);
