@@ -6,18 +6,18 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'user.name.required' })
+  @IsString({ message: 'user.name.string' })
   name: string;
 
-  @IsNotEmpty()
-  @IsEmail()
+  @IsNotEmpty({ message: 'user.email.required' })
+  @IsEmail({}, { message: 'user.email.invalid' })
   email: string;
 
-  @IsStrongPassword()
+  @IsStrongPassword({}, { message: 'user.password.weak' })
   password: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'user.role.required' })
+  @IsString({ message: 'user.role.string' })
   role: string;
 }

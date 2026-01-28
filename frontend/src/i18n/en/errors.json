@@ -36,11 +36,24 @@
             "required": "Project is required",
             "number": "Project ID must be a number"
         }
+        
+    },
+    "user": {
+        "name": {
+            "required": "Name is required",
+            "string": "Name must be a string"
+        },
+        "email": {
+            "required": "Email is required",
+            "invalid": "Email is not valid"
+        },
+        "password": {
+            "weak": "Password must be at least 8 characters long and include uppercase, lowercase, numbers and symbols"
+        },
+        "role": {
+            "required": "Role is required",
+            "string": "Role must be a string"
+        }
     }
-    
-
-
-
-
 
 }

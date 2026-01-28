@@ -53,6 +53,24 @@
         "projectId": {
             "number": "Debe elegir un proyecto"
         }
+    },
+    "user": {
+        "name": {
+            "required": "El nombre es obligatorio",
+            "string": "El nombre debe ser un texto"
+        },
+        "email": {
+            "required": "El email es obligatorio",
+            "invalid": "El email no es válido"
+        },
+        "password": {
+            "weak": "La contraseña debe tener al menos 8 caracteres, mayúsculas, minúsculas, números y símbolos"
+        },
+        "role": {
+            "required": "El rol es obligatorio",
+            "string": "El rol debe ser un texto"
+        }
     }
+
 
 }
