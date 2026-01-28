@@ -20,5 +20,8 @@
     "holderSelectType": "Selecciona el tipo de gasto",
     "holderExpenseDescription": "Ingrese una descripcion para el gasto",
     "createButton": "Crear Gasto",
-    "editButton": "Editar Gasto"
+    "editButton": "Editar Gasto",
+    "deleteDescription": "¿Esta seguro que quieres eliminar este gasto?",
+    "yesOption": "Sí, estoy seguro",
+    "noOption": "No, cancelar"
 }

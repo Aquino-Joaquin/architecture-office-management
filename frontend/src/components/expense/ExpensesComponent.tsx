@@ -12,10 +12,15 @@ import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { useTranslation } from "react-i18next";
 import { showErrors } from "../../helper/showError";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const navigate = useNavigate();
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const { t } = useTranslation(["expense", "successToast"]);
 
   const titles: string[] = [
@@ -123,11 +128,25 @@ export default function ExpensesComponent() {
           <ExpenseRowComponent
             key={expense.id}
             expense={expense}
-            handleDelete={handleDelete}
+            handleDelete={() => {
+              setConfirmAction(() => () => handleDelete(expense.id));
+              setOpenDelete(true);
+            }}
             handleEdit={handleEdit}
             canDoActions={isAdmin}
           />
         )}
+      />
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("deleteDescription")}
+        yes={t("yesOption")}
+        no={t("noOption")}
       />
     </div>
   );
