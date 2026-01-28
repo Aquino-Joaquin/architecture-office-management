@@ -12,5 +12,8 @@
     "tableTaskAssingUsers": "Assigned Users",
     "tableTaskStatus": "Status",
     "tableTaskActions": "Actions",
-    "buttonCreate": "Create Task"
+    "buttonCreate": "Create Task",
+    "deleteDescription": "Are you sure you want to delete this task",
+    "yesOption": "Yes, I am sure",
+    "noOption": "No, cancel"
 }

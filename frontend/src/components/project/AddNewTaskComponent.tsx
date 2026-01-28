@@ -19,10 +19,15 @@ import TaskRowComponent from "./TaskRowComponent";
 import type { Task } from "../../types/Task";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function AddNewTaskComponent() {
   const { id } = useParams();
   const isAdmin = checkAdmin();
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const { t } = useTranslation(["task", "successToast"]);
 
   const taskTitles = isAdmin
@@ -211,7 +216,10 @@ export default function AddNewTaskComponent() {
               <TaskRowComponent
                 key={task.id}
                 task={task}
-                handleDelete={handleTaskDelete}
+                handleDelete={() => {
+                  setConfirmAction(() => () => handleTaskDelete(task.id));
+                  setOpenDelete(true);
+                }}
                 handleEdit={handleTaskEdit}
                 handleDoubleClick={handleStatusUpdate}
                 canDoActions={isAdmin}
@@ -231,6 +239,17 @@ export default function AddNewTaskComponent() {
           </div>
         )}
       </form>
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("deleteDescription")}
+        yes={t("yesOption")}
+        no={t("noOption")}
+      />
     </div>
   );
 }
