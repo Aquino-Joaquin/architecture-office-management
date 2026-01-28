@@ -13,6 +13,9 @@
     "totalRemaning": "Remaning",
     "teamMember": "Team Member",
     "milestones": "Milestones",
-    "projectExpense": "Project Expense"
+    "projectExpense": "Project Expense",
+    "deleteDescription": "Are you sure you want to delete this documento",
+    "yesOption": "Yes, I am sure",
+    "noOption": "No, cancel"
 
 }

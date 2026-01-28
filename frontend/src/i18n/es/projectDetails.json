@@ -13,6 +13,9 @@
     "totalRemaning": "Presupuesto Restante",
     "teamMember": "Miembros del Equipo",
     "milestones": "Pasos del Proyecto",
-    "projectExpense": "Gastos del Proyecto"
+    "projectExpense": "Gastos del Proyecto",
+    "deleteDescription": "¿Esta seguro que quieres eliminar este documento",
+    "yesOption": "Sí, estoy seguro",
+    "noOption": "No, cancelar"
 
 }

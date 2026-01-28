@@ -24,12 +24,21 @@ import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import type { Document } from "../../types/Document";
 import { formatDateDMY } from "../../helper/formatDateDMY";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [docs, setDocs] = useState<Document[]>([]);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
+  const [openDeleteExpense, setOpenDeleteExpense] = useState(false);
+  const [confirmActionExpense, setConfirmActionExpense] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const navigate = useNavigate();
   const { id } = useParams();
   const { t } = useTranslation([
@@ -353,7 +362,10 @@ export default function ProjectDetails() {
               <ExpenseRowComponent
                 key={expense.id}
                 expense={expense}
-                handleDelete={handleDelete}
+                handleDelete={() => {
+                  setConfirmActionExpense(() => () => handleDelete(expense.id));
+                  setOpenDeleteExpense(true);
+                }}
                 handleEdit={handleEdit}
                 canDoActions={isAdmin}
               />
@@ -418,7 +430,10 @@ export default function ProjectDetails() {
                 </button>
                 <button
                   className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                  onClick={() => handleDeleteDocument(doc.id)}
+                  onClick={() => {
+                    setConfirmAction(() => () => handleDeleteDocument(doc.id));
+                    setOpenDelete(true);
+                  }}
                 >
                   <HiOutlineTrash className="w-5 h-5" />
                 </button>
@@ -427,6 +442,28 @@ export default function ProjectDetails() {
           ))}
         </div>
       </Card>
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("deleteDescription")}
+        yes={t("yesOption")}
+        no={t("noOption")}
+      />
+      <ConfirmationDelete
+        open={openDeleteExpense}
+        onClose={() => setOpenDeleteExpense(false)}
+        onConfirm={async () => {
+          await confirmActionExpense?.();
+          setOpenDeleteExpense(false);
+        }}
+        description={t("expense:deleteDescription")}
+        yes={t("expense:yesOption")}
+        no={t("expense:noOption")}
+      />
     </div>
   );
 }
