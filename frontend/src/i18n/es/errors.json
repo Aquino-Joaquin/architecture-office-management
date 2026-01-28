@@ -70,7 +70,24 @@
             "required": "El rol es obligatorio",
             "string": "El rol debe ser un texto"
         }
-    }
+    },
+    "milestone": {
+        "title": {
+            "required": "El título es obligatorio",
+            "string": "El título debe ser un texto"
+        },
+        "description": {
+            "required": "La descripción es obligatoria",
+            "string": "La descripción debe ser un texto"
+        },
+        "completed": {
+            "boolean": "El estado de completado debe ser verdadero o falso"
+        },
+        "projectId": {
+            "required": "El proyecto es obligatorio",
+            "number": "El ID del proyecto debe ser un número"
+        }
+  }
 
 
 }

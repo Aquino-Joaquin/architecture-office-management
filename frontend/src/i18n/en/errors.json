@@ -54,6 +54,23 @@
             "required": "Role is required",
             "string": "Role must be a string"
         }
-    }
+    },
+    "milestone": {
+        "title": {
+            "required": "Title is required",
+            "string": "Title must be a string"
+        },
+        "description": {
+            "required": "Description is required",
+            "string": "Description must be a string"
+        },
+        "completed": {
+            "boolean": "Completed must be a boolean value"
+        },
+        "projectId": {
+            "required": "Project is required",
+            "number": "Project ID must be a number"
+        }
+  }
 
 }
