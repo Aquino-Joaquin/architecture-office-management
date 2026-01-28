@@ -15,10 +15,15 @@ import TableComponent from "../common/TableComponent";
 import UserRowComponent from "./UserRowComponent";
 import { useTranslation } from "react-i18next";
 import { showErrors } from "../../helper/showError";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function UserComponent() {
   const [users, setUsers] = useState<User[]>([]);
   const [usersInformation, setUsersInfomation] = useState<CardInfomation[]>([]);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const navigate = useNavigate();
   const { t } = useTranslation(["user", "successToast"]);
   const titles: string[] = [
@@ -34,28 +39,22 @@ export default function UserComponent() {
     const res = await api.get<User[]>("users");
     const data = res.data;
 
-    const totalUsersCount = data.length;
-    const totalAdminsCount = data.filter(
-      (user) => user.role === "Admin",
-    ).length;
-    const totalStaffCount = data.filter((user) => user.role === "Staff").length;
-
     setUsers(data);
 
     setUsersInfomation([
       {
         title: t("totalUser"),
-        value: totalUsersCount,
+        value: data.length,
         Icon: HiOutlineUsers,
       },
       {
         title: t("admins"),
-        value: totalAdminsCount,
+        value: data.filter((u) => u.role === "Admin").length,
         Icon: HiOutlineShieldCheck,
       },
       {
         title: t("staff"),
-        value: totalStaffCount,
+        value: data.filter((u) => u.role === "Staff").length,
         Icon: HiOutlineBriefcase,
       },
     ]);
@@ -98,12 +97,12 @@ export default function UserComponent() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-black ">{title}</p>
+                <p className="text-sm font-medium text-black">{title}</p>
                 <h3 className="text-2xl font-bold text-gray-900 mt-1">
                   {value}
                 </h3>
               </div>
-              <div className="p-3 rounded-lg bg-blue-50 text-blue-600 ">
+              <div className="p-3 rounded-lg bg-blue-50 text-blue-600">
                 {Icon && <Icon className="w-6 h-6" />}
               </div>
             </div>
@@ -118,10 +117,25 @@ export default function UserComponent() {
           <UserRowComponent
             key={user.id}
             user={user}
-            handleDelete={handleDelete}
             handleEdit={handleEdit}
+            handleDelete={() => {
+              setConfirmAction(() => () => handleDelete(user.id));
+              setOpenDelete(true);
+            }}
           />
         )}
+      />
+
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("deleteDescription")}
+        yes={t("yesOption")}
+        no={t("noOption")}
       />
     </div>
   );
