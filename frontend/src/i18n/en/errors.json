@@ -100,6 +100,29 @@
       "array": "Users must be provided as a list",
       "number": "Each user ID must be a number"
     }
-  }
+  },
+  "task": {
+        "title": {
+            "required": "Title is required",
+            "string": "Title must be a string"
+        },
+        "description": {
+            "required": "Description is required",
+            "string": "Description must be a string"
+        },
+        "completed": {
+            "boolean": "Completed must be a boolean value"
+        },
+        "projectId": {
+            "number": "Project ID must be a number"
+        },
+        "milestoneId": {
+            "number": "Milestone ID must be a number"
+        },
+        "userIds": {
+            "array": "Users must be an array",
+            "number": "Each user must be a number"
+        }
+    }
 
 }

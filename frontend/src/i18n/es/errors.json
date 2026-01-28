@@ -116,5 +116,28 @@
             "array": "Los usuarios deben enviarse como una lista",
             "number": "Cada ID de usuario debe ser un número"
         }
+    },
+    "task": {
+        "title": {
+            "required": "El título es obligatorio",
+            "string": "El título debe ser un texto"
+        },
+        "description": {
+            "required": "La descripción es obligatoria",
+            "string": "La descripción debe ser un texto"
+        },
+        "completed": {
+            "boolean": "El estado completado debe ser verdadero o falso"
+        },
+        "projectId": {
+            "number": "El ID del proyecto debe ser un número"
+        },
+        "milestoneId": {
+            "number": "El ID del hito debe ser un número"
+        },
+        "userIds": {
+            "array": "Los usuarios deben enviarse como una lista",
+            "number": "Cada usuario debe ser un número"
+        }
   }
 }

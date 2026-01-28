@@ -6,31 +6,30 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { IsNull } from 'typeorm';
 
 export class CreateTaskDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'task.title.required' })
+  @IsString({ message: 'task.title.string' })
   title: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'task.description.required' })
+  @IsString({ message: 'task.description.string' })
   description: string;
 
   @IsOptional()
-  @IsBoolean()
+  @IsBoolean({ message: 'task.completed.boolean' })
   completed?: boolean;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumber({}, { message: 'task.projectId.number' })
   projectId?: number;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumber({}, { message: 'task.milestoneId.number' })
   milestoneId?: number;
 
   @IsOptional()
-  @IsArray()
-  @IsNumber({}, { each: true })
+  @IsArray({ message: 'task.userIds.array' })
+  @IsNumber({}, { each: true, message: 'task.userIds.number' })
   userIds?: number[];
 }
