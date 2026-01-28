@@ -36,6 +36,23 @@
             "required": "El proyecto es obligatorio",
             "number": "El ID del proyecto debe ser un número"
         }
+    },
+    "expense": {
+        "amount": {
+            "required": "El monto es obligatorio",
+            "number": "El monto debe ser un número"
+        },
+        "description": {
+            "required": "La descripción es obligatoria",
+            "string": "La descripción debe ser un texto"
+        },
+        "expenseTypeId": {
+            "required": "El tipo de gasto es obligatorio",
+            "number": "Debe elegir un tipo de gasto"
+        },
+        "projectId": {
+            "number": "Debe elegir un proyecto"
+        }
     }
 
 }

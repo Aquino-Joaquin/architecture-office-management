@@ -27,7 +27,7 @@ export default function CreateExpenseComponent() {
   const [expenseTypeId, setExpenseTypeId] = useState<string>();
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
 
-  const { t } = useTranslation(["expense", "successToast"]);
+  const { t } = useTranslation(["expense", "successToast", "errors"]);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -70,7 +70,7 @@ export default function CreateExpenseComponent() {
     e.preventDefault();
 
     if (!isEditMode && !projectId) {
-      toast.warning("Please select a project");
+      toast.warning(t("errors:expense.projectId.number"));
       return;
     }
 
