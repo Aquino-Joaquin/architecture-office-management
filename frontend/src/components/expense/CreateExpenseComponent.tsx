@@ -22,9 +22,9 @@ export default function CreateExpenseComponent() {
   const navigate = useNavigate();
   const [amount, setAmount] = useState<number | string>("");
   const [description, setDescription] = useState("");
-  const [projectId, setProjectId] = useState<string>();
+  const [projectId, setProjectId] = useState<string>("");
   const [projects, setProjects] = useState<Project[]>([]);
-  const [expenseTypeId, setExpenseTypeId] = useState<string>();
+  const [expenseTypeId, setExpenseTypeId] = useState<string>("");
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
 
   const { t } = useTranslation(["expense", "successToast", "errors"]);
