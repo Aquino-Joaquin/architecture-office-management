@@ -10,9 +10,14 @@ import Header from "../common/Header";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import { Status } from "../../types/Status";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const navigate = useNavigate();
   const { t } = useTranslation(["client", "successToast"]);
 
@@ -80,7 +85,10 @@ export default function ClientComponent() {
                     <HiPencil className="h-5 w-5" />
                   </button>
                   <button
-                    onClick={() => handleDelete(id)}
+                    onClick={() => {
+                      setConfirmAction(() => () => handleDelete(id));
+                      setOpenDelete(true);
+                    }}
                     className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     title="Delete Client"
                   >
@@ -119,6 +127,17 @@ export default function ClientComponent() {
           </Card>
         ))}
       </div>
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("deleteDescription")}
+        yes={t("yesOption")}
+        no={t("noOption")}
+      />
     </div>
   );
 }

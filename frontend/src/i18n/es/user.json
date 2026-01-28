@@ -20,7 +20,7 @@
     "holderSelectRole": "Selecciona un Rol",
     "createButton": "Crear Usuario",
     "editButton": "Editar Usuario",
-    "deleteDescription": "Estas seguro que quieres eliminar este usuario",
+    "deleteDescription": "¿Esta seguro que quieres eliminar este usuario",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar"
 

@@ -12,5 +12,8 @@
     "holderClientEmail": "Ingresa el correo del cliente",
     "holderClientPhone": "Ingresa el numero de telefono del cliente",
     "createButton": "Crear Cliente",
-    "editButton": "Editar Cliente"
+    "editButton": "Editar Cliente",
+    "deleteDescription": "¿Esta seguro que quieres eliminar este cliente?",
+    "yesOption": "Sí, estoy seguro",
+    "noOption": "No, cancelar"
 }
