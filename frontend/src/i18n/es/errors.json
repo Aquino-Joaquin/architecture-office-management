@@ -1,3 +1,18 @@
 {
-    "login":"Error al iniciar sesión"
+    "login":"Error al iniciar sesión",
+    "client": {
+        "name": {
+            "required": "El nombre es obligatorio",
+            "string": "El nombre debe ser un texto"
+        },
+        "email": {
+            "invalid": "El email no es válido"
+        },
+        "phone": {
+            "invalid": "El número de teléfono no es válido"
+        },
+        "companyName": {
+            "string": "El nombre de la empresa debe ser un texto"
+        }
+    }
 }

@@ -7,18 +7,18 @@ import {
 } from 'class-validator';
 
 export class CreateClientDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'client.name.required' })
+  @IsString({ message: 'client.name.string' })
   name: string;
 
   @IsOptional()
-  @IsEmail()
+  @IsEmail({}, { message: 'client.email.invalid' })
   email?: string;
 
-  @IsPhoneNumber()
+  @IsPhoneNumber('PY', { message: 'client.phone.invalid' })
   phone: string;
 
   @IsOptional()
-  @IsString()
+  @IsString({ message: 'client.companyName.string' })
   companyName?: string;
 }

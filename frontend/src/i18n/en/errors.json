@@ -1,5 +1,20 @@
 {
-    "login":"Login Failed"
+    "login":"Login Failed",
+    "client": {
+        "name": {
+            "required": "You must enter a name",
+            "string": "The name shoud be a string"
+        },
+        "email": {
+            "invalid": "The email is not valid"
+        },
+        "phone": {
+            "invalid": "The number must be valid"
+        },
+        "companyName": {
+            "string": "The company name shoud be a text"
+        }
+    }
 
 
 
