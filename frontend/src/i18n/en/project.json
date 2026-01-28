@@ -21,5 +21,8 @@
     "holderAmountPaid": "Amount Paid",
     "titleAssingTeam": "Assign Team Member",
     "buttonCreate": "Create Project",
-    "buttonEdit": "Edit Project"
+    "buttonEdit": "Edit Project",
+    "deleteDescription": "Are you sure you want to delete this project",
+    "yesOption": "Yes, I am sure",
+    "noOption": "No, cancel"
 }

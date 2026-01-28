@@ -6,5 +6,8 @@
     "tableMilestoneTitle": "Titulo",
     "tableMilestoneDescription": "Descripcion",
     "tableMilestoneStatus": "Estado",
-    "tableMilestoneActions": "Acciones"
+    "tableMilestoneActions": "Acciones",
+    "deleteDescription": "¿Esta seguro que quieres eliminar este hito",
+    "yesOption": "Sí, estoy seguro",
+    "noOption": "No, cancelar"
 }

@@ -22,10 +22,15 @@ import TableComponent from "../common/TableComponent";
 import MilestoneRowComponent from "./MilestoneRowComponent";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
   const isEditMode = Boolean(id);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const navigate = useNavigate();
   const isAdmin = checkAdmin();
   const { t } = useTranslation(["project", "milestone", "successToast"]);
@@ -348,7 +353,12 @@ export default function AddNewProjectComponent() {
                   <MilestoneRowComponent
                     key={milestone.id}
                     milestone={milestone}
-                    handleDelete={handleMilestoneDelete}
+                    handleDelete={() => {
+                      setConfirmAction(
+                        () => () => handleMilestoneDelete(milestone.id),
+                      );
+                      setOpenDelete(true);
+                    }}
                     handleEdit={handleMilestoneEdit}
                     canDoActions={isAdmin}
                   />
@@ -372,6 +382,17 @@ export default function AddNewProjectComponent() {
           </Button>
         </div>
       </form>
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("milestone:deleteDescription")}
+        yes={t("milestone:yesOption")}
+        no={t("milestone:noOption")}
+      />
     </div>
   );
 }
