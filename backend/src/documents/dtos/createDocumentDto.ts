@@ -1,23 +1,23 @@
 import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
 
 export class CreateDocumentDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'document.title.required' })
+  @IsString({ message: 'document.title.string' })
   title: string;
 
-  @IsNotEmpty()
-  @IsUrl()
+  @IsNotEmpty({ message: 'document.url.required' })
+  @IsUrl({}, { message: 'document.url.invalid' })
   url: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'document.path.required' })
+  @IsString({ message: 'document.path.string' })
   path: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'document.type.required' })
+  @IsString({ message: 'document.type.string' })
   type: string;
 
-  @IsNotEmpty()
-  @IsNumber()
+  @IsNotEmpty({ message: 'document.projectId.required' })
+  @IsNumber({}, { message: 'document.projectId.number' })
   projectId: number;
 }

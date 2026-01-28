@@ -14,5 +14,28 @@
         "companyName": {
             "string": "El nombre de la empresa debe ser un texto"
         }
+    },
+    "document": {
+        "title": {
+            "required": "El título es obligatorio",
+            "string": "El título debe ser un texto"
+        },
+        "url": {
+            "required": "La URL es obligatoria",
+            "invalid": "La URL no es válida"
+        },
+        "path": {
+            "required": "El path es obligatorio",
+            "string": "El path debe ser un texto"
+        },
+        "type": {
+            "required": "El tipo es obligatorio",
+            "string": "El tipo debe ser un texto"
+        },
+        "projectId": {
+            "required": "El proyecto es obligatorio",
+            "number": "El ID del proyecto debe ser un número"
+        }
     }
+
 }

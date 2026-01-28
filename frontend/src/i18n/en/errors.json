@@ -14,7 +14,32 @@
         "companyName": {
             "string": "The company name shoud be a text"
         }
+    },
+    "document": {
+        "title": {
+            "required": "Title is required",
+            "string": "Title must be a string"
+        },
+        "url": {
+            "required": "URL is required",
+            "invalid": "URL is not valid"
+        },
+        "path": {
+            "required": "Path is required",
+            "string": "Path must be a string"
+        },
+        "type": {
+            "required": "Type is required",
+            "string": "Type must be a string"
+        },
+        "projectId": {
+            "required": "Project is required",
+            "number": "Project ID must be a number"
+        }
     }
+    
+
+
 
 
 
