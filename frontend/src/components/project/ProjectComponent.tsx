@@ -9,10 +9,15 @@ import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
+import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function ProjectComponent() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<
+    (() => Promise<void>) | null
+  >(null);
   const { t } = useTranslation(["project", "successToast"]);
 
   const titles: string[] = [
@@ -64,13 +69,27 @@ export default function ProjectComponent() {
             <ProjectRowComponent
               key={project.id}
               project={project}
-              handleDelete={handleDelete}
+              handleDelete={() => {
+                setConfirmAction(() => () => handleDelete(project.id));
+                setOpenDelete(true);
+              }}
               handleEdit={handleEdit}
               actionDelete={isAdmin}
             />
           )}
         />
       </div>
+      <ConfirmationDelete
+        open={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={async () => {
+          await confirmAction?.();
+          setOpenDelete(false);
+        }}
+        description={t("deleteDescription")}
+        yes={t("yesOption")}
+        no={t("noOption")}
+      />
     </div>
   );
 }

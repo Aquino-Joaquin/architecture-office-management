@@ -21,6 +21,9 @@
     "holderAmountPaid": "Monto pagado",
     "titleAssingTeam": "Asignar miembros al proyecto",
     "buttonCreate": "Crear Proyecto",
-    "buttonEdit": "Editar Proyecto"
+    "buttonEdit": "Editar Proyecto",
+    "deleteDescription": "¿Esta seguro que quieres eliminar este proyecto",
+    "yesOption": "Sí, estoy seguro",
+    "noOption": "No, cancelar"
     
 }
