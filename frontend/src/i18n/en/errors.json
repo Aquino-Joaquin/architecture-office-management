@@ -71,6 +71,35 @@
             "required": "Project is required",
             "number": "Project ID must be a number"
         }
+    },
+    "project": {
+    "name": {
+      "required": "Project name is required",
+      "string": "Project name must be a string"
+    },
+    "description": {
+      "required": "Project description is required",
+      "string": "Project description must be a string"
+    },
+    "status": {
+      "required": "Project status is required",
+      "invalid": "Project status is not valid"
+    },
+    "totalPrice": {
+      "required": "Total price is required",
+      "number": "Total price must be a number"
+    },
+    "amountPaid": {
+      "number": "Amount paid must be a number"
+    },
+    "clientId": {
+      "required": "Client is required",
+      "number": "Client ID must be a number"
+    },
+    "userIds": {
+      "array": "Users must be provided as a list",
+      "number": "Each user ID must be a number"
+    }
   }
 
 }

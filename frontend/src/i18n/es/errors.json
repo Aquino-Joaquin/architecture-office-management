@@ -87,7 +87,34 @@
             "required": "El proyecto es obligatorio",
             "number": "El ID del proyecto debe ser un número"
         }
+     },
+    "project": {
+        "name": {
+            "required": "El nombre del proyecto es obligatorio",
+            "string": "El nombre del proyecto debe ser un texto"
+        },
+        "description": {
+            "required": "La descripción del proyecto es obligatoria",
+            "string": "La descripción del proyecto debe ser un texto"
+        },
+        "status": {
+            "required": "El estado del proyecto es obligatorio",
+            "invalid": "El estado del proyecto no es válido"
+        },
+        "totalPrice": {
+            "required": "El precio total es obligatorio",
+            "number": "El precio total debe ser un número"
+        },
+        "amountPaid": {
+            "number": "El monto pagado debe ser un número"
+        },
+        "clientId": {
+            "required": "El cliente es obligatorio",
+            "number": "El ID del cliente debe ser un número"
+        },
+        "userIds": {
+            "array": "Los usuarios deben enviarse como una lista",
+            "number": "Cada ID de usuario debe ser un número"
+        }
   }
-
-
 }

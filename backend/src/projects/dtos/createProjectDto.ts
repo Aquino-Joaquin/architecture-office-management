@@ -9,33 +9,32 @@ import {
 import { Status } from 'src/common/status';
 
 export class CreateProjectDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'project.name.required' })
+  @IsString({ message: 'project.name.string' })
   name: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'project.description.required' })
+  @IsString({ message: 'project.description.string' })
   description: string;
 
-  @IsNotEmpty()
-  @IsEnum(Status)
+  @IsNotEmpty({ message: 'project.status.required' })
+  @IsEnum(Status, { message: 'project.status.invalid' })
   status: Status;
 
-  @IsNotEmpty()
-  @IsNumber()
+  @IsNotEmpty({ message: 'project.totalPrice.required' })
+  @IsNumber({}, { message: 'project.totalPrice.number' })
   totalPrice: number;
 
   @IsOptional()
-  @IsNotEmpty()
-  @IsNumber()
-  amountPaid: number;
+  @IsNumber({}, { message: 'project.amountPaid.number' })
+  amountPaid?: number;
 
-  @IsNotEmpty()
-  @IsNumber()
+  @IsNotEmpty({ message: 'project.clientId.required' })
+  @IsNumber({}, { message: 'project.clientId.number' })
   clientId: number;
 
   @IsOptional()
-  @IsArray()
-  @IsNumber({}, { each: true })
-  userIds: number[];
+  @IsArray({ message: 'project.userIds.array' })
+  @IsNumber({}, { each: true, message: 'project.userIds.number' })
+  userIds?: number[];
 }
