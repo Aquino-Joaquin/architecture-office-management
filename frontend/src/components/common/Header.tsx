@@ -18,12 +18,14 @@ export default function Header({
   const navigate = useNavigate();
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-5 flex items-center justify-between">
         <div className="mb-6 flex flex-col gap-1">
-          <h1 className="text-3xl font-bold tracking-tight text-black ">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             {title}
           </h1>
-          <p className="text-base font-normal text-gray-500 ">{subTitle}</p>
+          <p className="mt-2 text-base font-normal text-gray-500 ">
+            {subTitle}
+          </p>
         </div>
         {showButton && buttonTitle && buttonPath && (
           <Button color="blue" onClick={() => navigate(buttonPath)}>
