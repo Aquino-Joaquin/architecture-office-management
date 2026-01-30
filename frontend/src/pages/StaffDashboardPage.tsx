@@ -28,26 +28,26 @@ export default function StaffDashboardPage() {
 
   const activeProjects = projects.length;
   const inProgressNumber = projects.filter(
-    (project) => project.status === "In Progress"
+    (project) => project.status === "In Progress",
   ).length;
   const completedNumber = projects.filter(
-    (project) => project.status === "Completed"
+    (project) => project.status === "Completed",
   ).length;
 
   const cardInformations: CardInfomation[] = [
     {
       title: "My Projects",
-      value: activeProjects,
+      value: activeProjects.toString(),
       Icon: VscFileSubmodule,
     },
     {
       title: "In Progress",
-      value: inProgressNumber,
+      value: inProgressNumber.toString(),
       Icon: FiUsers,
     },
     {
       title: "Completed",
-      value: completedNumber,
+      value: completedNumber.toString(),
       Icon: GiMoneyStack,
     },
   ];

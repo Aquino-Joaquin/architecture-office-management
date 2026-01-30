@@ -43,7 +43,7 @@ export default function ClientComponent() {
   }, []);
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
       <Header
         title={t("title")}
         subTitle={t("subTitle")}
