@@ -1,13 +1,13 @@
 {
-    "title": "Ingresa la informacion del paso del proyecto",
-    "buttonTitle": "Crear Paso",
-    "holderMilestoneTitle": "Ingresa el titulo del paso",
-    "holderMilestoneDescription": "Ingresa la descripcion del paso",
-    "tableMilestoneTitle": "Titulo",
-    "tableMilestoneDescription": "Descripcion",
+    "title": "Ingresa la informacion del hito",
+    "buttonTitle": "Crear hito",
+    "holderMilestoneTitle": "Ingresa el titulo del hito",
+    "holderMilestoneDescription": "Ingresa la descripcion del hito",
+    "tableMilestoneTitle": "Título",
+    "tableMilestoneDescription": "Descripción",
     "tableMilestoneStatus": "Estado",
     "tableMilestoneActions": "Acciones",
-    "deleteDescription": "¿Esta seguro que quieres eliminar este hito",
+    "deleteDescription": "¿Esta seguro que quiere eliminar este hito",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar"
 }
