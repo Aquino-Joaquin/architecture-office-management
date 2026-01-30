@@ -28,7 +28,7 @@ export default function TableComponent<T>({
           </TableRow>
         </TableHead>
 
-        <TableBody className="divide-y">
+        <TableBody className="divide-y divide-gray-300">
           {rows.map((item) => renderRow(item))}
         </TableBody>
       </Table>
