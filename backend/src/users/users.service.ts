@@ -12,6 +12,7 @@ export class UsersService {
 
   async getAllUsers() {
     return await this.userRepository.find({
+      order: { id: 'ASC' },
       relations: {
         projects: true,
       },

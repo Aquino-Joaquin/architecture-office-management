@@ -25,6 +25,7 @@ export class TasksService {
   ) {}
   async getAllTaskFromUser(user: JwtUser) {
     const tasks = await this.taskRepository.find({
+      order: { id: 'ASC' },
       where: { users: { id: user.id } },
       relations: { milestone: true },
     });
@@ -33,6 +34,7 @@ export class TasksService {
   }
   async getAllTaskFromMilestone(milestoneId: number) {
     const tasks = await this.taskRepository.find({
+      order: { id: 'ASC' },
       where: { milestone: { id: milestoneId } },
       relations: { users: true },
     });
@@ -41,6 +43,7 @@ export class TasksService {
   }
   async getAllTaskFromProject(projectId: number) {
     const project = await this.projectRepository.findOne({
+      order: { id: 'ASC' },
       where: { id: projectId },
       relations: { tasks: true },
     });

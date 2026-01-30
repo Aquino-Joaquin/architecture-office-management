@@ -25,6 +25,7 @@ export class ProjectsService {
   async getAllProjects(user: JwtUser) {
     if (user.role === 'Admin') {
       return await this.projectRepository.find({
+        order: { id: 'ASC' },
         relations: {
           client: true,
           users: true,
@@ -32,6 +33,7 @@ export class ProjectsService {
       });
     } else {
       return await this.projectRepository.find({
+        order: { id: 'ASC' },
         where: { users: { id: user.id } },
         relations: {
           client: true,

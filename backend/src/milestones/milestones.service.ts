@@ -16,6 +16,7 @@ export class MilestonesService {
 
   async getAllMilestonesFromProject(projecId: number) {
     const milestone = await this.milestoneRepository.find({
+      order: { id: 'ASC' },
       where: { project: { id: projecId } },
       relations: { tasks: true },
     });
