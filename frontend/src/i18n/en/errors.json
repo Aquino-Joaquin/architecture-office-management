@@ -1,5 +1,6 @@
 {
     "login":"Login Failed",
+    "somethingWrong": "Something went wrong",
     "client": {
         "name": {
             "required": "You must enter a name",

@@ -1,5 +1,6 @@
 {
     "login":"Error al iniciar sesión",
+    "somethingWrong": "Algo no funcionó",
     "client": {
         "name": {
             "required": "El nombre es obligatorio",

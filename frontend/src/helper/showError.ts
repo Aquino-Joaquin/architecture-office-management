@@ -17,6 +17,6 @@ export function showErrors(error: any) {
   } else if (typeof msg === "string") {
     toast.error(i18n.t(msg));
   } else {
-    toast.error(i18n.t("common.error"));
+    toast.error(i18n.t("errors:somethingWrong"));
   }
 }
