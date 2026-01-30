@@ -53,7 +53,7 @@ export default function ProjectComponent() {
     navigate(`editproject/${id}`);
   }
   return (
-    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen ">
+    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header
         title={t("title")}
         subTitle={t("subTitle")}
@@ -61,7 +61,7 @@ export default function ProjectComponent() {
         buttonPath="newproject"
         showButton={isAdmin}
       />
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto bg-white">
         <TableComponent<Project>
           titles={titles}
           rows={projects}

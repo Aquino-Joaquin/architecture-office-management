@@ -137,7 +137,7 @@ export default function AddNewTaskComponent() {
   }, [id]);
 
   return (
-    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header
         title={isAdmin ? t("title") : t("titleStaff")}
         subTitle={isAdmin ? t("subtitle") : t("subtitleStaff")}
@@ -145,7 +145,7 @@ export default function AddNewTaskComponent() {
 
       <form
         onSubmit={() => handleMilestoneAdd(isEditTask)}
-        className="w-full mx-auto space-y-6 p-4"
+        className="w-full flex flex-col gap-6"
       >
         {isAdmin && (
           <Card className="bg-white! border-none">

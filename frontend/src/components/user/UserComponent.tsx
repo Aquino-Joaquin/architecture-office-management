@@ -81,7 +81,7 @@ export default function UserComponent() {
   }
 
   return (
-    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen ">
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header
         title={t("title")}
         subTitle={t("subTitle")}
@@ -89,7 +89,7 @@ export default function UserComponent() {
         buttonPath="newuser"
         showButton={true}
       />
-      <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {usersInformation.map(({ title, value, Icon }, index) => (
           <Card
             key={index}

@@ -179,17 +179,17 @@ export default function AddNewProjectComponent() {
   }
 
   return (
-    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header
         title={isEditMode ? t("editProject") : t("createProject")}
         subTitle={t("createEditSubTitle")}
       />
 
-      <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">
         <Card className="bg-white! border-none">
-          <h3 className="text-lg font-semibold mb-2">{t("basicInfomation")}</h3>
+          <h3 className="text-lg font-semibold ">{t("basicInfomation")}</h3>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="md:col-span-2">
               <Label>Project Name</Label>
               <TextInput

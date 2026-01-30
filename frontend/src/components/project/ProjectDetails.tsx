@@ -161,14 +161,14 @@ export default function ProjectDetails() {
     budget > 0 ? Math.min((totalExpense / budget) * 100, 100) : 0;
 
   return (
-    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen ">
+    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header title={t("title")} subTitle={t("subtitle")} />
 
-      <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-6  md:grid-cols-2 xl:grid-cols-3">
         {projecInformation.map(({ title, value, Icon }, index) => (
           <Card
             key={index}
-            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none"
+            className="w-full shadow-sm shadow-gray-400! hover:shadow-md transition-shadow bg-white! border-none"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -184,198 +184,179 @@ export default function ProjectDetails() {
           </Card>
         ))}
       </div>
-      <div className="p-4 w-full bg-gray-50 ">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <div className="lg:col-span-3">
-            <Card className="bg-white! border-none shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                {t("projectInformation")}
-              </h3>
 
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-sm font-medium text-gray-500 mb-1">
-                    {t("description")}
-                  </h4>
-                  <p className="text-gray-600 leading-relaxed">
-                    {project?.description}
-                  </p>
-                </div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <Card className="bg-white! border-none shadow-sm shadow-gray-400!">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              {t("projectInformation")}
+            </h3>
+
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-sm font-medium text-gray-500 mb-1">
+                  {t("description")}
+                </h4>
+                <p className="text-gray-600 leading-relaxed">
+                  {project?.description}
+                </p>
               </div>
-            </Card>
-          </div>
+            </div>
+          </Card>
+          <Card className="bg-white! border-none shadow-sm shadow-gray-400 mt-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">
+              {t("budgetOverview")}
+            </h3>
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium text-gray-700">
+                {t("budgetUsage")}
+              </span>
+              <span className="text-sm font-bold text-gray-900">
+                {`${percentage}%`}
+              </span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div
+                className="bg-green-500 h-2.5 rounded-full"
+                style={{ width: `${percentage}%` }}
+              ></div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <div>
+                <p className="text-sm text-gray-500 mb-1">{t("totalBudget")}</p>
+                <p className="text-lg font-bold text-gray-900">{budget}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 mb-1">{t("totalSpent")}</p>
+                <p className="text-lg font-bold text-gray-900">
+                  {totalExpense}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 mb-1">
+                  {t("totalRemaning")}
+                </p>
+                <p className="text-lg font-bold text-gray-900">{remaining}</p>
+              </div>
+            </div>
+          </Card>
+        </div>
 
-          <div className="lg:col-span-2">
-            <Card className="bg-white! border-none shadow-sm h-full">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                {t("budgetOverview")}
+        <div className="lg:col-span-1">
+          <Card className="bg-white! border-none shadow-sm shadow-gray-400 h-full">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-xl font-bold text-gray-900">
+                {t("teamMember")}
               </h3>
+            </div>
 
-              <div className="mb-6">
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700">
-                    {t("budgetUsage")}
-                  </span>
-                  <span className="text-sm font-bold text-gray-900">
-                    {`${percentage}%`}
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div className="grow flex flex-col gap-4 mt-2">
+              {project?.users &&
+                project?.users.map((member, index) => (
                   <div
-                    className="bg-green-500 h-2.5 rounded-full"
-                    style={{ width: `${percentage}%` }}
-                  ></div>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">
-                    {t("totalBudget")}
-                  </p>
-                  <p className="text-lg font-bold text-gray-900">{budget}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">
-                    {t("totalSpent")}
-                  </p>
-                  <p className="text-lg font-bold text-gray-900">
-                    {totalExpense}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">
-                    {t("totalRemaning")}
-                  </p>
-                  <p className="text-lg font-bold text-gray-900">{remaining}</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          <div className="lg:col-span-1">
-            <Card className="bg-white! border-none shadow-sm h-full">
-              <div className="flex items-center gap-2 mb-2">
-                <h3 className="text-xl font-bold text-gray-900">
-                  {t("teamMember")}
-                </h3>
-              </div>
-
-              <div className="flex flex-col gap-4 mt-2">
-                {project?.users &&
-                  project?.users.map((member, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-4 p-3 rounded-lg bg-gray-50 border border-gray-100"
-                    >
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
-                        {member.name.charAt(0)}
-                      </div>
-
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          {member.name}
-                        </p>
-                        <p className="text-xs text-gray-500">{member.role}</p>
-                      </div>
+                    key={index}
+                    className=" flex items-center gap-4 p-3 rounded-lg bg-gray-50 border border-gray-100"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
+                      {member.name.charAt(0)}
                     </div>
-                  ))}
-              </div>
-            </Card>
-          </div>
-        </div>
-      </div>
-      <div className="p-4 w-full bg-gray-50 ">
-        <Card className="bg-white! border-none shadow-sm h-full">
-          <div className="flex items-center gap-2 mb-4">
-            <LuTarget className="text-gray-600" />
-            <h2 className="text-lg font-semibold">{t("milestones")}</h2>
-          </div>
-          <div>
-            {milestones &&
-              milestones.map((milestone) => (
-                <Card
-                  key={milestone.id}
-                  onClick={() => handleMilestone(milestone.id)}
-                  className="bg-white! border-none shadow-md mb-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-medium">{milestone.title}</h3>
-                    <Badge color="info">in-progress</Badge>
-                  </div>
 
-                  <p className="text-sm text-gray-500">
-                    {milestone.description}
-                  </p>
-
-                  <div className="mt-4">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Progress</span>
-                      <span>
-                        {milestone.tasks.length > 0
-                          ? Math.round(
-                              Math.min(
-                                (milestone.tasks.filter(
-                                  (task) => task.completed === true,
-                                ).length /
-                                  milestone.tasks.length) *
-                                  100,
-                                100,
-                              ),
-                            )
-                          : 0}
-                        %
-                      </span>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">
+                        {member.name}
+                      </p>
+                      <p className="text-xs text-gray-500">{member.role}</p>
                     </div>
-                    <Progress
-                      color="green"
-                      progress={
-                        milestone.tasks.length > 0
-                          ? Math.round(
-                              Math.min(
-                                (milestone.tasks.filter(
-                                  (task) => task.completed === true,
-                                ).length /
-                                  milestone.tasks.length) *
-                                  100,
-                                100,
-                              ),
-                            )
-                          : 0
-                      }
-                    />
                   </div>
-                </Card>
-              ))}
-          </div>
-        </Card>
-      </div>
-      <div className="mt-8 flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold tracking-tight text-gray-900 pl-3">
-            {t("projectExpense")}
-          </h2>
+                ))}
+            </div>
+          </Card>
         </div>
+      </div>
+      <Card className="bg-white! border-none shadow-sm shadow-gray-400 h-full">
+        <div className="flex items-center gap-2 mb-4">
+          <LuTarget className="text-gray-600" />
+          <h2 className="text-lg font-semibold">{t("milestones")}</h2>
+        </div>
+        <div>
+          {milestones &&
+            milestones.map((milestone) => (
+              <Card
+                key={milestone.id}
+                onClick={() => handleMilestone(milestone.id)}
+                className="bg-white! border-none shadow-md mb-4"
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="font-medium">{milestone.title}</h3>
+                  <Badge color="info">in-progress</Badge>
+                </div>
 
-        <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <TableComponent<Expense>
-            titles={finalTitles}
-            rows={expenses}
-            renderRow={(expense) => (
-              <ExpenseRowComponent
-                key={expense.id}
-                expense={expense}
-                handleDelete={() => {
-                  setConfirmActionExpense(() => () => handleDelete(expense.id));
-                  setOpenDeleteExpense(true);
-                }}
-                handleEdit={handleEdit}
-                canDoActions={isAdmin}
-              />
-            )}
-          />
+                <p className="text-sm text-gray-500">{milestone.description}</p>
+
+                <div className="mt-4">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span>Progress</span>
+                    <span>
+                      {milestone.tasks.length > 0
+                        ? Math.round(
+                            Math.min(
+                              (milestone.tasks.filter(
+                                (task) => task.completed === true,
+                              ).length /
+                                milestone.tasks.length) *
+                                100,
+                              100,
+                            ),
+                          )
+                        : 0}
+                      %
+                    </span>
+                  </div>
+                  <Progress
+                    color="green"
+                    progress={
+                      milestone.tasks.length > 0
+                        ? Math.round(
+                            Math.min(
+                              (milestone.tasks.filter(
+                                (task) => task.completed === true,
+                              ).length /
+                                milestone.tasks.length) *
+                                100,
+                              100,
+                            ),
+                          )
+                        : 0
+                    }
+                  />
+                </div>
+              </Card>
+            ))}
         </div>
+      </Card>
+      <div className="bg-white rounded-xl flex flex-col gap-6 shadow-sm shadow-gray-400">
+        <h2 className="mt-6 text-xl font-bold tracking-tight text-gray-900 pl-6">
+          {t("projectExpense")}
+        </h2>
+
+        <TableComponent<Expense>
+          titles={finalTitles}
+          rows={expenses}
+          renderRow={(expense) => (
+            <ExpenseRowComponent
+              key={expense.id}
+              expense={expense}
+              handleDelete={() => {
+                setConfirmActionExpense(() => () => handleDelete(expense.id));
+                setOpenDeleteExpense(true);
+              }}
+              handleEdit={handleEdit}
+              canDoActions={isAdmin}
+            />
+          )}
+        />
       </div>
-      <Card className="mt-10 w-full mx-auto shadow-none border-gray-200 bg-white! border-none">
+      <Card className="w-full mx-auto shadow-sm shadow-gray-400 bg-white! border-none">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <HiDocumentText className="w-6 h-6 text-gray-600" />
