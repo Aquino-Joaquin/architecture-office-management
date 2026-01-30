@@ -18,9 +18,6 @@ export default function ExpenseRowComponent({
   return (
     <TableRow>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {expense.id}
-      </TableCell>
-      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {expense.description}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -29,7 +26,7 @@ export default function ExpenseRowComponent({
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         <Badge
           color={getBadgeColor(
-            expense.expenseType ? expense.expenseType.name : "Office"
+            expense.expenseType ? expense.expenseType.name : "Office",
           )}
           size="xs"
         >

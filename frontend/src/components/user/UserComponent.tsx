@@ -27,7 +27,6 @@ export default function UserComponent() {
   const navigate = useNavigate();
   const { t } = useTranslation(["user", "successToast"]);
   const titles: string[] = [
-    "Id",
     t("tableUserName"),
     t("tableUserEmail"),
     t("tableUserRole"),

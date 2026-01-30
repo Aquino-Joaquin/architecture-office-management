@@ -32,7 +32,6 @@ export default function AddNewTaskComponent() {
 
   const taskTitles = isAdmin
     ? [
-        "Id",
         t("tableTaskTitle"),
         t("tableTaskDescription"),
         t("tableTaskAssingUsers"),
@@ -40,7 +39,6 @@ export default function AddNewTaskComponent() {
         t("tableTaskActions"),
       ]
     : [
-        "Id",
         t("tableTaskTitle"),
         t("tableTaskDescription"),
         t("tableTaskAssingUsers"),

@@ -24,7 +24,6 @@ export default function ExpensesComponent() {
   const { t } = useTranslation(["expense", "successToast"]);
 
   const titles: string[] = [
-    "Id",
     t("tableExpenseDescription"),
     t("tableExpenseCreatedAt"),
     t("tableExpenseType"),

@@ -21,9 +21,6 @@ export default function ProjectRowComponent({
   return (
     <TableRow onClick={() => navigate(`projectDetail/${project.id}`)}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.id}
-      </TableCell>
-      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {project.name}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">

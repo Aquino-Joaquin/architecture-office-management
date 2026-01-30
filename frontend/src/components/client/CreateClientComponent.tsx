@@ -55,13 +55,13 @@ export default function CreateClientComponent() {
   }
 
   return (
-    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header
         title={isEditMode ? t("editTitle") : t("createTitle")}
         subTitle={t("createSubtitle")}
       />
 
-      <div className="w-full mx-auto space-y-6">
+      <div className="w-full">
         <Card className="bg-white! w-full border-none shadow-sm">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             {t("basicInformation")}

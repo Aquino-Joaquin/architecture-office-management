@@ -17,9 +17,6 @@ export default function MilestoneRowComponent({
   return (
     <TableRow>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {milestone.id}
-      </TableCell>
-      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {milestone.title}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -28,7 +25,7 @@ export default function MilestoneRowComponent({
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         <Badge
           color={getBadgeColor(
-            milestone.completed ? "completed" : "incompleted"
+            milestone.completed ? "completed" : "incompleted",
           )}
           size="xs"
         >

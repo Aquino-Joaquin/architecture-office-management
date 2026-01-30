@@ -49,7 +49,6 @@ export default function ProjectDetails() {
   ]);
 
   const titles: string[] = [
-    "Id",
     t("expense:tableExpenseDescription"),
     t("expense:tableExpenseCreatedAt"),
     t("expense:tableExpenseType"),

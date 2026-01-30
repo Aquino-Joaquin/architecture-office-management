@@ -19,9 +19,6 @@ export default function TaskRowComponent({
   return (
     <TableRow onDoubleClick={() => handleDoubleClick(task.id)}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {task.id}
-      </TableCell>
-      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {task.title}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">

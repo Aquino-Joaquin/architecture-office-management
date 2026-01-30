@@ -21,7 +21,6 @@ export default function ProjectComponent() {
   const { t } = useTranslation(["project", "successToast"]);
 
   const titles: string[] = [
-    t("tableId"),
     t("tableName"),
     t("tableStatus"),
     t("tableTotalPrice"),

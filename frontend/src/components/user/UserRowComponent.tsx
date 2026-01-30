@@ -15,9 +15,6 @@ export default function UserRowComponent({
   return (
     <TableRow>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {user.id}
-      </TableCell>
-      <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {user.name}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">

@@ -36,7 +36,6 @@ export default function AddNewProjectComponent() {
   const { t } = useTranslation(["project", "milestone", "successToast"]);
 
   const milestoneTitles = [
-    "Id",
     t("milestone:tableMilestoneTitle"),
     t("milestone:tableMilestoneDescription"),
     t("milestone:tableMilestoneStatus"),

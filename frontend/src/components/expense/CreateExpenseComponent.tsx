@@ -96,18 +96,18 @@ export default function CreateExpenseComponent() {
   }
 
   return (
-    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen">
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header
         title={isEditMode ? t("editExpense") : t("createExpense")}
         subTitle={t("createSubtitle")}
       />
-      <form onSubmit={handleSubmit} className="w-full mx-auto space-y-6 p-4">
+      <form onSubmit={handleSubmit} className="w-full">
         <Card className="bg-white! border-none">
           <h3 className="text-lg font-semibold mb-2">
             {t("basicInformation")}
           </h3>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="md:col-span-2">
               <Label>Expense amount</Label>
               <TextInput
@@ -169,21 +169,20 @@ export default function CreateExpenseComponent() {
               />
             </div>
           </div>
+          <div className="flex justify-end">
+            <Button type="submit">
+              {isEditMode ? (
+                <>
+                  <HiPencil className="mr-2" /> {t("editButton")}
+                </>
+              ) : (
+                <>
+                  <HiPlus className="mr-2" /> {t("createButton")}
+                </>
+              )}
+            </Button>
+          </div>
         </Card>
-
-        <div className="flex justify-end">
-          <Button type="submit">
-            {isEditMode ? (
-              <>
-                <HiPencil className="mr-2" /> {t("editButton")}
-              </>
-            ) : (
-              <>
-                <HiPlus className="mr-2" /> {t("createButton")}
-              </>
-            )}
-          </Button>
-        </div>
       </form>
     </div>
   );
