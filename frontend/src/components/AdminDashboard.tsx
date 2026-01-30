@@ -27,7 +27,7 @@ export default function AdminDashboard({
         {itemsInformation.map(({ title, value, Icon }, index) => (
           <Card
             key={index}
-            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none"
+            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -45,17 +45,21 @@ export default function AdminDashboard({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6  w-full">
-        <Card className="w-full shadow-sm bg-white! border-none ">
-          <div className="mb-4 flex justify-between">
+        <Card className="w-full shadow-sm shadow-gray-400 bg-white! border-none flex flex-col h-full ">
+          <div className="mb-4 flex items-center justify-between">
             <h5 className="text-xl font-bold leading-none text-black ">
               {t("recentProjects")}
             </h5>
           </div>
-          <div className="flow-root">
-            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="grow -mx-6">
+            <ul className="divide-y divide-gray-300! dark:divide-gray-700 w-full ">
+              <hr className="border-gray-300" />
               {itemsProjects.map(({ id, name, status, totalPrice, client }) => (
-                <li key={id} className="py-3 sm:py-4">
-                  <div className="flex items-center space-x-4">
+                <li
+                  key={id}
+                  className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200 "
+                >
+                  <div className="flex items-center space-x-4 mx-6">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-black ">
                         {name}
@@ -70,7 +74,7 @@ export default function AdminDashboard({
                       </div>
                     </div>
                     <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                      {totalPrice}
+                      {`${totalPrice.toLocaleString("es-PY")} Gs`}
                     </div>
                   </div>
                 </li>
@@ -79,19 +83,23 @@ export default function AdminDashboard({
           </div>
         </Card>
 
-        <Card className="w-full shadow-sm bg-white! border-none">
+        <Card className="w-full shadow-sm shadow-gray-400 bg-white! border-none flex flex-col h-full">
           <div className="mb-4 flex items-center justify-between">
             <h5 className="text-xl font-bold leading-none text-black">
               {t("recentExpenses")}
             </h5>
           </div>
 
-          <div className="flow-root">
-            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="grow -mx-6">
+            <ul className="divide-y divide-gray-300! dark:divide-gray-700">
+              <hr className="border-gray-300" />
               {itemsExpenses.map(
                 ({ id, description, amount, createdAt, expenseType }) => (
-                  <li key={id} className="py-3 sm:py-4">
-                    <div className="flex items-center justify-between space-x-4">
+                  <li
+                    key={id}
+                    className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    <div className="flex items-center justify-between space-x-4 mx-6">
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-medium text-black ">
                           {description}
@@ -109,11 +117,11 @@ export default function AdminDashboard({
                         </div>
                       </div>
                       <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
-                        {amount}
+                        {`${amount.toLocaleString("es-PY")} Gs`}
                       </div>
                     </div>
                   </li>
-                )
+                ),
               )}
             </ul>
           </div>
