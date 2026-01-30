@@ -103,7 +103,7 @@ export default function ExpensesComponent() {
         {expenseInformation.map(({ title, value, Icon }, index) => (
           <Card
             key={index}
-            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none"
+            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -119,23 +119,25 @@ export default function ExpensesComponent() {
           </Card>
         ))}
       </div>
+      <div className="bg-white shadow-sm shadow-gray-400 rounded-2xl">
+        <TableComponent<Expense>
+          titles={titles}
+          rows={expenses}
+          renderRow={(expense) => (
+            <ExpenseRowComponent
+              key={expense.id}
+              expense={expense}
+              handleDelete={() => {
+                setConfirmAction(() => () => handleDelete(expense.id));
+                setOpenDelete(true);
+              }}
+              handleEdit={handleEdit}
+              canDoActions={isAdmin}
+            />
+          )}
+        />
+      </div>
 
-      <TableComponent<Expense>
-        titles={titles}
-        rows={expenses}
-        renderRow={(expense) => (
-          <ExpenseRowComponent
-            key={expense.id}
-            expense={expense}
-            handleDelete={() => {
-              setConfirmAction(() => () => handleDelete(expense.id));
-              setOpenDelete(true);
-            }}
-            handleEdit={handleEdit}
-            canDoActions={isAdmin}
-          />
-        )}
-      />
       <ConfirmationDelete
         open={openDelete}
         onClose={() => setOpenDelete(false)}

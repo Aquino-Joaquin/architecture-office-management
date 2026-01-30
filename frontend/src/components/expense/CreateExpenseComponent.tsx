@@ -102,7 +102,7 @@ export default function CreateExpenseComponent() {
         subTitle={t("createSubtitle")}
       />
       <form onSubmit={handleSubmit} className="w-full">
-        <Card className="bg-white! border-none">
+        <Card className="bg-white! border-none shadow shadow-gray-400">
           <h3 className="text-lg font-semibold mb-2">
             {t("basicInformation")}
           </h3>

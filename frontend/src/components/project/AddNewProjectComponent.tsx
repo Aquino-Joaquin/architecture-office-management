@@ -185,7 +185,7 @@ export default function AddNewProjectComponent() {
       />
 
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">
-        <Card className="bg-white! border-none">
+        <Card className="bg-white! border-none shadow shadow-gray-400">
           <h3 className="text-lg font-semibold ">{t("basicInfomation")}</h3>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

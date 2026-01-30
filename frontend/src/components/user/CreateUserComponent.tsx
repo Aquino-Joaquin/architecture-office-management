@@ -67,7 +67,7 @@ export default function CreateUserComponent() {
       />
 
       <div className="w-full">
-        <Card className="bg-white! w-full border-none shadow-sm">
+        <Card className="bg-white! w-full border-none shadow shadow-gray-400">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             {t("basicInformation")}
           </h3>

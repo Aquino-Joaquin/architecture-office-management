@@ -92,7 +92,7 @@ export default function UserComponent() {
         {usersInformation.map(({ title, value, Icon }, index) => (
           <Card
             key={index}
-            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none"
+            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -108,22 +108,23 @@ export default function UserComponent() {
           </Card>
         ))}
       </div>
-
-      <TableComponent<User>
-        titles={titles}
-        rows={users}
-        renderRow={(user) => (
-          <UserRowComponent
-            key={user.id}
-            user={user}
-            handleEdit={handleEdit}
-            handleDelete={() => {
-              setConfirmAction(() => () => handleDelete(user.id));
-              setOpenDelete(true);
-            }}
-          />
-        )}
-      />
+      <div className="rounded-2xl shadow-sm shadow-gray-400 bg-white">
+        <TableComponent<User>
+          titles={titles}
+          rows={users}
+          renderRow={(user) => (
+            <UserRowComponent
+              key={user.id}
+              user={user}
+              handleEdit={handleEdit}
+              handleDelete={() => {
+                setConfirmAction(() => () => handleDelete(user.id));
+                setOpenDelete(true);
+              }}
+            />
+          )}
+        />
+      </div>
 
       <ConfirmationDelete
         open={openDelete}

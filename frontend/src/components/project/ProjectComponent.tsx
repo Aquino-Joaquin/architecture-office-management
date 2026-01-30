@@ -60,7 +60,7 @@ export default function ProjectComponent() {
         buttonPath="newproject"
         showButton={isAdmin}
       />
-      <div className="overflow-x-auto bg-white">
+      <div className="overflow-x-auto rounded-2xl bg-white shadow-sm shadow-gray-400">
         <TableComponent<Project>
           titles={titles}
           rows={projects}

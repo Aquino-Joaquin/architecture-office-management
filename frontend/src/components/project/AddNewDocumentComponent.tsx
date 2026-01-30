@@ -47,7 +47,7 @@ export default function AddNewDocumentComponent() {
     <div>
       <Header title={t("title2")} subTitle={t("subtitle")} />
       <form onSubmit={handleSubmit}>
-        <Card className="bg-white! border-none">
+        <Card className="bg-white! border-none shadow shadow-gray-400">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
               <Label>Document Name</Label>

@@ -56,7 +56,7 @@ export default function ClientComponent() {
         {clients.map(({ id, name, companyName, email, phone, projects }) => (
           <Card
             key={id}
-            className="w-full shadow-sm hover:shadow-md transition-shadow bg-white! border-none rounded-xl overflow-hidden"
+            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none rounded-xl overflow-hidden"
           >
             <div className="p-6">
               <div className="flex justify-between items-start mb-6">

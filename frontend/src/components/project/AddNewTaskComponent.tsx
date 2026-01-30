@@ -146,7 +146,7 @@ export default function AddNewTaskComponent() {
         className="w-full flex flex-col gap-6"
       >
         {isAdmin && (
-          <Card className="bg-white! border-none">
+          <Card className="bg-white! border-none shadow shadow-gray-400">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-lg font-semibold">{t("basicInformation")}</h3>
             </div>

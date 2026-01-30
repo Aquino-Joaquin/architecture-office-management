@@ -65,7 +65,7 @@ export default function GeneralOverview() {
   return (
     <div className="flex h-screen overflow-hidden">
       <ToastContainer position="top-center" autoClose={2000} />
-      <aside className="overflow-y-auto">
+      <aside className="overflow-y-auto shadow-[4px_0_10px_rgba(0,0,0,0.2)] z-10">
         {user && <LeftBar items={leftBarInfomation} user={user} />}
       </aside>
 
