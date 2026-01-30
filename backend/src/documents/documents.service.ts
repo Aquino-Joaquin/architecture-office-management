@@ -28,8 +28,9 @@ export class DocumentsService {
       relations: { users: true },
     });
     if (!project) throw new NotFoundException();
-    if (project.users.find((u) => u.id === user.id)) {
+    if (user.role === 'Admin' || project.users.find((u) => u.id === user.id)) {
       const documents = await this.documentRepository.find({
+        order: { id: 'ASC' },
         where: { project: { id: projectId } },
         relations: { user: true },
       });
