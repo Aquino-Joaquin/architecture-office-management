@@ -60,17 +60,17 @@ export default function ExpensesComponent() {
   const expenseInformation: CardInfomation[] = [
     {
       title: t("totalExpense"),
-      value: totalExpense,
+      value: totalExpense.toLocaleString("es-PY"),
       Icon: MdAttachMoney,
     },
     {
       title: t("officeExpense"),
-      value: totalOfficeExpense,
+      value: totalOfficeExpense.toLocaleString("es-Py"),
       Icon: MdTrendingUp,
     },
     {
       title: t("projectExpense"),
-      value: totalProjectExpense,
+      value: totalProjectExpense.toLocaleString("es-Py"),
       Icon: MdTrendingDown,
     },
   ];

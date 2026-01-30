@@ -38,32 +38,32 @@ export default function AdminDashboardPage() {
   const clientNumber = clients.length;
   const generalBudget = projects.reduce(
     (count, project) => count + project.amountPaid,
-    0
+    0,
   );
   const generalExpense = expenses.reduce(
     (count, expense) => count + expense.amount,
-    0
+    0,
   );
 
   const cardInformations: CardInfomation[] = [
     {
       title: t("activeProjects"),
-      value: activeProjects,
+      value: activeProjects.toString(),
       Icon: VscFileSubmodule,
     },
     {
       title: t("clients"),
-      value: clientNumber,
+      value: clientNumber.toString(),
       Icon: FiUsers,
     },
     {
       title: t("budget"),
-      value: generalBudget,
+      value: generalBudget.toLocaleString("es-Py"),
       Icon: GiMoneyStack,
     },
     {
       title: t("expenses"),
-      value: generalExpense,
+      value: generalExpense.toLocaleString("es-py"),
       Icon: GiExpense,
     },
   ];

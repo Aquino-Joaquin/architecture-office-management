@@ -65,11 +65,11 @@ export default function GeneralOverview() {
   return (
     <div className="flex h-screen overflow-hidden">
       <ToastContainer position="top-center" autoClose={2000} />
-      <aside className="w-64 shrink-0 overflow-y-auto">
+      <aside className="overflow-y-auto">
         {user && <LeftBar items={leftBarInfomation} user={user} />}
       </aside>
 
-      <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
+      <main className="flex-1 overflow-y-auto bg-gray-50">
         <Outlet />
         {}
       </main>

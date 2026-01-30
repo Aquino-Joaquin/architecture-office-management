@@ -21,9 +21,9 @@ export default function LeftBar({ items, user }: LeftBarProps) {
   return (
     <Sidebar
       aria-label="Sidebar with content separator example"
-      className="bg-white [&>div]:bg-white"
+      className="bg-white [&>div]:bg-white shadow-xl"
     >
-      <SidebarItems className="flex flex-col h-full">
+      <SidebarItems className="flex flex-col h-full -mx-3">
         <div className="flex items-center gap-2 px-2 py-3">
           <img
             src="/logo.svg"
@@ -33,7 +33,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
           <h1 className="font-medium">{t("title")}</h1>
         </div>
 
-        <SidebarItemGroup>
+        <SidebarItemGroup className="border-gray-300!">
           {items.map(({ title, Icon, path }) => (
             <SidebarItem
               key={path}
@@ -46,7 +46,7 @@ export default function LeftBar({ items, user }: LeftBarProps) {
           ))}
         </SidebarItemGroup>
 
-        <SidebarItemGroup className="mt-auto">
+        <SidebarItemGroup className="mt-auto border-gray-300!">
           <div className="ml-5 flex flex-wrap gap-5 justify-baseline">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
               {user?.name?.charAt(0) ?? "?"}

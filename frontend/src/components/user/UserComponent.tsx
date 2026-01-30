@@ -44,17 +44,17 @@ export default function UserComponent() {
     setUsersInfomation([
       {
         title: t("totalUser"),
-        value: data.length,
+        value: data.length.toString(),
         Icon: HiOutlineUsers,
       },
       {
         title: t("admins"),
-        value: data.filter((u) => u.role === "Admin").length,
+        value: data.filter((u) => u.role === "Admin").length.toString(),
         Icon: HiOutlineShieldCheck,
       },
       {
         title: t("staff"),
-        value: data.filter((u) => u.role === "Staff").length,
+        value: data.filter((u) => u.role === "Staff").length.toString(),
         Icon: HiOutlineBriefcase,
       },
     ]);

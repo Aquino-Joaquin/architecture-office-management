@@ -53,7 +53,7 @@ export default function ProjectComponent() {
     navigate(`editproject/${id}`);
   }
   return (
-    <div>
+    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen ">
       <Header
         title={t("title")}
         subTitle={t("subTitle")}

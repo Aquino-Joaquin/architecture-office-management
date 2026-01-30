@@ -127,17 +127,19 @@ export default function ProjectDetails() {
   const projecInformation: CardInfomation[] = [
     {
       title: t("budget"),
-      value: project?.totalPrice || 0,
+      value: project?.totalPrice.toString() || "0",
       Icon: HiOutlineCurrencyDollar,
     },
     {
       title: t("paid"),
-      value: project?.amountPaid || 0,
+      value: project?.amountPaid.toString() || "0",
       Icon: HiOutlineTrendingUp,
     },
     {
       title: t("remaning"),
-      value: project ? project?.totalPrice - project?.amountPaid : 0,
+      value: project
+        ? (project?.totalPrice - project?.amountPaid).toString()
+        : "0",
       Icon: HiOutlineCurrencyDollar,
     },
   ];
@@ -159,7 +161,7 @@ export default function ProjectDetails() {
     budget > 0 ? Math.min((totalExpense / budget) * 100, 100) : 0;
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen ">
       <Header title={t("title")} subTitle={t("subtitle")} />
 
       <div className="grid w-full grid-cols-1 gap-6 mb-6 md:grid-cols-2 xl:grid-cols-3">
