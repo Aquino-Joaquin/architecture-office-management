@@ -10,7 +10,7 @@ import { HiPencil } from "react-icons/hi";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
 import type { User } from "../../types/User";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
@@ -55,9 +55,10 @@ export default function AddNewTaskComponent() {
   const [taskDescription, setTaskDescription] = useState("");
   const [taskArray, setTaskArray] = useState<Task[]>([]);
 
-  async function handleMilestoneAdd(isEditing: boolean) {
+  async function handleMilestoneAdd(e: React.FormEvent) {
+    e.preventDefault();
     try {
-      if (!isEditing) {
+      if (!isEditTask) {
         await api.post("tasks", {
           title: taskTitle,
           description: taskDescription,
@@ -66,7 +67,7 @@ export default function AddNewTaskComponent() {
         });
         toast.success(t("successToast:createTask"));
       }
-      if (isEditing) {
+      if (isEditTask) {
         await api.patch(`tasks/${editTaskId}`, {
           title: taskTitle,
           description: taskDescription,
@@ -143,7 +144,7 @@ export default function AddNewTaskComponent() {
       />
 
       <form
-        onSubmit={() => handleMilestoneAdd(isEditTask)}
+        onSubmit={handleMilestoneAdd}
         className="w-full flex flex-col gap-6"
       >
         {isAdmin && (
