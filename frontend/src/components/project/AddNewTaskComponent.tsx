@@ -139,6 +139,7 @@ export default function AddNewTaskComponent() {
       <Header
         title={isAdmin ? t("title") : t("titleStaff")}
         subTitle={isAdmin ? t("subtitle") : t("subtitleStaff")}
+        showBackButton={true}
       />
 
       <form

@@ -64,6 +64,7 @@ export default function CreateUserComponent() {
       <Header
         title={isEditMode ? t("editUser") : t("createUser")}
         subTitle={t("createSubtitle")}
+        showBackButton={true}
       />
 
       <div className="w-full">

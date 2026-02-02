@@ -182,6 +182,7 @@ export default function AddNewProjectComponent() {
       <Header
         title={isEditMode ? t("editProject") : t("createProject")}
         subTitle={t("createEditSubTitle")}
+        showBackButton={true}
       />
 
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">

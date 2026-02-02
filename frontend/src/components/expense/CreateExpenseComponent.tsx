@@ -100,6 +100,7 @@ export default function CreateExpenseComponent() {
       <Header
         title={isEditMode ? t("editExpense") : t("createExpense")}
         subTitle={t("createSubtitle")}
+        showBackButton={true}
       />
       <form onSubmit={handleSubmit} className="w-full">
         <Card className="bg-white! border-none shadow shadow-gray-400">
