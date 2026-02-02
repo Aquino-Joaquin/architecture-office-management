@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
 
 export class CreateDocumentDto {
@@ -5,19 +6,8 @@ export class CreateDocumentDto {
   @IsString({ message: 'document.title.string' })
   title: string;
 
-  @IsNotEmpty({ message: 'document.url.required' })
-  @IsUrl({}, { message: 'document.url.invalid' })
-  url: string;
-
-  @IsNotEmpty({ message: 'document.path.required' })
-  @IsString({ message: 'document.path.string' })
-  path: string;
-
-  @IsNotEmpty({ message: 'document.type.required' })
-  @IsString({ message: 'document.type.string' })
-  type: string;
-
   @IsNotEmpty({ message: 'document.projectId.required' })
+  @Type(() => Number)
   @IsNumber({}, { message: 'document.projectId.number' })
   projectId: number;
 }

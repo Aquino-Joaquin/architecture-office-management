@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   InternalServerErrorException,
@@ -43,22 +44,52 @@ export class DocumentsService {
     if (!document) throw new NotFoundException();
     return document;
   }
-  async createDocument(createDocument: CreateDocumentDto, newUser: JwtUser) {
-    const { title, url, path, type, projectId } = createDocument;
+  async createDocument(
+    createDocument: CreateDocumentDto,
+    file: Express.Multer.File,
+    newUser: JwtUser,
+  ) {
+    const { title, projectId } = createDocument;
+
     const project = await this.projectRepository.findOneBy({ id: projectId });
-    if (!project) throw new NotFoundException();
+    if (!project) throw new NotFoundException('Project not found');
+
     const user = await this.userRepository.findOneBy({ id: newUser.id });
-    if (!user) throw new NotFoundException();
+    if (!user) throw new NotFoundException('User not found');
+
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+
+    const extension = file.originalname.split('.').pop();
+    const filePath = `projects/${projectId}/${title}-${Date.now()}.${extension}`;
+
+    const { error } = await supabaseAdmin.storage
+      .from('documents')
+      .upload(filePath, file.buffer, {
+        contentType: file.mimetype,
+      });
+
+    if (error) {
+      throw new InternalServerErrorException('Storage upload failed');
+    }
+
+    const { data } = supabaseAdmin.storage
+      .from('documents')
+      .getPublicUrl(filePath);
+
     const document = this.documentRepository.create({
       title,
-      url,
-      path,
-      type,
+      url: data.publicUrl,
+      path: filePath,
+      type: extension,
       project,
       user,
     });
+
     return await this.documentRepository.save(document);
   }
+
   async deleteDocument(id: number) {
     const document = await this.documentRepository.findOneBy({ id });
     if (!document) throw new NotFoundException();

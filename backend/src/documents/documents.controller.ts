@@ -7,12 +7,15 @@ import {
   ParseIntPipe,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateDocumentDto } from './dtos/createDocumentDto';
 import { DocumentsService } from './documents.service';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
 @UseGuards(AuthGuard('jwt'))
 @Controller('documents')
 export class DocumentsController {
@@ -29,12 +32,15 @@ export class DocumentsController {
     return this.documentsService.getOneDocument(id);
   }
   @Post()
-  createDocument(
+  @UseInterceptors(FileInterceptor('file'))
+  create(
+    @UploadedFile() file: Express.Multer.File,
     @Body(ValidationPipe) createDocument: CreateDocumentDto,
     @Req() req,
   ) {
-    return this.documentsService.createDocument(createDocument, req.user);
+    return this.documentsService.createDocument(createDocument, file, req.user);
   }
+
   @Delete(':id')
   deleteDocument(@Param('id', ParseIntPipe) id: number) {
     return this.documentsService.deleteDocument(id);

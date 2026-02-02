@@ -3,11 +3,10 @@ import Header from "../common/Header";
 import { HiPlus } from "react-icons/hi";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { supabase } from "../../helper/supabaseClient";
 import { api } from "../../helper/api";
 import { useParams } from "react-router-dom";
-import { uploadDocument } from "../../helper/uploadDocument";
 import { useTranslation } from "react-i18next";
+import { showErrors } from "../../helper/showError";
 
 export default function AddNewDocumentComponent() {
   const { id } = useParams();
@@ -19,30 +18,29 @@ export default function AddNewDocumentComponent() {
     e.preventDefault();
 
     if (!file) {
-      toast.warning("You shoud add a file");
+      toast.warning("You should add a file");
       return;
     }
+
     if (!id) {
       toast.error("Invalid project");
       return;
     }
 
-    const filePath = await uploadDocument(file, documentName, Number(id));
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("title", documentName);
+    formData.append("projectId", id);
 
-    const { data } = supabase.storage.from("documents").getPublicUrl(filePath);
+    try {
+      await api.post("documents", formData);
 
-    const publicUrl = data.publicUrl;
-    console.log(publicUrl);
-
-    await api.post("documents", {
-      title: documentName,
-      url: publicUrl,
-      path: filePath,
-      type: file.name.split(".").pop(),
-      projectId: Number(id),
-    });
-    toast.success(t("successToast:createDocument"));
+      toast.success(t("successToast:uploadDocument"));
+    } catch (error) {
+      showErrors(error);
+    }
   }
+
   return (
     <div>
       <Header title={t("title2")} subTitle={t("subtitle")} />
