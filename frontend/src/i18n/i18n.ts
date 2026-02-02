@@ -2,6 +2,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import enAdminDashboardTitles from "./en/adminDashboard.json";
 import esAdminDashboardTitles from "./es/adminDashboard.json";
+import enStaffDashboard from "./en/staffDashboard.json";
+import esStaffDashboard from "./es/staffDashboard.json";
 import enLeftBarText from "./en/leftBar.json";
 import esLeftBarText from "./es/leftBar.json";
 import enProject from "./en/project.json";
@@ -30,6 +32,7 @@ import esSuccessToast from "./es/successToast.json";
 const resources = {
   en: {
     adminDashboard: enAdminDashboardTitles,
+    staffDashboard: enStaffDashboard,
     leftBar: enLeftBarText,
     project: enProject,
     client: enClient,
@@ -45,6 +48,7 @@ const resources = {
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
+    staffDashboard: esStaffDashboard,
     leftBar: esLeftBarText,
     project: esProject,
     client: esClient,
@@ -65,6 +69,7 @@ i18n.use(initReactI18next).init({
   lng: "es",
   ns: [
     "adminDashboard",
+    "staffDashboard",
     "leftBar",
     "project",
     "client",

@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import { api } from "../helper/api";
 import StaffDashboard from "../components/StaffDashboard";
 import type { Task } from "../types/Task";
+import { useTranslation } from "react-i18next";
 
 export default function StaffDashboardPage() {
+  const { t } = useTranslation("staffDashboard");
   const [projects, setProjects] = useState<Project[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -36,17 +38,17 @@ export default function StaffDashboardPage() {
 
   const cardInformations: CardInfomation[] = [
     {
-      title: "My Projects",
+      title: t("myProjects"),
       value: activeProjects.toString(),
       Icon: VscFileSubmodule,
     },
     {
-      title: "In Progress",
+      title: t("inProgress"),
       value: inProgressNumber.toString(),
       Icon: FiUsers,
     },
     {
-      title: "Completed",
+      title: t("completed"),
       value: completedNumber.toString(),
       Icon: GiMoneyStack,
     },

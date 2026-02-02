@@ -1,0 +1,9 @@
+{
+    "headerTitle": "Staff Dashboard",
+    "headerSubtitle": "Welcome back!",
+    "myProjects": "My projects",
+    "inProgress" : "In progress",
+    "completed": "Completed",
+    "recentProjects": "Recent Projects",
+    "tasks" : "Tasks"
+}
