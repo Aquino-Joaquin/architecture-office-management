@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
         element: <AddNewTaskComponent />,
       },
       {
-        path: "project/projectDetail/:id/documents",
+        path: "projects/projectDetail/:id/documents",
         element: <AddNewDocumentComponent />,
       },
     ],
