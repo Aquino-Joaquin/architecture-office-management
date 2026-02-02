@@ -126,18 +126,18 @@ export default function ProjectDetails() {
   const projecInformation: CardInfomation[] = [
     {
       title: t("budget"),
-      value: project?.totalPrice.toString() || "0",
+      value: project?.totalPrice.toLocaleString("es-Py") || "0",
       Icon: HiOutlineCurrencyDollar,
     },
     {
       title: t("paid"),
-      value: project?.amountPaid.toString() || "0",
+      value: project?.amountPaid.toLocaleString("es-Py") || "0",
       Icon: HiOutlineTrendingUp,
     },
     {
       title: t("remaning"),
       value: project
-        ? (project?.totalPrice - project?.amountPaid).toString()
+        ? (project?.totalPrice - project?.amountPaid).toLocaleString("es-Py")
         : "0",
       Icon: HiOutlineCurrencyDollar,
     },
@@ -223,19 +223,23 @@ export default function ProjectDetails() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
               <div>
                 <p className="text-sm text-gray-500 mb-1">{t("totalBudget")}</p>
-                <p className="text-lg font-bold text-gray-900">{budget}</p>
+                <p className="text-lg font-bold text-gray-900">
+                  {budget.toLocaleString("es-Py")}
+                </p>
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">{t("totalSpent")}</p>
                 <p className="text-lg font-bold text-gray-900">
-                  {totalExpense}
+                  {totalExpense.toLocaleString("es-Py")}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">
                   {t("totalRemaning")}
                 </p>
-                <p className="text-lg font-bold text-gray-900">{remaining}</p>
+                <p className="text-lg font-bold text-gray-900">
+                  {remaining.toLocaleString("es-Py")}
+                </p>
               </div>
             </div>
           </Card>
@@ -283,7 +287,7 @@ export default function ProjectDetails() {
               <Card
                 key={milestone.id}
                 onClick={() => handleMilestone(milestone.id)}
-                className="bg-white! border-none shadow-md mb-4"
+                className="bg-white! border-none shadow-md shadow-gray-600 mb-4"
               >
                 <div className="flex items-center justify-between">
                   <h3 className="font-medium">{milestone.title}</h3>

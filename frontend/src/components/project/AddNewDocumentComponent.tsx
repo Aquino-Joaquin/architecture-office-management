@@ -42,7 +42,7 @@ export default function AddNewDocumentComponent() {
   }
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header title={t("title2")} subTitle={t("subtitle")} />
       <form onSubmit={handleSubmit}>
         <Card className="bg-white! border-none shadow shadow-gray-400">
