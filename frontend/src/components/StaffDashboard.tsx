@@ -17,7 +17,7 @@ export default function StaffDashboard({
   itemsProjects,
   itemsTasks,
 }: StaffDashboardProps) {
-  const { t } = useTranslation("staffDashboard");
+  const { t } = useTranslation(["staffDashboard", "badgeStatus"]);
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
@@ -69,7 +69,7 @@ export default function StaffDashboard({
                           {client.name}
                         </span>
                         <Badge color={getBadgeColor(status)} size="xs">
-                          {status}
+                          {t(`badgeStatus:${status}`)}
                         </Badge>
                       </div>
                     </div>

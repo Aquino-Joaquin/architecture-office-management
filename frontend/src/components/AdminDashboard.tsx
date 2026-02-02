@@ -17,7 +17,7 @@ export default function AdminDashboard({
   itemsProjects,
   itemsExpenses,
 }: AdminDashboardProps) {
-  const { t } = useTranslation("adminDashboard");
+  const { t } = useTranslation(["adminDashboard", "badgeStatus"]);
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
@@ -69,7 +69,7 @@ export default function AdminDashboard({
                           {client.name}
                         </span>
                         <Badge color={getBadgeColor(status)} size="xs">
-                          {status}
+                          {t(`badgeStatus:${status}`)}
                         </Badge>
                       </div>
                     </div>
@@ -112,7 +112,7 @@ export default function AdminDashboard({
                             color={getBadgeColor(expenseType.name)}
                             size="xs"
                           >
-                            {expenseType.name}
+                            {t(`badgeStatus:${expenseType.name}`)}
                           </Badge>
                         </div>
                       </div>

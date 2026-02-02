@@ -3,6 +3,7 @@ import type { Expense } from "../../types/Expense";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { formatDateDMY } from "../../helper/formatDateDMY";
 import { getBadgeColor } from "../../helper/getBadgeColor";
+import { useTranslation } from "react-i18next";
 export type Props = {
   expense: Expense;
   handleDelete: (id: number) => void;
@@ -15,6 +16,7 @@ export default function ExpenseRowComponent({
   handleDelete,
   canDoActions,
 }: Props) {
+  const { t } = useTranslation("badgeStatus");
   return (
     <TableRow>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -30,14 +32,14 @@ export default function ExpenseRowComponent({
           )}
           size="xs"
         >
-          {expense.expenseType ? expense.expenseType.name : "--"}
+          {expense.expenseType ? t(`${expense.expenseType.name}`) : "--"}
         </Badge>
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {expense.project?.name || "--"}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {expense.amount}
+        {expense.amount.toLocaleString("es-Py")}
       </TableCell>
       {canDoActions && (
         <TableCell className="whitespace-nowrap font-medium text-gray-900">

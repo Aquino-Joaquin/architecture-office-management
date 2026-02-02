@@ -3,6 +3,7 @@ import type { Project } from "../../types/Project";
 import { useNavigate } from "react-router-dom";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { getBadgeColor } from "../../helper/getBadgeColor";
+import { useTranslation } from "react-i18next";
 
 export type Props = {
   project: Project;
@@ -18,6 +19,7 @@ export default function ProjectRowComponent({
   actionDelete,
 }: Props) {
   const navigate = useNavigate();
+  const { t } = useTranslation("badgeStatus");
   return (
     <TableRow onClick={() => navigate(`projectDetail/${project.id}`)}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -26,7 +28,7 @@ export default function ProjectRowComponent({
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {
           <Badge color={getBadgeColor(project.status)} size="xs">
-            {project.status}
+            {t(`${project.status}`)}
           </Badge>
         }
       </TableCell>

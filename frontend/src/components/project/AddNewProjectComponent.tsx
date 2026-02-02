@@ -33,7 +33,12 @@ export default function AddNewProjectComponent() {
   >(null);
   const navigate = useNavigate();
   const isAdmin = checkAdmin();
-  const { t } = useTranslation(["project", "milestone", "successToast"]);
+  const { t } = useTranslation([
+    "project",
+    "milestone",
+    "successToast",
+    "badgeStatus",
+  ]);
 
   const milestoneTitles = [
     t("milestone:tableMilestoneTitle"),
@@ -233,9 +238,15 @@ export default function AddNewProjectComponent() {
                 <option value="" disabled>
                   {t("holderSelectStatus")}
                 </option>
-                <option value={Status.PLANNING}>Planning</option>
-                <option value={Status.IN_PROGRESS}>In Progress</option>
-                <option value={Status.COMPLETED}>Completed</option>
+                <option value={Status.PLANNING}>
+                  {t("badgeStatus:planning")}
+                </option>
+                <option value={Status.IN_PROGRESS}>
+                  {t("badgeStatus:inProgress")}
+                </option>
+                <option value={Status.COMPLETED}>
+                  {t("badgeStatus:completed")}
+                </option>
               </Select>
             </div>
 
