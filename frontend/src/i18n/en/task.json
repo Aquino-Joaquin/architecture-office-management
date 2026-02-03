@@ -15,5 +15,6 @@
     "buttonCreate": "Create Task",
     "deleteDescription": "Are you sure you want to delete this task",
     "yesOption": "Yes, I am sure",
-    "noOption": "No, cancel"
+    "noOption": "No, cancel",
+    "uploading": "Saving task"
 }

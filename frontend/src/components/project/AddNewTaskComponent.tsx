@@ -3,6 +3,7 @@ import {
   Card,
   Checkbox,
   Label,
+  Spinner,
   Textarea,
   TextInput,
 } from "flowbite-react";
@@ -54,10 +55,12 @@ export default function AddNewTaskComponent() {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskArray, setTaskArray] = useState<Task[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   async function handleMilestoneAdd(e: React.FormEvent) {
     e.preventDefault();
     try {
+      setIsUploading(true);
       if (!isEditTask) {
         await api.post("tasks", {
           title: taskTitle,
@@ -82,6 +85,8 @@ export default function AddNewTaskComponent() {
       setTaskDescription("");
     } catch (error) {
       showErrors(error);
+    } finally {
+      setIsUploading(false);
     }
   }
   async function handleTaskDelete(taskId: number) {
@@ -229,12 +234,17 @@ export default function AddNewTaskComponent() {
         </div>
         {isAdmin && (
           <div className="flex justify-end">
-            <Button type="submit">
-              {
+            <Button type="submit" disabled={isUploading}>
+              {isUploading ? (
+                <div className="flex items-center gap-2">
+                  <Spinner size="sm" />
+                  {t("uploading")}
+                </div>
+              ) : (
                 <>
                   <HiPencil className="mr-2" /> {t("buttonCreate")}
                 </>
-              }
+              )}
             </Button>
           </div>
         )}
