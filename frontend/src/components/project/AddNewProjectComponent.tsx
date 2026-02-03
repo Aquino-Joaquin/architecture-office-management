@@ -239,13 +239,13 @@ export default function AddNewProjectComponent() {
                   {t("holderSelectStatus")}
                 </option>
                 <option value={Status.PLANNING}>
-                  {t("badgeStatus:planning")}
+                  {t("badgeStatus:Planning")}
                 </option>
                 <option value={Status.IN_PROGRESS}>
-                  {t("badgeStatus:inProgress")}
+                  {t("badgeStatus:InProgress")}
                 </option>
                 <option value={Status.COMPLETED}>
-                  {t("badgeStatus:completed")}
+                  {t("badgeStatus:Completed")}
                 </option>
               </Select>
             </div>
