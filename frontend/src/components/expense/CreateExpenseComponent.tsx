@@ -5,6 +5,7 @@ import {
   Button,
   Select,
   Textarea,
+  Spinner,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -26,6 +27,7 @@ export default function CreateExpenseComponent() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [expenseTypeId, setExpenseTypeId] = useState<string>("");
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const { t } = useTranslation(["expense", "successToast", "errors"]);
 
@@ -81,17 +83,20 @@ export default function CreateExpenseComponent() {
       projectId: projectId ? Number(projectId) : null,
     };
     try {
+      setIsUploading(true);
       if (isEditMode) {
         await api.patch(`expenses/${id}`, payload);
         toast.success(t("successToast:editExpense"));
       } else {
         await api.post("expenses", payload);
-        toast.success("succesToast:createExpense");
+        toast.success("successToast:createExpense");
       }
 
       navigate(-1);
     } catch (error) {
       showErrors(error);
+    } finally {
+      setIsUploading(false);
     }
   }
 
@@ -171,8 +176,13 @@ export default function CreateExpenseComponent() {
             </div>
           </div>
           <div className="flex justify-end">
-            <Button type="submit">
-              {isEditMode ? (
+            <Button type="submit" disabled={isUploading}>
+              {isUploading ? (
+                <div className="flex items-center gap-2">
+                  <Spinner size="sm" />
+                  {t("uploading")}
+                </div>
+              ) : isEditMode ? (
                 <>
                   <HiPencil className="mr-2" /> {t("editButton")}
                 </>

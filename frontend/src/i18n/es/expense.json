@@ -23,5 +23,6 @@
     "editButton": "Editar Gasto",
     "deleteDescription": "¿Esta seguro que quiere eliminar este gasto?",
     "yesOption": "Sí, estoy seguro",
-    "noOption": "No, cancelar"
+    "noOption": "No, cancelar",
+    "uploading": "Guardando gasto"
 }
