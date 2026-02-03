@@ -41,16 +41,7 @@ export class TasksService {
     if (!tasks) throw new NotFoundException();
     return tasks;
   }
-  async getAllTaskFromProject(projectId: number) {
-    const project = await this.projectRepository.findOne({
-      order: { id: 'ASC' },
-      where: { id: projectId },
-      relations: { tasks: true },
-    });
-    if (!project) throw new NotFoundException();
-    const tasks = project.tasks;
-    return tasks;
-  }
+
   async createTask(createTask: CreateTaskDto) {
     const milestone = createTask.milestoneId
       ? await this.milestoneRepository.findOne({

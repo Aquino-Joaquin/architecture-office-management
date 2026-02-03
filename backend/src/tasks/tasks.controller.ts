@@ -23,12 +23,6 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('projects/:id')
-  getAllTaskFromProject(@Param('id', ParseIntPipe) id: number) {
-    return this.tasksService.getAllTaskFromProject(id);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
   @Get('milestones/:id')
   getAllTaskFromMilestone(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.getAllTaskFromMilestone(id);
