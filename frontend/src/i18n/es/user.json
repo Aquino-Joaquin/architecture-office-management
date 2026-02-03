@@ -22,7 +22,8 @@
     "editButton": "Editar Usuario",
     "deleteDescription": "¿Esta seguro que quiere eliminar este usuario",
     "yesOption": "Sí, estoy seguro",
-    "noOption": "No, cancelar"
+    "noOption": "No, cancelar",
+    "uploading": "Guardando usuario"
 
 
 }

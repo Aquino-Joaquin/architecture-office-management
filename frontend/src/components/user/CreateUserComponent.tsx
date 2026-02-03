@@ -1,4 +1,11 @@
-import { Card, Label, TextInput, Button, Select } from "flowbite-react";
+import {
+  Card,
+  Label,
+  TextInput,
+  Button,
+  Select,
+  Spinner,
+} from "flowbite-react";
 import { HiUserAdd } from "react-icons/hi";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
@@ -14,6 +21,7 @@ export default function CreateUserComponent() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const { t } = useTranslation(["user", "successToast"]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -32,6 +40,7 @@ export default function CreateUserComponent() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
+      setIsUploading(true);
       await api
         .request({
           url: isEditMode ? `users/${id}` : "auth/register",
@@ -56,6 +65,8 @@ export default function CreateUserComponent() {
         });
     } catch (error) {
       showErrors(error);
+    } finally {
+      setIsUploading(false);
     }
   }
 
@@ -140,9 +151,18 @@ export default function CreateUserComponent() {
             </div>
 
             <div className="md:col-span-2 flex justify-end mt-4">
-              <Button color="blue" type="submit">
-                <HiUserAdd className="mr-2 h-5 w-5" />
-                {isEditMode ? t("editButton") : t("createButton")}
+              <Button color="blue" type="submit" disabled={isUploading}>
+                {isUploading ? (
+                  <div className="flex items-center gap-2">
+                    <Spinner size="sm" />
+                    {t("uploading")}
+                  </div>
+                ) : (
+                  <>
+                    <HiUserAdd className="mr-2 h-5 w-5" />
+                    {isEditMode ? t("editButton") : t("createButton")}
+                  </>
+                )}
               </Button>
             </div>
           </form>
