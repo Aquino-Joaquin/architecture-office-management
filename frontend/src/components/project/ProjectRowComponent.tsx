@@ -33,10 +33,10 @@ export default function ProjectRowComponent({
         }
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.totalPrice}
+        {project.totalPrice.toLocaleString("es-Py")}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.amountPaid}
+        {project.amountPaid.toLocaleString("es-Py")}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         {project.client.name}

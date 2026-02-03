@@ -2,6 +2,7 @@ import { Badge, TableCell, TableRow } from "flowbite-react";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { getBadgeColor } from "../../helper/getBadgeColor";
 import type { Task } from "../../types/Task";
+import { useTranslation } from "react-i18next";
 export type Props = {
   task: Task;
   handleDelete: (id: number) => void;
@@ -16,6 +17,7 @@ export default function TaskRowComponent({
   handleDoubleClick,
   canDoActions,
 }: Props) {
+  const { t } = useTranslation("task");
   return (
     <TableRow onDoubleClick={() => handleDoubleClick(task.id)}>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
@@ -34,7 +36,7 @@ export default function TaskRowComponent({
           color={getBadgeColor(task.completed ? "completed" : "incompleted")}
           size="xs"
         >
-          {task.completed ? "Completed" : "Incompleted"}
+          {task.completed ? t("completed") : t("incompleted")}
         </Badge>
       </TableCell>
 

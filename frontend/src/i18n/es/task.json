@@ -16,5 +16,7 @@
     "deleteDescription": "¿Esta seguro que quiere eliminar esta tarea",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
-    "uploading": "Guardando tarea"
+    "uploading": "Guardando tarea",
+    "completed": "Completada",
+    "incompleted": "Incompleta"
 }
