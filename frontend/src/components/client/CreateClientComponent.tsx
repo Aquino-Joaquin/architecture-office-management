@@ -1,4 +1,4 @@
-import { Card, Label, TextInput, Button } from "flowbite-react";
+import { Card, Label, TextInput, Button, Spinner } from "flowbite-react";
 import { HiUserAdd } from "react-icons/hi";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ export default function CreateClientComponent() {
   const [companyName, setCompanyName] = useState("");
   const navigate = useNavigate();
   const { t } = useTranslation(["client", "successToast"]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const { id } = useParams();
   const isEditMode = Boolean(id);
@@ -33,6 +34,7 @@ export default function CreateClientComponent() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
+      setIsUploading(true);
       await api.request({
         url: isEditMode ? `clients/${id}` : "clients",
         method: isEditMode ? "patch" : "post",
@@ -51,6 +53,8 @@ export default function CreateClientComponent() {
       navigate(-1);
     } catch (error) {
       showErrors(error);
+    } finally {
+      setIsUploading(false);
     }
   }
 
@@ -59,6 +63,7 @@ export default function CreateClientComponent() {
       <Header
         title={isEditMode ? t("editTitle") : t("createTitle")}
         subTitle={t("createSubtitle")}
+        showBackButton={true}
       />
 
       <div className="w-full">
@@ -131,9 +136,18 @@ export default function CreateClientComponent() {
             </div>
 
             <div className="md:col-span-2 flex justify-end mt-4">
-              <Button color="blue" type="submit">
+              <Button color="blue" type="submit" disabled={isUploading}>
                 <HiUserAdd className="mr-2 h-5 w-5" />
-                {isEditMode ? t("editButton") : t("createButton")}
+                {isUploading ? (
+                  <div className="flex items-center gap-2">
+                    <Spinner size="sm" />
+                    {t("uploading")}
+                  </div>
+                ) : isEditMode ? (
+                  t("editButton")
+                ) : (
+                  t("createButton")
+                )}
               </Button>
             </div>
           </form>

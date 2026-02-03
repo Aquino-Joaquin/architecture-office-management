@@ -15,5 +15,7 @@
     "editButton": "Editar Cliente",
     "deleteDescription": "¿Esta seguro que quiere eliminar este cliente?",
     "yesOption": "Sí, estoy seguro",
-    "noOption": "No, cancelar"
+    "noOption": "No, cancelar",
+    "uploading": "Guardando cliente"
+
 }
