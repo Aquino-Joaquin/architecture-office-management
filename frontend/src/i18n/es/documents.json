@@ -6,5 +6,11 @@
     "subtitle": "Aquí puede subir documentos al proyecto",
     "holderDocumentName": "Ingresa el nombre del documento",
     "uploadPlace": "Clickea para subir el documento",
-    "buttonAddDocument": "Agregar Documento"
+    "buttonAddDocument": "Agregar Documento",
+    "uploadingPlace": "Este archivo se está subiendo",
+    "uploading": "Subiendo Archivo",
+    "noFile": "Debes de cargar un archivo",
+    "noProject" : "Proyecto invalido"
+
+
 }

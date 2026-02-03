@@ -6,5 +6,10 @@
     "subtitle": "Here you can add new documents to the project",
     "holderDocumentName": "Enter the document name",
     "uploadPlace": "Click to upload or drag and drop",
-    "buttonAddDocument": "Add Document"
+    "buttonAddDocument": "Add Document",
+    "uploadingPlace": "This file is uploading",
+    "uploading": "Uploading",
+    "noFile": "You shoud add a file",
+    "noProject" : "Invalid Project"
+
 }
