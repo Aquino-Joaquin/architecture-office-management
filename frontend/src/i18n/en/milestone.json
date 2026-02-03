@@ -9,5 +9,6 @@
     "tableMilestoneActions": "Actions",
     "deleteDescription": "Are you sure you want to delete this milestone",
     "yesOption": "Yes, I am sure",
-    "noOption": "No, cancel"
+    "noOption": "No, cancel",
+    "uploading": "Saving milestone"
 }

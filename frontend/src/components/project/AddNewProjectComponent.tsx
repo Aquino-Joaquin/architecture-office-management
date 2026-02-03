@@ -4,6 +4,7 @@ import {
   Checkbox,
   Label,
   Select,
+  Spinner,
   Textarea,
   TextInput,
 } from "flowbite-react";
@@ -63,9 +64,11 @@ export default function AddNewProjectComponent() {
   const [milestoneTitle, setMilestoneTitle] = useState("");
   const [milestoneDescription, setMilestoneDescription] = useState("");
   const [milestoneArray, setMilestoneArray] = useState<Milestone[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   async function handleMilestoneAdd(isEditing: boolean) {
     try {
+      setIsUploading(true);
       if (!isEditing) {
         await api.post("milestones", {
           title: milestoneTitle,
@@ -88,6 +91,8 @@ export default function AddNewProjectComponent() {
       setMilestoneDescription("");
     } catch (error) {
       showErrors(error);
+    } finally {
+      setIsUploading(false);
     }
   }
   async function handleMilestoneDelete(milestoneId: number) {
@@ -327,9 +332,20 @@ export default function AddNewProjectComponent() {
 
               <Button
                 type="button"
+                disabled={isUploading}
                 onClick={() => handleMilestoneAdd(isEditMilestone)}
               >
-                <HiPlus className="mr-2" /> {t("milestone:buttonTitle")}
+                {isUploading ? (
+                  <div className="flex items-center gap-2">
+                    <Spinner size="sm" />
+                    {t("milestone:uploading")}
+                  </div>
+                ) : (
+                  <>
+                    <HiPlus className="mr-2" />
+                    {t("milestone:buttonTitle")}
+                  </>
+                )}
               </Button>
             </div>
 
@@ -380,8 +396,13 @@ export default function AddNewProjectComponent() {
         )}
 
         <div className="flex justify-end">
-          <Button type="submit">
-            {isEditMode ? (
+          <Button type="submit" disabled={isUploading}>
+            {isUploading ? (
+              <div className="flex items-center gap-2">
+                <Spinner size="sm" />
+                {t("uploading")}
+              </div>
+            ) : isEditMode ? (
               <>
                 <HiPencil className="mr-2" /> {t("buttonEdit")}
               </>

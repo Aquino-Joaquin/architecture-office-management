@@ -24,5 +24,6 @@
     "buttonEdit": "Edit Project",
     "deleteDescription": "Are you sure you want to delete this project",
     "yesOption": "Yes, I am sure",
-    "noOption": "No, cancel"
+    "noOption": "No, cancel",
+    "uploading": "Saving project"
 }

@@ -9,5 +9,6 @@
     "tableMilestoneActions": "Acciones",
     "deleteDescription": "¿Esta seguro que quiere eliminar este hito",
     "yesOption": "Sí, estoy seguro",
-    "noOption": "No, cancelar"
+    "noOption": "No, cancelar",
+    "uploading": "Guardando hito"
 }
