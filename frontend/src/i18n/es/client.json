@@ -16,6 +16,7 @@
     "deleteDescription": "¿Esta seguro que quiere eliminar este cliente?",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
-    "uploading": "Guardando cliente"
+    "uploading": "Guardando cliente",
+    "search": "Filtrar por nombre del cliente"
 
 }
