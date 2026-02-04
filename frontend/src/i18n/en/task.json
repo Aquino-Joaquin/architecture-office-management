@@ -18,5 +18,6 @@
     "noOption": "No, cancel",
     "uploading": "Saving task",
     "completed": "Completed",
-    "incompleted": "Incompleted"
+    "incompleted": "Incompleted",
+    "search": "Filter by task title"
 }

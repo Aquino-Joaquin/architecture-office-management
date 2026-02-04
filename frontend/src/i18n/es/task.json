@@ -18,5 +18,6 @@
     "noOption": "No, cancelar",
     "uploading": "Guardando tarea",
     "completed": "Completada",
-    "incompleted": "Incompleta"
+    "incompleted": "Incompleta",
+    "search": "Filtrar por título de la tarea"
 }

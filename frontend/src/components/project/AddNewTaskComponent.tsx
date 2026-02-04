@@ -230,6 +230,10 @@ export default function AddNewTaskComponent() {
                 canDoActions={isAdmin}
               />
             )}
+            filterFn={(taskArray, search) =>
+              taskArray.title.toLowerCase().includes(search.toLowerCase())
+            }
+            searchPlaceHolder={t("search")}
           />
         </div>
         {isAdmin && (

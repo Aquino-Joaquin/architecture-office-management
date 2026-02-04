@@ -123,6 +123,10 @@ export default function UserComponent() {
               }}
             />
           )}
+          filterFn={(users, search) =>
+            users.name.toLowerCase().includes(search.toLowerCase())
+          }
+          searchPlaceHolder={t("search")}
         />
       </div>
 

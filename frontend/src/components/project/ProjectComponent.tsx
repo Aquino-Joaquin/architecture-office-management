@@ -76,6 +76,10 @@ export default function ProjectComponent() {
               actionDelete={isAdmin}
             />
           )}
+          filterFn={(projects, search) =>
+            projects.name.toLowerCase().includes(search.toLowerCase())
+          }
+          searchPlaceHolder={t("search")}
         />
       </div>
       <ConfirmationDelete

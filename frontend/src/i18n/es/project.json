@@ -24,6 +24,7 @@
     "deleteDescription": "¿Esta seguro que quiere eliminar este proyecto",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
-    "uploading": "Guardando proyecto"
+    "uploading": "Guardando proyecto",
+    "search": "Filtrar por nombre del proyecto"
     
 }

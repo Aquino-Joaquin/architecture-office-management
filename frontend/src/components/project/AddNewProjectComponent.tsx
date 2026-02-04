@@ -390,6 +390,12 @@ export default function AddNewProjectComponent() {
                     canDoActions={isAdmin}
                   />
                 )}
+                filterFn={(milestoneArray, search) =>
+                  milestoneArray.title
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+                }
+                searchPlaceHolder={t("milestone:search")}
               />
             </div>
           </Card>

@@ -24,5 +24,6 @@
     "deleteDescription": "Are you sure you want to delete this expense?",
     "yesOption": "Yes, delete",
     "noOption": "No, cancel",
-    "uploading": "Saving expense"
+    "uploading": "Saving expense",
+    "search": "Filter by expense description"
 }

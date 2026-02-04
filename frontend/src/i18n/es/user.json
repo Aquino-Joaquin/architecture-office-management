@@ -23,7 +23,8 @@
     "deleteDescription": "¿Esta seguro que quiere eliminar este usuario",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
-    "uploading": "Guardando usuario"
+    "uploading": "Guardando usuario",
+    "search": "Filtrar por nombre de usuario"
 
 
 }

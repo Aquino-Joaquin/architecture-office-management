@@ -10,5 +10,6 @@
     "deleteDescription": "Are you sure you want to delete this milestone",
     "yesOption": "Yes, I am sure",
     "noOption": "No, cancel",
-    "uploading": "Saving milestone"
+    "uploading": "Saving milestone",
+    "search": "Filter by milestone title"
 }

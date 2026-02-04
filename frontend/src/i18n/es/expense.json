@@ -24,5 +24,6 @@
     "deleteDescription": "¿Esta seguro que quiere eliminar este gasto?",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
-    "uploading": "Guardando gasto"
+    "uploading": "Guardando gasto",
+    "search": "Filtrar por descripción del gasto"
 }

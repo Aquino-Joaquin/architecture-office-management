@@ -135,6 +135,10 @@ export default function ExpensesComponent() {
               canDoActions={isAdmin}
             />
           )}
+          filterFn={(expenses, search) =>
+            expenses.description.toLowerCase().includes(search.toLowerCase())
+          }
+          searchPlaceHolder={t("search")}
         />
       </div>
 

@@ -10,5 +10,6 @@
     "deleteDescription": "¿Esta seguro que quiere eliminar este hito",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
-    "uploading": "Guardando hito"
+    "uploading": "Guardando hito",
+    "search": "Filtrar por título del hito"
 }
