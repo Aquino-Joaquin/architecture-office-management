@@ -5,20 +5,38 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
+import { useState } from "react";
+import Search from "./Search";
 
 type TableProps<T> = {
   titles: string[];
   rows: T[];
+  searchPlaceHolder: string;
   renderRow: (item: T) => React.ReactNode;
+  filterFn?: (item: T, search: string) => boolean;
 };
 
 export default function TableComponent<T>({
   titles,
   rows,
+  searchPlaceHolder,
   renderRow,
+  filterFn,
 }: TableProps<T>) {
+  const [search, setSearch] = useState("");
+
+  const filteredRows = filterFn
+    ? rows.filter((row) => filterFn(row, search))
+    : rows;
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto flex flex-col">
+      {filterFn && (
+        <Search
+          search={search}
+          setSearch={setSearch}
+          placeHolder={searchPlaceHolder}
+        />
+      )}
       <Table hoverable>
         <TableHead>
           <TableRow>
@@ -29,7 +47,7 @@ export default function TableComponent<T>({
         </TableHead>
 
         <TableBody className="divide-y divide-gray-300">
-          {rows.map((item) => renderRow(item))}
+          {filteredRows.map((item) => renderRow(item))}
         </TableBody>
       </Table>
     </div>
