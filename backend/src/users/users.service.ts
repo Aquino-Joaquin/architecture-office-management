@@ -18,6 +18,15 @@ export class UsersService {
       },
     });
   }
+  async getAllUserFromProject(projectId: number) {
+    return await this.userRepository.find({
+      where: { projects: { id: projectId } },
+      order: { id: 'ASC' },
+      relations: {
+        projects: true,
+      },
+    });
+  }
 
   async getOneUser(id: number) {
     const user = await this.userRepository.findOneBy({ id });

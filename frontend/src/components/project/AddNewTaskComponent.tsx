@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function AddNewTaskComponent() {
-  const { id } = useParams();
+  const { projectId, milestoneId } = useParams();
   const isAdmin = checkAdmin();
   const [openDelete, setOpenDelete] = useState(false);
   const [confirmAction, setConfirmAction] = useState<
@@ -65,7 +65,7 @@ export default function AddNewTaskComponent() {
         await api.post("tasks", {
           title: taskTitle,
           description: taskDescription,
-          milestoneId: Number(id),
+          milestoneId: Number(milestoneId),
           userIds: userIds,
         });
         toast.success(t("successToast:createTask"));
@@ -122,23 +122,24 @@ export default function AddNewTaskComponent() {
   }
 
   async function fetchTasks() {
-    const res = await api.get(`tasks/milestones/${id}`);
+    const res = await api.get(`tasks/milestones/${milestoneId}`);
     setTaskArray(res.data);
   }
 
   async function fetchUsers() {
-    const res = await api.get("users");
+    const res = await api.get(`users/projects/${projectId}`);
     setUsers(res.data);
+    console.log(res.data);
   }
 
   useEffect(() => {
     if (isAdmin) {
       fetchUsers();
     }
-    if (id) {
+    if (milestoneId) {
       fetchTasks();
     }
-  }, [id]);
+  }, [milestoneId]);
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">

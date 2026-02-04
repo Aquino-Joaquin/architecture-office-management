@@ -25,6 +25,10 @@ export class UsersController {
   getAllUsers() {
     return this.userService.getAllUsers();
   }
+  @Get('projects/:id')
+  getAllUsersFromProject(@Param('id', ParseIntPipe) projectId: number) {
+    return this.userService.getAllUserFromProject(projectId);
+  }
 
   @Get(':id')
   getOneUser(@Param('id', ParseIntPipe) id: number) {

@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         element: <CreateExpenseComponent />,
       },
       {
-        path: "projects/projectDetail/:id/milestones/tasks/:id",
+        path: "projects/projectDetail/:projectId/milestones/tasks/:milestonId",
         element: <AddNewTaskComponent />,
       },
       {
@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
         element: <AddNewProjectComponent />,
       },
       {
-        path: "projects/projectDetail/:id/milestones/tasks/:id",
+        path: "projects/projectDetail/:projectId/milestones/tasks/:milestonId",
         element: <AddNewTaskComponent />,
       },
       {
