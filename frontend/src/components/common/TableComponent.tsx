@@ -11,7 +11,7 @@ import Search from "./Search";
 type TableProps<T> = {
   titles: string[];
   rows: T[];
-  searchPlaceHolder: string;
+  searchPlaceHolder?: string;
   renderRow: (item: T) => React.ReactNode;
   filterFn?: (item: T, search: string) => boolean;
 };
@@ -34,7 +34,7 @@ export default function TableComponent<T>({
         <Search
           search={search}
           setSearch={setSearch}
-          placeHolder={searchPlaceHolder}
+          placeHolder={searchPlaceHolder || ""}
         />
       )}
       <Table hoverable>
