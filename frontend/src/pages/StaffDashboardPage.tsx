@@ -1,8 +1,7 @@
-import { VscFileSubmodule } from "react-icons/vsc";
+import { VscProject } from "react-icons/vsc";
 import type { CardInfomation } from "../types/CardInformation";
 import type { Project } from "../types/Project";
-import { FiUsers } from "react-icons/fi";
-import { GiMoneyStack } from "react-icons/gi";
+import { FiCheckCircle, FiClock } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { api } from "../helper/api";
 import StaffDashboard from "../components/StaffDashboard";
@@ -40,17 +39,17 @@ export default function StaffDashboardPage() {
     {
       title: t("myProjects"),
       value: activeProjects.toString(),
-      Icon: VscFileSubmodule,
+      Icon: VscProject,
     },
     {
       title: t("inProgress"),
       value: inProgressNumber.toString(),
-      Icon: FiUsers,
+      Icon: FiClock,
     },
     {
       title: t("completed"),
       value: completedNumber.toString(),
-      Icon: GiMoneyStack,
+      Icon: FiCheckCircle,
     },
   ];
 
