@@ -5,6 +5,7 @@ import Header from "./common/Header";
 import { getBadgeColor } from "../helper/getBadgeColor";
 import type { Task } from "../types/Task";
 import { useTranslation } from "react-i18next";
+import { FiCheckSquare, FiUser } from "react-icons/fi";
 
 type StaffDashboardProps = {
   itemsInformation: CardInfomation[];
@@ -52,29 +53,37 @@ export default function StaffDashboard({
             </h5>
           </div>
           <div className="grow -mx-6">
-            <ul className="divide-y divide-gray-300! dark:divide-gray-700 w-full ">
+            <ul className="divide-y divide-gray-200">
               <hr className="border-gray-300" />
+
               {itemsProjects.map(({ id, name, status, totalPrice, client }) => (
                 <li
                   key={id}
-                  className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200 "
+                  className="px-4 py-3 transition-all hover:bg-gray-50 hover:scale-[1.01] cursor-pointer"
                 >
-                  <div className="flex items-center space-x-4 mx-6">
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-black ">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium text-black">
                         {name}
                       </p>
+
                       <div className="mt-1 flex items-center gap-2">
-                        <span className="truncate text-sm text-gray-500 ">
+                        <FiUser className="text-gray-400 text-xs" />
+                        <span className="text-sm text-gray-500">
                           {client.name}
                         </span>
+
                         <Badge color={getBadgeColor(status)} size="xs">
                           {t(`badgeStatus:${status}`)}
                         </Badge>
                       </div>
                     </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                      {`${totalPrice.toLocaleString("es-PY")} Gs`}
+
+                    <div className="flex flex-col items-end">
+                      <span className="text-sm font-semibold text-gray-900">
+                        {totalPrice.toLocaleString("es-PY")} Gs
+                      </span>
+                      <span className="text-xs text-gray-400">total</span>
                     </div>
                   </div>
                 </li>
@@ -91,25 +100,30 @@ export default function StaffDashboard({
           </div>
 
           <div className="grow -mx-6">
-            <ul className="divide-y divide-gray-300!">
+            <ul className="divide-y divide-gray-200">
               <hr className="border-gray-300" />
               {itemsTasks.map(({ id, title, description, milestone }) => (
                 <li
                   key={id}
-                  className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200 "
+                  className="px-4 py-3 transition-all hover:bg-gray-50 hover:scale-[1.01] cursor-pointer"
                 >
-                  <div className="flex items-center justify-between space-x-4 mx-6">
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-black ">
-                        {title}
-                      </p>
-                      <span className="truncate text-sm text-gray-500 ">
-                        {description}
-                      </span>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-start gap-3 min-w-0">
+                      <FiCheckSquare className="mt-1 text-gray-400" />
+
+                      <div>
+                        <p className="truncate text-sm font-medium text-black">
+                          {title}
+                        </p>
+                        <p className="truncate text-sm text-gray-500">
+                          {description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
+
+                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
                       {milestone.title}
-                    </div>
+                    </span>
                   </div>
                 </li>
               ))}
