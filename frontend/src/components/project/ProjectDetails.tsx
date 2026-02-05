@@ -61,20 +61,12 @@ export default function ProjectDetails() {
     ? [...titles, t("expense:tableExpenseActions")]
     : titles;
 
-  async function fetchProject(id: number) {
-    await api.get(`projects/${id}`).then((res) => setProject(res.data));
-  }
-
   async function fetchExpenses(projectId: number) {
     const res = (await api.get<Expense[]>("expenses")).data;
 
     setExpenses(res.filter((expense) => expense.project?.id === projectId));
   }
-  async function fetchMilestones(projectId: number) {
-    const res = (await api.get<Milestone[]>(`milestones/projects/${projectId}`))
-      .data;
-    setMilestones(res);
-  }
+
   async function fetchDocuments(projectId: number) {
     const res = (await api.get<Document[]>(`documents/projects/${projectId}`))
       .data;
@@ -143,10 +135,20 @@ export default function ProjectDetails() {
     },
   ];
   useEffect(() => {
-    fetchProject(Number(id));
-    fetchExpenses(Number(id));
-    fetchMilestones(Number(id));
-    fetchDocuments(Number(id));
+    if (!id) return;
+    Promise.all([
+      api.get(`projects/${id}`),
+      api.get<Expense[]>(`expenses?projectId=${id}`),
+      api.get<Milestone[]>(`milestones/projects/${id}`),
+      api.get<Document[]>(`documents/projects/${id}`),
+    ])
+      .then(([projectRes, expensesRes, milestonesRes, docsRes]) => {
+        setProject(projectRes.data);
+        setExpenses(expensesRes.data);
+        setMilestones(milestonesRes.data);
+        setDocs(docsRes.data);
+      })
+      .catch(showErrors);
   }, [id]);
 
   const budget = project?.totalPrice || 0;
