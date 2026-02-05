@@ -6,6 +6,7 @@ import Header from "./common/Header";
 import { formatDateDMY } from "../helper/formatDateDMY";
 import { getBadgeColor } from "../helper/getBadgeColor";
 import { useTranslation } from "react-i18next";
+import { FiCalendar, FiUser } from "react-icons/fi";
 type AdminDashboardProps = {
   itemsInformation: CardInfomation[];
   itemsProjects: Project[];
@@ -54,30 +55,38 @@ export default function AdminDashboard({
             </h5>
           </div>
           <div className="grow -mx-6">
-            <ul className="divide-y divide-gray-300! dark:divide-gray-700 w-full ">
+            <ul className="divide-y divide-gray-200">
               <hr className="border-gray-300" />
+
               {recentProjects.map(
                 ({ id, name, status, totalPrice, client }) => (
                   <li
                     key={id}
-                    className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200 "
+                    className="px-4 py-3 transition-all hover:bg-gray-50 hover:scale-[1.01] cursor-pointer"
                   >
-                    <div className="flex items-center space-x-4 mx-6">
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-black ">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-medium text-black">
                           {name}
                         </p>
+
                         <div className="mt-1 flex items-center gap-2">
-                          <span className="truncate text-sm text-gray-500 ">
+                          <FiUser className="text-gray-400 text-xs" />
+                          <span className="text-sm text-gray-500">
                             {client.name}
                           </span>
+
                           <Badge color={getBadgeColor(status)} size="xs">
                             {t(`badgeStatus:${status}`)}
                           </Badge>
                         </div>
                       </div>
-                      <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                        {`${totalPrice.toLocaleString("es-PY")} Gs`}
+
+                      <div className="flex flex-col items-end">
+                        <span className="text-sm font-semibold text-gray-900">
+                          {totalPrice.toLocaleString("es-PY")} Gs
+                        </span>
+                        <span className="text-xs text-gray-400">total</span>
                       </div>
                     </div>
                   </li>
@@ -95,33 +104,43 @@ export default function AdminDashboard({
           </div>
 
           <div className="grow -mx-6">
-            <ul className="divide-y divide-gray-300! dark:divide-gray-700">
+            <ul className="divide-y divide-gray-200">
               <hr className="border-gray-300" />
+
               {recentExpense.map(
                 ({ id, description, amount, createdAt, expenseType }) => (
                   <li
                     key={id}
-                    className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200"
+                    className="px-4 py-3 transition-all hover:bg-gray-50 hover:scale-[1.01] cursor-pointer"
                   >
-                    <div className="flex items-center justify-between space-x-4 mx-6">
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-black ">
-                          {description}
-                        </p>
-                        <div className="mt-1 flex items-center gap-2">
-                          <span className="truncate text-sm text-gray-500 ">
-                            {formatDateDMY(createdAt)}
-                          </span>
-                          <Badge
-                            color={getBadgeColor(expenseType.name)}
-                            size="xs"
-                          >
-                            {t(`badgeStatus:${expenseType.name}`)}
-                          </Badge>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-start gap-3 min-w-0">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium text-black">
+                            {description}
+                          </p>
+
+                          <div className="mt-1 flex items-center gap-2">
+                            <FiCalendar className="text-gray-400 text-xs" />
+                            <span className="text-sm text-gray-500">
+                              {formatDateDMY(createdAt)}
+                            </span>
+
+                            <Badge
+                              color={getBadgeColor(expenseType.name)}
+                              size="xs"
+                            >
+                              {t(`badgeStatus:${expenseType.name}`)}
+                            </Badge>
+                          </div>
                         </div>
                       </div>
-                      <div className="inline-flex items-center text-base font-semibold text-gray-900 ">
-                        {`${amount.toLocaleString("es-PY")} Gs`}
+
+                      <div className="flex flex-col items-end">
+                        <span className="text-sm font-semibold text-gray-900">
+                          {amount.toLocaleString("es-PY")} Gs
+                        </span>
+                        <span className="text-xs text-gray-400">total</span>
                       </div>
                     </div>
                   </li>
