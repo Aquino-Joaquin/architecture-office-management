@@ -18,6 +18,8 @@ export default function AdminDashboard({
   itemsExpenses,
 }: AdminDashboardProps) {
   const { t } = useTranslation(["adminDashboard", "badgeStatus"]);
+  const recentProjects = itemsProjects.slice(-5).reverse();
+  const recentExpense = itemsExpenses.slice(-5).reverse();
 
   return (
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
@@ -54,31 +56,33 @@ export default function AdminDashboard({
           <div className="grow -mx-6">
             <ul className="divide-y divide-gray-300! dark:divide-gray-700 w-full ">
               <hr className="border-gray-300" />
-              {itemsProjects.map(({ id, name, status, totalPrice, client }) => (
-                <li
-                  key={id}
-                  className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200 "
-                >
-                  <div className="flex items-center space-x-4 mx-6">
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-black ">
-                        {name}
-                      </p>
-                      <div className="mt-1 flex items-center gap-2">
-                        <span className="truncate text-sm text-gray-500 ">
-                          {client.name}
-                        </span>
-                        <Badge color={getBadgeColor(status)} size="xs">
-                          {t(`badgeStatus:${status}`)}
-                        </Badge>
+              {recentProjects.map(
+                ({ id, name, status, totalPrice, client }) => (
+                  <li
+                    key={id}
+                    className="py-3 sm:py-4 hover:bg-gray-50 transition-colors duration-200 "
+                  >
+                    <div className="flex items-center space-x-4 mx-6">
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-black ">
+                          {name}
+                        </p>
+                        <div className="mt-1 flex items-center gap-2">
+                          <span className="truncate text-sm text-gray-500 ">
+                            {client.name}
+                          </span>
+                          <Badge color={getBadgeColor(status)} size="xs">
+                            {t(`badgeStatus:${status}`)}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                        {`${totalPrice.toLocaleString("es-PY")} Gs`}
                       </div>
                     </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                      {`${totalPrice.toLocaleString("es-PY")} Gs`}
-                    </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         </Card>
@@ -93,7 +97,7 @@ export default function AdminDashboard({
           <div className="grow -mx-6">
             <ul className="divide-y divide-gray-300! dark:divide-gray-700">
               <hr className="border-gray-300" />
-              {itemsExpenses.map(
+              {recentExpense.map(
                 ({ id, description, amount, createdAt, expenseType }) => (
                   <li
                     key={id}

@@ -21,7 +21,7 @@ export class ExpensesService {
   async getAllExpenses(user: JwtUser) {
     if (user.role == 'Admin') {
       return await this.expenseRepository.find({
-        order: { id: 'ASC' },
+        order: { createdAt: 'ASC' },
         relations: {
           project: true,
           expenseType: true,
@@ -29,7 +29,7 @@ export class ExpensesService {
       });
     } else {
       return this.expenseRepository.find({
-        order: { id: 'ASC' },
+        order: { createdAt: 'ASC' },
         where: {
           project: {
             users: {
