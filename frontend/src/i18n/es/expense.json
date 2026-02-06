@@ -25,5 +25,6 @@
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
     "uploading": "Guardando gasto",
-    "search": "Filtrar por descripción del gasto"
+    "search": "Filtrar por descripción del gasto",
+    "allExpense": "Todos"
 }

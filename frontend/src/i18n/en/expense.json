@@ -25,5 +25,6 @@
     "yesOption": "Yes, delete",
     "noOption": "No, cancel",
     "uploading": "Saving expense",
-    "search": "Filter by expense description"
+    "search": "Filter by expense description",
+    "allExpense": "All Expense"
 }

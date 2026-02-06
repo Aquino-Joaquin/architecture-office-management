@@ -123,6 +123,7 @@ export default function ExpensesComponent() {
         <TableComponent<Expense>
           titles={titles}
           rows={expenses}
+          tabs={[t("allExpense"), "Office", "Project"]}
           renderRow={(expense) => (
             <ExpenseRowComponent
               key={expense.id}
@@ -135,9 +136,15 @@ export default function ExpensesComponent() {
               canDoActions={isAdmin}
             />
           )}
-          filterFn={(expenses, search) =>
-            expenses.description.toLowerCase().includes(search.toLowerCase())
-          }
+          filterFn={(expenses, search, activeTab) => {
+            const matchesSearch = expenses.description
+              .toLowerCase()
+              .includes(search.toLowerCase());
+            const matchesTab =
+              activeTab === t("allExpense") ||
+              expenses.expenseType.name === activeTab;
+            return matchesSearch && matchesTab;
+          }}
           searchPlaceHolder={t("search")}
         />
       </div>
