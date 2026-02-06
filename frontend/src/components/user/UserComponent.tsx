@@ -130,7 +130,7 @@ export default function UserComponent() {
               .includes(search.toLowerCase());
 
             const matchesTab =
-              activeTab === "All Users" || users.role === activeTab;
+              activeTab === t("allUsers") || users.role === activeTab;
 
             return matchesSearch && matchesTab;
           }}
