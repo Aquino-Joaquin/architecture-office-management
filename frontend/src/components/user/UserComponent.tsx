@@ -112,6 +112,7 @@ export default function UserComponent() {
         <TableComponent<User>
           titles={titles}
           rows={users}
+          tabs={[t("allUsers"), "Admin", "Staff"]}
           renderRow={(user) => (
             <UserRowComponent
               key={user.id}
@@ -123,9 +124,16 @@ export default function UserComponent() {
               }}
             />
           )}
-          filterFn={(users, search) =>
-            users.name.toLowerCase().includes(search.toLowerCase())
-          }
+          filterFn={(users, search, activeTab) => {
+            const matchesSearch = users.name
+              .toLowerCase()
+              .includes(search.toLowerCase());
+
+            const matchesTab =
+              activeTab === "All Users" || users.role === activeTab;
+
+            return matchesSearch && matchesTab;
+          }}
           searchPlaceHolder={t("search")}
         />
       </div>

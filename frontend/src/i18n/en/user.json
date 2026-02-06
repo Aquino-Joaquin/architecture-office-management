@@ -24,6 +24,7 @@
     "yesOption": "Yes, I am sure",
     "noOption": "No, cancel",
     "uploading": "Saving user",
-    "search": "Filter by user name"
+    "search": "Filter by user name",
+    "allUsers": "All Users"
 
 }

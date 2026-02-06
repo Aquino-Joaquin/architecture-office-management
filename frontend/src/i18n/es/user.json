@@ -24,7 +24,8 @@
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
     "uploading": "Guardando usuario",
-    "search": "Filtrar por nombre de usuario"
+    "search": "Filtrar por nombre de usuario",
+    "allUsers": "Todos"
 
 
 }
