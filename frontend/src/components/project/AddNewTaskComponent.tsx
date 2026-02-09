@@ -24,6 +24,7 @@ import ConfirmationDelete from "../common/ConfirmationDelete";
 
 export default function AddNewTaskComponent() {
   const { projectId, milestoneId } = useParams();
+  console.log("params:", { projectId, milestoneId });
   const isAdmin = checkAdmin();
   const [openDelete, setOpenDelete] = useState(false);
   const [confirmAction, setConfirmAction] = useState<
