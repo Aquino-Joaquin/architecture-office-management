@@ -124,6 +124,7 @@ export default function ExpensesComponent() {
           titles={titles}
           rows={expenses}
           tabs={[t("allExpense"), t("office"), t("project")]}
+          enableMonthFilter={true}
           renderRow={(expense) => (
             <ExpenseRowComponent
               key={expense.id}
@@ -136,7 +137,7 @@ export default function ExpensesComponent() {
               canDoActions={isAdmin}
             />
           )}
-          filterFn={(expenses, search, activeTab) => {
+          filterFn={(expenses, search, activeTab, selectedMonth) => {
             const matchesSearch = expenses.description
               .toLowerCase()
               .includes(search.toLowerCase());
@@ -144,7 +145,20 @@ export default function ExpensesComponent() {
               activeTab === t("allExpense") ||
               expenses.expenseType.name ===
                 (activeTab === t("office") ? "Office" : "Project");
-            return matchesSearch && matchesTab;
+            const matchesMonth =
+              !selectedMonth ||
+              (() => {
+                const date = new Date(expenses.createdAt);
+
+                if (isNaN(date.getTime())) return false;
+
+                const yearMonth = `${date.getFullYear()}-${String(
+                  date.getMonth() + 1,
+                ).padStart(2, "0")}`;
+
+                return yearMonth === selectedMonth;
+              })();
+            return matchesSearch && matchesTab && matchesMonth;
           }}
           searchPlaceHolder={t("search")}
         />
