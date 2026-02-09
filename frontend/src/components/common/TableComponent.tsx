@@ -15,8 +15,14 @@ type TableProps<T> = {
   rows: T[];
   searchPlaceHolder?: string;
   renderRow: (item: T) => React.ReactNode;
-  filterFn?: (item: T, search: string, activeTab: string) => boolean;
+  filterFn?: (
+    item: T,
+    search: string,
+    activeTab: string,
+    selectedMonth?: string,
+  ) => boolean;
   tabs?: string[];
+  enableMonthFilter?: boolean;
 };
 
 export default function TableComponent<T>({
@@ -26,12 +32,14 @@ export default function TableComponent<T>({
   renderRow,
   filterFn,
   tabs = [],
+  enableMonthFilter,
 }: TableProps<T>) {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState(tabs[0] || "All");
+  const [selectedMonth, setSelectedMonth] = useState<string>("");
 
   const filteredRows = filterFn
-    ? rows.filter((row) => filterFn(row, search, activeTab))
+    ? rows.filter((row) => filterFn(row, search, activeTab, selectedMonth))
     : rows;
   return (
     <div className="overflow-x-auto flex flex-col gap-3">
@@ -46,6 +54,16 @@ export default function TableComponent<T>({
               />
             )}
           </div>
+          {enableMonthFilter && (
+            <div className="flex items-center gap-2">
+              <input
+                type="month"
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
 
           {tabs.length > 0 && (
             <ButtonGroup className="mr-10">
