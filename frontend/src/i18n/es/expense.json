@@ -26,5 +26,7 @@
     "noOption": "No, cancelar",
     "uploading": "Guardando gasto",
     "search": "Filtrar por descripción del gasto",
-    "allExpense": "Todos"
+    "allExpense": "Todos",
+    "office": "Oficina",
+    "project": "Proyecto"
 }

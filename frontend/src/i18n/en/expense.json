@@ -26,5 +26,7 @@
     "noOption": "No, cancel",
     "uploading": "Saving expense",
     "search": "Filter by expense description",
-    "allExpense": "All Expense"
+    "allExpense": "All Expense",
+    "office": "Office",
+    "project": "Project"
 }
