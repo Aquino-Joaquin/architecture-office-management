@@ -8,7 +8,7 @@ import {
   Textarea,
   TextInput,
 } from "flowbite-react";
-import { HiPlus, HiPencil } from "react-icons/hi";
+import { HiPlus } from "react-icons/hi";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
 import type { User } from "../../types/User";
@@ -24,6 +24,7 @@ import MilestoneRowComponent from "./MilestoneRowComponent";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import ConfirmationDelete from "../common/ConfirmationDelete";
+import SubmitButton from "../common/SubmitButton";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
@@ -401,24 +402,7 @@ export default function AddNewProjectComponent() {
           </Card>
         )}
 
-        <div className="flex justify-end">
-          <Button type="submit" disabled={isUploading}>
-            {isUploading ? (
-              <div className="flex items-center gap-2">
-                <Spinner size="sm" />
-                {t("uploading")}
-              </div>
-            ) : isEditMode ? (
-              <>
-                <HiPencil className="mr-2" /> {t("buttonEdit")}
-              </>
-            ) : (
-              <>
-                <HiPlus className="mr-2" /> {t("buttonCreate")}
-              </>
-            )}
-          </Button>
-        </div>
+        <SubmitButton isUploading={isUploading} isEditMode={isEditMode} t={t} />
       </form>
       <ConfirmationDelete
         open={openDelete}

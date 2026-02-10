@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  Checkbox,
-  Label,
-  Spinner,
-  Textarea,
-  TextInput,
-} from "flowbite-react";
-import { HiPencil } from "react-icons/hi";
+import { Card, Checkbox, Label, Textarea, TextInput } from "flowbite-react";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
 import type { User } from "../../types/User";
@@ -21,6 +12,7 @@ import type { Task } from "../../types/Task";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import ConfirmationDelete from "../common/ConfirmationDelete";
+import SubmitButton from "../common/SubmitButton";
 
 export default function AddNewTaskComponent() {
   const { projectId, milestoneId } = useParams();
@@ -238,22 +230,7 @@ export default function AddNewTaskComponent() {
             searchPlaceHolder={t("search")}
           />
         </div>
-        {isAdmin && (
-          <div className="flex justify-end">
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? (
-                <div className="flex items-center gap-2">
-                  <Spinner size="sm" />
-                  {t("uploading")}
-                </div>
-              ) : (
-                <>
-                  <HiPencil className="mr-2" /> {t("buttonCreate")}
-                </>
-              )}
-            </Button>
-          </div>
-        )}
+        {isAdmin && <SubmitButton isUploading={isUploading} t={t} />}
       </form>
       <ConfirmationDelete
         open={openDelete}

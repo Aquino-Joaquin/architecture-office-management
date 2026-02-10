@@ -12,7 +12,7 @@
     "tableTaskAssingUsers": "Usuarios Asignados",
     "tableTaskStatus": "Estado",
     "tableTaskActions": "Acciones",
-    "buttonCreate": "Guardar Tarea",
+    "createButton": "Guardar Tarea",
     "deleteDescription": "¿Esta seguro que quiere eliminar esta tarea",
     "yesOption": "Sí, estoy seguro",
     "noOption": "No, cancelar",
