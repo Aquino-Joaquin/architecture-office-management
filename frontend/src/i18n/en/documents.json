@@ -1,6 +1,6 @@
 {
     "title1": "Project's Document",
-    "buttonUpload": "Upload Document",
+    "createButton": "Upload Document",
     "uploadBy": "Upload by",
     "title2": "Add new document",
     "subtitle": "Here you can add new documents to the project",

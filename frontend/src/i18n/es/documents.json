@@ -1,6 +1,6 @@
 {
     "title1": "Documentos del Proyecto",
-    "buttonUpload": "Subir documento",
+    "createButton": "Subir documento",
     "uploadBy": "Subido por",
     "title2": "Subir Documento",
     "subtitle": "Aquí puede subir documentos al proyecto",

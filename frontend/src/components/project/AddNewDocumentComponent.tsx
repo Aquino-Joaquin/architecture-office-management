@@ -1,19 +1,12 @@
-import {
-  Button,
-  Card,
-  FileInput,
-  Label,
-  Spinner,
-  TextInput,
-} from "flowbite-react";
+import { Card, FileInput, Label, TextInput } from "flowbite-react";
 import Header from "../common/Header";
-import { HiPlus } from "react-icons/hi";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../../helper/api";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { showErrors } from "../../helper/showError";
+import SubmitButton from "../common/SubmitButton";
 
 export default function AddNewDocumentComponent() {
   const { id } = useParams();
@@ -112,22 +105,8 @@ export default function AddNewDocumentComponent() {
               />
             </Label>
           </div>
+          <SubmitButton isUploading={isUploading} t={t} />
         </Card>
-        <div className="flex justify-end mt-5">
-          <Button type="submit" disabled={isUploading}>
-            {isUploading ? (
-              <div className="flex items-center gap-2">
-                <Spinner size="sm" />
-                {t("uploading")}
-              </div>
-            ) : (
-              <>
-                <HiPlus className="mr-2" />
-                {t("buttonAddDocument")}
-              </>
-            )}
-          </Button>
-        </div>
       </form>
     </div>
   );

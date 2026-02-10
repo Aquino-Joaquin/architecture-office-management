@@ -3,10 +3,14 @@ import type { TFunction } from "i18next";
 import { HiPencil, HiPlus } from "react-icons/hi";
 export type Props = {
   isUploading: boolean;
-  isEditMode: boolean;
+  isEditMode?: boolean;
   t: TFunction;
 };
-export default function SubmitButton({ isUploading, isEditMode, t }: Props) {
+export default function SubmitButton({
+  isUploading,
+  isEditMode = false,
+  t,
+}: Props) {
   return (
     <div className="flex justify-end">
       <Button type="submit" disabled={isUploading}>
