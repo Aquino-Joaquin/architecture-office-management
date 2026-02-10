@@ -46,7 +46,7 @@ const resources = {
     documents: enDocuments,
     login: enLogin,
     errors: enErrors,
-    succesToast: enSuccessToast,
+    successToast: enSuccessToast,
     badgeStatus: enBadgeStatus,
   },
   es: {

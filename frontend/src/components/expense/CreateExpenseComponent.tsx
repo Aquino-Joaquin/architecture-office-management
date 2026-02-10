@@ -1,16 +1,7 @@
-import {
-  Card,
-  Label,
-  TextInput,
-  Button,
-  Select,
-  Textarea,
-  Spinner,
-} from "flowbite-react";
+import { Card, Label, TextInput, Select, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import { HiPencil, HiPlus } from "react-icons/hi";
 import type { Project } from "../../types/Project";
 import type { Expense } from "../../types/Expense";
 import Header from "../common/Header";
@@ -18,6 +9,7 @@ import { api } from "../../helper/api";
 import type { ExpenseType } from "../../types/ExpenseType";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
+import SubmitButton from "../common/SubmitButton";
 
 export default function CreateExpenseComponent() {
   const navigate = useNavigate();
@@ -89,7 +81,7 @@ export default function CreateExpenseComponent() {
         toast.success(t("successToast:editExpense"));
       } else {
         await api.post("expenses", payload);
-        toast.success("successToast:createExpense");
+        toast.success(t("successToast:createExpense"));
       }
 
       navigate(-1);
@@ -175,24 +167,11 @@ export default function CreateExpenseComponent() {
               />
             </div>
           </div>
-          <div className="flex justify-end">
-            <Button type="submit" disabled={isUploading}>
-              {isUploading ? (
-                <div className="flex items-center gap-2">
-                  <Spinner size="sm" />
-                  {t("uploading")}
-                </div>
-              ) : isEditMode ? (
-                <>
-                  <HiPencil className="mr-2" /> {t("editButton")}
-                </>
-              ) : (
-                <>
-                  <HiPlus className="mr-2" /> {t("createButton")}
-                </>
-              )}
-            </Button>
-          </div>
+          <SubmitButton
+            isUploading={isUploading}
+            isEditMode={isEditMode}
+            t={t}
+          />
         </Card>
       </form>
     </div>
