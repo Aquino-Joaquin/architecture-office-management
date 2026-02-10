@@ -378,7 +378,7 @@ export default function ProjectDetails() {
             onClick={handleUploadDocument}
           >
             <HiOutlineUpload className="mr-2 h-5 w-5" />
-            {t("documents:buttonUpload")}
+            {t("documents:createButton")}
           </Button>
         </div>
 
