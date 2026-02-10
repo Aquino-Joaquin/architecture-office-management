@@ -1,12 +1,4 @@
-import {
-  Card,
-  Label,
-  TextInput,
-  Button,
-  Select,
-  Spinner,
-} from "flowbite-react";
-import { HiUserAdd } from "react-icons/hi";
+import { Card, Label, TextInput, Select } from "flowbite-react";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
 import { api } from "../../helper/api";
@@ -14,6 +6,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { showErrors } from "../../helper/showError";
+import SubmitButton from "../common/SubmitButton";
 
 export default function CreateUserComponent() {
   const [name, setName] = useState("");
@@ -77,17 +70,13 @@ export default function CreateUserComponent() {
         subTitle={t("createSubtitle")}
         showBackButton={true}
       />
-
-      <div className="w-full">
+      <form onSubmit={handleSubmit} className="w-full">
         <Card className="bg-white! w-full border-none shadow shadow-gray-400">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             {t("basicInformation")}
           </h3>
 
-          <form
-            className="grid grid-cols-1 gap-6 md:grid-cols-2"
-            onSubmit={handleSubmit}
-          >
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="md:col-span-2">
               <div className="mb-2 block">
                 <Label htmlFor="name" />
@@ -149,25 +138,14 @@ export default function CreateUserComponent() {
                 <option value="Staff">Staff</option>
               </Select>
             </div>
-
-            <div className="md:col-span-2 flex justify-end mt-4">
-              <Button color="blue" type="submit" disabled={isUploading}>
-                {isUploading ? (
-                  <div className="flex items-center gap-2">
-                    <Spinner size="sm" />
-                    {t("uploading")}
-                  </div>
-                ) : (
-                  <>
-                    <HiUserAdd className="mr-2 h-5 w-5" />
-                    {isEditMode ? t("editButton") : t("createButton")}
-                  </>
-                )}
-              </Button>
-            </div>
-          </form>
+          </div>
+          <SubmitButton
+            isUploading={isUploading}
+            isEditMode={isEditMode}
+            t={t}
+          />
         </Card>
-      </div>
+      </form>
     </div>
   );
 }
