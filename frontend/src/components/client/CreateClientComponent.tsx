@@ -1,5 +1,4 @@
-import { Card, Label, TextInput, Button, Spinner } from "flowbite-react";
-import { HiUserAdd } from "react-icons/hi";
+import { Card, Label, TextInput } from "flowbite-react";
 import Header from "../common/Header";
 import { useEffect, useState } from "react";
 import { api } from "../../helper/api";
@@ -7,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
+import SubmitButton from "../common/SubmitButton";
 
 export default function CreateClientComponent() {
   const [name, setName] = useState("");
@@ -65,94 +65,77 @@ export default function CreateClientComponent() {
         subTitle={t("createSubtitle")}
         showBackButton={true}
       />
-
-      <div className="w-full">
-        <Card className="bg-white! w-full border-none shadow shadow-gray-400">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            {t("basicInformation")}
-          </h3>
-
-          <form
-            className="grid grid-cols-1 gap-6 md:grid-cols-2"
-            onSubmit={handleSubmit}
-          >
-            <div className="md:col-span-2">
-              <div className="mb-2 block">
-                <Label htmlFor="name" />
+      <form onSubmit={handleSubmit} className="w-full">
+        <div className="w-full">
+          <Card className="bg-white! w-full border-none shadow shadow-gray-400">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              {t("basicInformation")}
+            </h3>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="md:col-span-2">
+                <div className="mb-2 block">
+                  <Label htmlFor="name" />
+                </div>
+                <TextInput
+                  id="name"
+                  type="text"
+                  placeholder={t("holderClientName")}
+                  value={name}
+                  required
+                  color="white"
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
-              <TextInput
-                id="name"
-                type="text"
-                placeholder={t("holderClientName")}
-                value={name}
-                required
-                color="white"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <div className="mb-2 block">
-                <Label htmlFor="companyName" />
+              <div className="md:col-span-2">
+                <div className="mb-2 block">
+                  <Label htmlFor="companyName" />
+                </div>
+                <TextInput
+                  id="companyName"
+                  type="text"
+                  placeholder={t("holderClientCompany")}
+                  value={companyName}
+                  color="white"
+                  onChange={(e) => setCompanyName(e.target.value)}
+                />
               </div>
-              <TextInput
-                id="companyName"
-                type="text"
-                placeholder={t("holderClientCompany")}
-                value={companyName}
-                color="white"
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="email" />
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="email" />
+                </div>
+                <TextInput
+                  id="email"
+                  type="email"
+                  placeholder={t("holderClientEmail")}
+                  value={email}
+                  icon={() => <span className="text-gray-500">@</span>}
+                  color="white"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
-              <TextInput
-                id="email"
-                type="email"
-                placeholder={t("holderClientEmail")}
-                value={email}
-                icon={() => <span className="text-gray-500">@</span>}
-                color="white"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="phone" />
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="phone" />
+                </div>
+                <TextInput
+                  id="phone"
+                  type="tel"
+                  value={phone}
+                  placeholder={t("holderClientPhone")}
+                  required
+                  color="white"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
-              <TextInput
-                id="phone"
-                type="tel"
-                value={phone}
-                placeholder={t("holderClientPhone")}
-                required
-                color="white"
-                onChange={(e) => setPhone(e.target.value)}
-              />
             </div>
-
-            <div className="md:col-span-2 flex justify-end mt-4">
-              <Button color="blue" type="submit" disabled={isUploading}>
-                <HiUserAdd className="mr-2 h-5 w-5" />
-                {isUploading ? (
-                  <div className="flex items-center gap-2">
-                    <Spinner size="sm" />
-                    {t("uploading")}
-                  </div>
-                ) : isEditMode ? (
-                  t("editButton")
-                ) : (
-                  t("createButton")
-                )}
-              </Button>
-            </div>
-          </form>
-        </Card>
-      </div>
+            <SubmitButton
+              isUploading={isUploading}
+              isEditMode={isEditMode}
+              t={t}
+            />
+          </Card>
+        </div>
+      </form>
     </div>
   );
 }
