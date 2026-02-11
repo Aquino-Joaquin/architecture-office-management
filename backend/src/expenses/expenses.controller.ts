@@ -28,6 +28,13 @@ export class ExpensesController {
     return this.expenseService.getAllExpenses(req.user);
   }
   @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Role('Admin', 'Staff')
+  @Get('projects/:id')
+  getAllExpensesFromProject(@Param('id', ParseIntPipe) id: number, @Req() req) {
+    return this.expenseService.getAllExpensesFromProject(req.user, id);
+  }
+
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Role('Admin')
   @Get(':id')
   getOneExpense(@Param('id', ParseIntPipe) id: number) {

@@ -44,6 +44,34 @@ export class ExpensesService {
       });
     }
   }
+  async getAllExpensesFromProject(user: JwtUser, projectId: number) {
+    if (user.role == 'Admin') {
+      return await this.expenseRepository.find({
+        where: { project: { id: projectId } },
+        order: { createdAt: 'ASC' },
+        relations: {
+          project: true,
+          expenseType: true,
+        },
+      });
+    } else {
+      return this.expenseRepository.find({
+        order: { createdAt: 'ASC' },
+        where: {
+          project: {
+            id: projectId,
+            users: {
+              id: user.id,
+            },
+          },
+        },
+        relations: {
+          project: true,
+          expenseType: true,
+        },
+      });
+    }
+  }
   async getOneExpense(id: number) {
     const expense = await this.expenseRepository.findOneBy({ id });
     if (!expense) throw new NotFoundException();

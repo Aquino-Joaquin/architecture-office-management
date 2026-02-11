@@ -62,9 +62,9 @@ export default function ProjectDetails() {
     : titles;
 
   async function fetchExpenses(projectId: number) {
-    const res = (await api.get<Expense[]>("expenses")).data;
-
-    setExpenses(res.filter((expense) => expense.project?.id === projectId));
+    const res = (await api.get<Expense[]>(`expenses/projects/${projectId}`))
+      .data;
+    setExpenses(res);
   }
 
   async function fetchDocuments(projectId: number) {
@@ -138,7 +138,7 @@ export default function ProjectDetails() {
     if (!id) return;
     Promise.all([
       api.get(`projects/${id}`),
-      api.get<Expense[]>(`expenses?projectId=${id}`),
+      api.get<Expense[]>(`expenses/projects/${id}`),
       api.get<Milestone[]>(`milestones/projects/${id}`),
       api.get<Document[]>(`documents/projects/${id}`),
     ])
