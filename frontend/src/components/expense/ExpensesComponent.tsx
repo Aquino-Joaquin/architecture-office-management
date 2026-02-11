@@ -1,4 +1,3 @@
-import { Card } from "flowbite-react";
 import TableComponent from "../common/TableComponent";
 import type { CardInfomation } from "../../types/CardInformation";
 import { MdAttachMoney, MdTrendingDown, MdTrendingUp } from "react-icons/md";
@@ -13,6 +12,7 @@ import { checkAdmin } from "../../helper/checkAdmin";
 import { useTranslation } from "react-i18next";
 import { showErrors } from "../../helper/showError";
 import ConfirmationDelete from "../common/ConfirmationDelete";
+import InformationGrid from "../common/InformationGrid";
 
 export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -99,26 +99,7 @@ export default function ExpensesComponent() {
         showButton={true}
       />
 
-      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {expenseInformation.map(({ title, value, Icon }, index) => (
-          <Card
-            key={index}
-            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-black ">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                  {value}
-                </h3>
-              </div>
-              <div className="p-3 rounded-lg bg-blue-50 text-blue-600 ">
-                {Icon && <Icon className="w-6 h-6" />}
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <InformationGrid information={expenseInformation} columnNo={3} />
       <div className="bg-white shadow-sm shadow-gray-400 rounded-2xl">
         <TableComponent<Expense>
           titles={titles}

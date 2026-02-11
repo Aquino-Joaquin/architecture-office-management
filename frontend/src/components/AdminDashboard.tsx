@@ -7,6 +7,7 @@ import { formatDateDMY } from "../helper/formatDateDMY";
 import { getBadgeColor } from "../helper/getBadgeColor";
 import { useTranslation } from "react-i18next";
 import { FiCalendar, FiUser } from "react-icons/fi";
+import InformationGrid from "./common/InformationGrid";
 type AdminDashboardProps = {
   itemsInformation: CardInfomation[];
   itemsProjects: Project[];
@@ -26,26 +27,7 @@ export default function AdminDashboard({
     <div className="p-4 sm:p-6 w-full bg-gray-100 min-h-screen flex flex-col gap-6">
       <Header title={t("headerTitle")} subTitle={t("headerSubtitle")} />
 
-      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {itemsInformation.map(({ title, value, Icon }, index) => (
-          <Card
-            key={index}
-            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-black ">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                  {value}
-                </h3>
-              </div>
-              <div className="p-3 rounded-lg bg-blue-50 text-blue-600 ">
-                {Icon && <Icon className="w-6 h-6" />}
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <InformationGrid information={itemsInformation} columnNo={4} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6  w-full">
         <Card className="w-full shadow-sm shadow-gray-400 bg-white! border-none flex flex-col h-full ">

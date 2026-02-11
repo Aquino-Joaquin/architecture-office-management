@@ -1,4 +1,3 @@
-import { Card } from "flowbite-react";
 import {
   HiOutlineBriefcase,
   HiOutlineShieldCheck,
@@ -16,6 +15,7 @@ import UserRowComponent from "./UserRowComponent";
 import { useTranslation } from "react-i18next";
 import { showErrors } from "../../helper/showError";
 import ConfirmationDelete from "../common/ConfirmationDelete";
+import InformationGrid from "../common/InformationGrid";
 
 export default function UserComponent() {
   const [users, setUsers] = useState<User[]>([]);
@@ -88,26 +88,7 @@ export default function UserComponent() {
         buttonPath="newuser"
         showButton={true}
       />
-      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {usersInformation.map(({ title, value, Icon }, index) => (
-          <Card
-            key={index}
-            className="w-full shadow-sm shadow-gray-400 hover:shadow-md transition-shadow bg-white! border-none"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-black">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                  {value}
-                </h3>
-              </div>
-              <div className="p-3 rounded-lg bg-blue-50 text-blue-600">
-                {Icon && <Icon className="w-6 h-6" />}
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <InformationGrid information={usersInformation} columnNo={3} />
       <div className="rounded-2xl shadow-sm shadow-gray-400 bg-white">
         <TableComponent<User>
           titles={titles}
