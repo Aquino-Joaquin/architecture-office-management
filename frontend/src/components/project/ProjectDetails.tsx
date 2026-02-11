@@ -159,7 +159,7 @@ export default function ProjectDetails() {
   const remaining = budget - totalExpense;
 
   const percentage =
-    budget > 0 ? Math.min((totalExpense / budget) * 100, 100) : 0;
+    budget > 0 ? Math.round(Math.min((totalExpense / budget) * 100, 100)) : 0;
 
   return (
     <div className="p-4 sm:p-6 bg-gray-100 min-h-screen flex flex-col gap-6">
