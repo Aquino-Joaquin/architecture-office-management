@@ -5,14 +5,13 @@ import type { Expense } from "../../types/Expense";
 import ExpenseRowComponent from "./ExpenseRowComponent";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { useTranslation } from "react-i18next";
-import { showErrors } from "../../helper/showError";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import InformationGrid from "../common/InformationGrid";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function ExpensesComponent() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -74,18 +73,6 @@ export default function ExpensesComponent() {
     },
   ];
 
-  async function handleDelete(id: number) {
-    try {
-      await api.request({
-        url: `expenses/${id}`,
-        method: "delete",
-      });
-      toast.success(t("successToast:deleteExpense"));
-      fetchExpenses();
-    } catch (error) {
-      showErrors(error);
-    }
-  }
   function handleEdit(id: number) {
     navigate(`editexpense/${id}`);
   }
@@ -111,7 +98,11 @@ export default function ExpensesComponent() {
               key={expense.id}
               expense={expense}
               handleDelete={() => {
-                setConfirmAction(() => () => handleDelete(expense.id));
+                setConfirmAction(() => async () => {
+                  if (await handleDelete(expense.id, "expenses", t)) {
+                    fetchExpenses();
+                  }
+                });
                 setOpenDelete(true);
               }}
               handleEdit={handleEdit}

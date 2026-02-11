@@ -16,7 +16,6 @@ import { api } from "../../helper/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Project } from "../../types/Project";
-import { toast } from "react-toastify";
 import { checkAdmin } from "../../helper/checkAdmin";
 import { LuTarget } from "react-icons/lu";
 import type { Milestone } from "../../types/Milestone";
@@ -25,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import type { Document } from "../../types/Document";
 import { formatDateDMY } from "../../helper/formatDateDMY";
 import ConfirmationDelete from "../common/ConfirmationDelete";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
@@ -72,19 +72,6 @@ export default function ProjectDetails() {
       .data;
     setDocs(res);
   }
-
-  async function handleDelete(id: number) {
-    try {
-      await api.request({
-        url: `expenses/${id}`,
-        method: "delete",
-      });
-      toast.success(t("successToast:deleteExpense"));
-      fetchExpenses(id);
-    } catch (error) {
-      showErrors(error);
-    }
-  }
   function handleEdit(id: number) {
     navigate(`editexpense/${id}`);
   }
@@ -105,16 +92,6 @@ export default function ProjectDetails() {
     link.click();
     window.document.body.removeChild(link);
   }
-  async function handleDeleteDocument(documentId: number) {
-    try {
-      await api.delete(`documents/${documentId}`);
-      toast.success(t("successToast:deleteDocument"));
-      fetchDocuments(Number(id));
-    } catch (error) {
-      showErrors(error);
-    }
-  }
-
   const projecInformation: CardInfomation[] = [
     {
       title: t("budget"),
@@ -356,7 +333,12 @@ export default function ProjectDetails() {
               key={expense.id}
               expense={expense}
               handleDelete={() => {
-                setConfirmActionExpense(() => () => handleDelete(expense.id));
+                setConfirmActionExpense(() => async () => {
+                  if (await handleDelete(expense.id, "expenses", t)) {
+                    console.log("Hola");
+                    fetchExpenses(Number(id));
+                  }
+                });
                 setOpenDeleteExpense(true);
               }}
               handleEdit={handleEdit}
@@ -423,7 +405,11 @@ export default function ProjectDetails() {
                 <button
                   className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   onClick={() => {
-                    setConfirmAction(() => () => handleDeleteDocument(doc.id));
+                    setConfirmAction(() => async () => {
+                      if (await handleDelete(doc.id, "clients", t)) {
+                        fetchDocuments(Number(id));
+                      }
+                    });
                     setOpenDelete(true);
                   }}
                 >

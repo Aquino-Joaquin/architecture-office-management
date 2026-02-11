@@ -13,6 +13,7 @@ import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import SubmitButton from "../common/SubmitButton";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function AddNewTaskComponent() {
   const { projectId, milestoneId } = useParams();
@@ -80,15 +81,6 @@ export default function AddNewTaskComponent() {
       showErrors(error);
     } finally {
       setIsUploading(false);
-    }
-  }
-  async function handleTaskDelete(taskId: number) {
-    try {
-      await api.delete(`tasks/${taskId}`);
-      fetchTasks();
-      toast.success(t("successToast:deleteTask"));
-    } catch (error) {
-      showErrors(error);
     }
   }
 
@@ -216,7 +208,11 @@ export default function AddNewTaskComponent() {
                 key={task.id}
                 task={task}
                 handleDelete={() => {
-                  setConfirmAction(() => () => handleTaskDelete(task.id));
+                  setConfirmAction(() => async () => {
+                    if (await handleDelete(task.id, "tasks", t)) {
+                      fetchTasks();
+                    }
+                  });
                   setOpenDelete(true);
                 }}
                 handleEdit={handleTaskEdit}

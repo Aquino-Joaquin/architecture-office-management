@@ -25,6 +25,7 @@ import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import SubmitButton from "../common/SubmitButton";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function AddNewProjectComponent() {
   const { id } = useParams();
@@ -96,16 +97,6 @@ export default function AddNewProjectComponent() {
       setIsUploading(false);
     }
   }
-  async function handleMilestoneDelete(milestoneId: number) {
-    try {
-      await api.delete(`milestones/${milestoneId}`);
-      fetchMilestones();
-      toast.success(t("successToast:deleteMilestone"));
-    } catch (error) {
-      showErrors(error);
-    }
-  }
-
   async function handleMilestoneEdit(milestoneId: number) {
     const editMilestone = milestoneArray.find((m) => m.id === milestoneId);
     if (editMilestone) {
@@ -382,9 +373,11 @@ export default function AddNewProjectComponent() {
                     key={milestone.id}
                     milestone={milestone}
                     handleDelete={() => {
-                      setConfirmAction(
-                        () => () => handleMilestoneDelete(milestone.id),
-                      );
+                      setConfirmAction(() => async () => {
+                        if (await handleDelete(milestone.id, "milestones", t)) {
+                          fetchMilestones();
+                        }
+                      });
                       setOpenDelete(true);
                     }}
                     handleEdit={handleMilestoneEdit}

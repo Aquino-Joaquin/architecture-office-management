@@ -4,12 +4,11 @@ import ProjectRowComponent from "./ProjectRowComponent";
 import Header from "../common/Header";
 import { api } from "../../helper/api";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { checkAdmin } from "../../helper/checkAdmin";
-import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import ConfirmationDelete from "../common/ConfirmationDelete";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function ProjectComponent() {
   const navigate = useNavigate();
@@ -36,18 +35,7 @@ export default function ProjectComponent() {
   useEffect(() => {
     fetchProjects();
   }, []);
-  async function handleDelete(id: number) {
-    try {
-      await api.request({
-        url: `projects/${id}`,
-        method: "delete",
-      });
-      toast.success(t("successToast:deleteProject"));
-      fetchProjects();
-    } catch (error) {
-      showErrors(error);
-    }
-  }
+
   function handleEdit(id: number) {
     navigate(`editproject/${id}`);
   }
@@ -69,7 +57,11 @@ export default function ProjectComponent() {
               key={project.id}
               project={project}
               handleDelete={() => {
-                setConfirmAction(() => () => handleDelete(project.id));
+                setConfirmAction(() => async () => {
+                  if (await handleDelete(project.id, "projects", t)) {
+                    fetchProjects();
+                  }
+                });
                 setOpenDelete(true);
               }}
               handleEdit={handleEdit}

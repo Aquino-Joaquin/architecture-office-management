@@ -2,16 +2,15 @@ import { Card } from "flowbite-react";
 import { MdContacts, MdEmail, MdPhone } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { HiPencil, HiTrash } from "react-icons/hi";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../helper/api";
 import type { Client } from "../../types/Client";
 import Header from "../common/Header";
-import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
 import { Status } from "../../types/Status";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import Search from "../common/Search";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function ClientComponent() {
   const [clients, setClients] = useState<Client[]>([]);
@@ -25,19 +24,6 @@ export default function ClientComponent() {
 
   async function fetchClient() {
     await api.get("clients").then((res) => setClients(res.data));
-  }
-
-  async function handleDelete(id: number) {
-    try {
-      await api.request({
-        url: `clients/${id}`,
-        method: "delete",
-      });
-      toast.success(t("successToast:clientDelete"));
-      fetchClient();
-    } catch (error) {
-      showErrors(error);
-    }
   }
 
   useEffect(() => {
@@ -94,7 +80,11 @@ export default function ClientComponent() {
                     </button>
                     <button
                       onClick={() => {
-                        setConfirmAction(() => () => handleDelete(id));
+                        setConfirmAction(() => async () => {
+                          if (await handleDelete(id, "clients", t)) {
+                            fetchClient();
+                          }
+                        });
                         setOpenDelete(true);
                       }}
                       className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"

@@ -4,7 +4,6 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import type { User } from "../../types/User";
 import type { CardInfomation } from "../../types/CardInformation";
@@ -13,9 +12,9 @@ import Header from "../common/Header";
 import TableComponent from "../common/TableComponent";
 import UserRowComponent from "./UserRowComponent";
 import { useTranslation } from "react-i18next";
-import { showErrors } from "../../helper/showError";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import InformationGrid from "../common/InformationGrid";
+import { handleDelete } from "../../helper/handleDelete";
 
 export default function UserComponent() {
   const [users, setUsers] = useState<User[]>([]);
@@ -63,18 +62,6 @@ export default function UserComponent() {
     fetchUser();
   }, []);
 
-  async function handleDelete(id: number) {
-    try {
-      await api.request({
-        url: `users/${id}`,
-        method: "delete",
-      });
-      toast.success(t("successToast:deleteUser"));
-      fetchUser();
-    } catch (error) {
-      showErrors(error);
-    }
-  }
   function handleEdit(id: number) {
     navigate(`editUser/${id}`);
   }
@@ -100,7 +87,11 @@ export default function UserComponent() {
               user={user}
               handleEdit={handleEdit}
               handleDelete={() => {
-                setConfirmAction(() => () => handleDelete(user.id));
+                setConfirmAction(() => async () => {
+                  if (await handleDelete(user.id, "users", t)) {
+                    fetchUser();
+                  }
+                });
                 setOpenDelete(true);
               }}
             />
