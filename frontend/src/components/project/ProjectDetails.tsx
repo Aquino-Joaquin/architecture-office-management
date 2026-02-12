@@ -25,6 +25,8 @@ import type { Document } from "../../types/Document";
 import { formatDateDMY } from "../../helper/formatDateDMY";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import { handleDelete } from "../../helper/handleDelete";
+import { getMilestoneProgress } from "../../helper/getMilestoneProgress";
+import InformationGrid from "../common/InformationGrid";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
@@ -146,26 +148,7 @@ export default function ProjectDetails() {
         showBackButton={true}
       />
 
-      <div className="grid w-full grid-cols-1 gap-6  md:grid-cols-2 xl:grid-cols-3">
-        {projecInformation.map(({ title, value, Icon }, index) => (
-          <Card
-            key={index}
-            className="w-full shadow-sm shadow-gray-400! hover:shadow-md transition-shadow bg-white! border-none"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-black ">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-1">
-                  {value}
-                </h3>
-              </div>
-              <div className="p-3 rounded-lg bg-blue-50 text-blue-600 ">
-                {Icon && <Icon className="w-6 h-6" />}
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <InformationGrid information={projecInformation} columnNo={3} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
@@ -238,9 +221,9 @@ export default function ProjectDetails() {
 
             <div className="grow flex flex-col gap-4 mt-2">
               {project?.users &&
-                project?.users.map((member, index) => (
+                project?.users.map((member) => (
                   <div
-                    key={index}
+                    key={member.id}
                     className=" flex items-center gap-4 p-3 rounded-lg bg-gray-50 border border-gray-100"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
@@ -282,38 +265,11 @@ export default function ProjectDetails() {
                 <div className="mt-4">
                   <div className="flex justify-between text-sm mb-1">
                     <span>Progress</span>
-                    <span>
-                      {milestone.tasks.length > 0
-                        ? Math.round(
-                            Math.min(
-                              (milestone.tasks.filter(
-                                (task) => task.completed === true,
-                              ).length /
-                                milestone.tasks.length) *
-                                100,
-                              100,
-                            ),
-                          )
-                        : 0}
-                      %
-                    </span>
+                    <span>{getMilestoneProgress(milestone)}%</span>
                   </div>
                   <Progress
                     color="green"
-                    progress={
-                      milestone.tasks.length > 0
-                        ? Math.round(
-                            Math.min(
-                              (milestone.tasks.filter(
-                                (task) => task.completed === true,
-                              ).length /
-                                milestone.tasks.length) *
-                                100,
-                              100,
-                            ),
-                          )
-                        : 0
-                    }
+                    progress={getMilestoneProgress(milestone)}
                   />
                 </div>
               </Card>
