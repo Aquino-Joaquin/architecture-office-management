@@ -361,7 +361,7 @@ export default function ProjectDetails() {
                   className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   onClick={() => {
                     setConfirmAction(() => async () => {
-                      if (await handleDelete(doc.id, "clients", t)) {
+                      if (await handleDelete(doc.id, "documents", t)) {
                         fetchDocuments(Number(id));
                       }
                     });
