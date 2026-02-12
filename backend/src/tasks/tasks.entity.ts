@@ -24,12 +24,14 @@ export class Task {
   @Column({ default: false })
   completed: boolean;
 
-  @ManyToOne(() => Project, (project) => project.tasks, { nullable: false })
+  @ManyToOne(() => Project, (project) => project.tasks, {
+    onDelete: 'CASCADE',
+  })
   project: Project;
 
   @ManyToOne(() => Milestone, (milestone) => milestone.tasks, {
     nullable: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   })
   milestone: Milestone;
 
