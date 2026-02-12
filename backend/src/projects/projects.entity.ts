@@ -39,7 +39,10 @@ export class Project {
   @Column()
   amountPaid: number;
 
-  @ManyToOne(() => Client, (client) => client.projects)
+  @ManyToOne(() => Client, (client) => client.projects, {
+    onDelete: 'SET NULL',
+    nullable: true,
+  })
   client: Client;
 
   @OneToMany(() => Expense, (expense) => expense.project)

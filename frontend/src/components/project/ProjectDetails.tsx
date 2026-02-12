@@ -335,7 +335,6 @@ export default function ProjectDetails() {
               handleDelete={() => {
                 setConfirmActionExpense(() => async () => {
                   if (await handleDelete(expense.id, "expenses", t)) {
-                    console.log("Hola");
                     fetchExpenses(Number(id));
                   }
                 });
