@@ -39,7 +39,7 @@ export default function ProjectRowComponent({
         {project.amountPaid.toLocaleString("es-Py")}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
-        {project.client.name}
+        {project.client ? project.client.name : "---"}
       </TableCell>
       <TableCell className="whitespace-nowrap font-medium text-gray-900">
         <div className="flex items-center gap-4">
