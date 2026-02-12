@@ -23,7 +23,9 @@ export class Milestone {
   @Column({ default: false })
   completed: boolean;
 
-  @ManyToOne(() => Project, (project) => project.milestones)
+  @ManyToOne(() => Project, (project) => project.milestones, {
+    onDelete: 'CASCADE',
+  })
   project: Project;
 
   @OneToMany(() => Task, (tasks) => tasks.milestone)
