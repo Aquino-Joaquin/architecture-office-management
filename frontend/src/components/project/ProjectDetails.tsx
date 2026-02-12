@@ -11,13 +11,12 @@ import TableComponent from "../common/TableComponent";
 import type { Expense } from "../../types/Expense";
 import ExpenseRowComponent from "../expense/ExpenseRowComponent";
 import Header from "../common/Header";
-import { Badge, Button, Card, Progress } from "flowbite-react";
+import { Badge, Button, Card } from "flowbite-react";
 import { api } from "../../helper/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Project } from "../../types/Project";
 import { checkAdmin } from "../../helper/checkAdmin";
-import { LuTarget } from "react-icons/lu";
 import type { Milestone } from "../../types/Milestone";
 import { showErrors } from "../../helper/showError";
 import { useTranslation } from "react-i18next";
@@ -25,8 +24,8 @@ import type { Document } from "../../types/Document";
 import { formatDateDMY } from "../../helper/formatDateDMY";
 import ConfirmationDelete from "../common/ConfirmationDelete";
 import { handleDelete } from "../../helper/handleDelete";
-import { getMilestoneProgress } from "../../helper/getMilestoneProgress";
 import InformationGrid from "../common/InformationGrid";
+import MilestoneCard from "../common/MilestoneCard";
 
 export default function ProjectDetails() {
   const [project, setProject] = useState<Project>();
@@ -76,9 +75,6 @@ export default function ProjectDetails() {
   }
   function handleEdit(id: number) {
     navigate(`editexpense/${id}`);
-  }
-  function handleMilestone(milestoneId: number) {
-    navigate(`milestones/tasks/${milestoneId}`);
   }
   function handleUploadDocument() {
     navigate("documents");
@@ -242,40 +238,7 @@ export default function ProjectDetails() {
           </Card>
         </div>
       </div>
-      <Card className="bg-white! border-none shadow-sm shadow-gray-400 h-full">
-        <div className="flex items-center gap-2 mb-4">
-          <LuTarget className="text-gray-600" />
-          <h2 className="text-lg font-semibold">{t("milestones")}</h2>
-        </div>
-        <div>
-          {milestones &&
-            milestones.map((milestone) => (
-              <Card
-                key={milestone.id}
-                onClick={() => handleMilestone(milestone.id)}
-                className="bg-white! border-none shadow-md shadow-gray-600 mb-4"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="font-medium">{milestone.title}</h3>
-                  <Badge color="info">in-progress</Badge>
-                </div>
-
-                <p className="text-sm text-gray-500">{milestone.description}</p>
-
-                <div className="mt-4">
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Progress</span>
-                    <span>{getMilestoneProgress(milestone)}%</span>
-                  </div>
-                  <Progress
-                    color="green"
-                    progress={getMilestoneProgress(milestone)}
-                  />
-                </div>
-              </Card>
-            ))}
-        </div>
-      </Card>
+      <MilestoneCard milestones={milestones} t={t} />
       <div className="bg-white rounded-xl flex flex-col gap-6 shadow-sm shadow-gray-400">
         <h2 className="mt-6 text-xl font-bold tracking-tight text-gray-900 pl-6">
           {t("projectExpense")}
