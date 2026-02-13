@@ -1,0 +1,9 @@
+{
+    "title":"Architecture Office",
+    "subTitle":"Management System",
+    "errorCode":"404",
+    "notFound": "Page Not Found",
+    "errorMessage": "Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.",
+    "goBack": "Go Back"
+
+}
