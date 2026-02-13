@@ -32,6 +32,8 @@ import enBadgeStatus from "./en/badgeStatus.json";
 import esBadgeStatus from "./es/badgeStatus.json";
 import enErrorPage from "./en/errorPage.json";
 import esErrorPage from "./es/errorPage.json";
+import enUnathorizedPage from "./en/unathorizedPage.json";
+import esUnathorizedPage from "./es/unathorizedPage.json";
 
 const resources = {
   en: {
@@ -51,6 +53,7 @@ const resources = {
     successToast: enSuccessToast,
     badgeStatus: enBadgeStatus,
     errorPage: enErrorPage,
+    unathorizedPage: enUnathorizedPage,
   },
   es: {
     adminDashboard: esAdminDashboardTitles,
@@ -69,6 +72,7 @@ const resources = {
     successToast: esSuccessToast,
     badgeStatus: esBadgeStatus,
     errorPage: esErrorPage,
+    unathorizedPage: esUnathorizedPage,
   },
 };
 
@@ -91,6 +95,7 @@ i18n.use(initReactI18next).init({
     "successToast",
     "badgeStatus",
     "errorPage",
+    "unathorizedPage",
   ],
   defaultNS: "adminDashboard",
 

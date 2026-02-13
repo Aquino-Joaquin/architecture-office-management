@@ -1,0 +1,9 @@
+{
+    "title":"Architecture Office",
+    "subTitle":"Management System",
+    "accessDenied":"Access Denied",
+    "errorMessage": "You do not have permission to view this page. Please contact your administrator if you believe this is an error.",
+    "goBack": "Go Back",
+    "backLogin": "Back to Login"
+
+}

@@ -1,0 +1,9 @@
+{
+    "title":"Gmax Consultora",
+    "subTitle":"Sistema de Administración",
+    "accessDenied":"Acceso Restringido",
+    "errorMessage": "No tienes permiso para ver esta página. Por favor contacta con el admistrador si cree que es un error",
+    "goBack": "Volver",
+    "backLogin": "Volver a iniciar sesión"
+
+}

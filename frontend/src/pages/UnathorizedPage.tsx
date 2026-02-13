@@ -1,8 +1,10 @@
 import { Button, Card } from "flowbite-react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function UnauthorizedPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation("unathorizedPage");
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
@@ -14,10 +16,8 @@ export default function UnauthorizedPage() {
             className="w-12 h-12 rounded-lg  opacity-80"
           />
           <div>
-            <h1 className="text-lg font-medium text-black">
-              Architecture Office
-            </h1>
-            <span className="text-gray-500 text-sm">Management System</span>
+            <h1 className="text-lg font-medium text-black">{t("title")}</h1>
+            <span className="text-gray-500 text-sm">{t("subTitle")}</span>
           </div>
         </div>
 
@@ -40,11 +40,10 @@ export default function UnauthorizedPage() {
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Access Denied</h2>
-            <p className="mt-2 text-sm text-gray-500">
-              You do not have permission to view this page. Please contact your
-              administrator if you believe this is an error.
-            </p>
+            <h2 className="text-xl font-bold text-gray-900">
+              {t("accessDenied")}
+            </h2>
+            <p className="mt-2 text-sm text-gray-500">{t("errorMessage")}</p>
           </div>
         </div>
 
@@ -53,7 +52,7 @@ export default function UnauthorizedPage() {
             onClick={() => navigate(-1)}
             className="w-full bg-[rgb(236,202,110)]! hover:brightness-105! border-transparent! focus:ring-4! focus:ring-[rgba(236,202,110,0.5)]! text-white"
           >
-            Go Back
+            {t("goBack")}
           </Button>
 
           <Button
@@ -65,7 +64,7 @@ export default function UnauthorizedPage() {
             }}
             className="w-full border-gray-200 hover:bg-gray-50 focus:ring-4 focus:ring-gray-100"
           >
-            Back to Login
+            {t("backLogin")}
           </Button>
         </div>
       </Card>
