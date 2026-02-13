@@ -15,7 +15,7 @@ import type { TFunction } from "i18next";
 export type Props = {
   docs: Document[];
   t: TFunction;
-  fetchDocuments: (projectId: number) => void;
+  fetchDocuments: () => void;
 };
 export default function DocumentCard({ docs, t, fetchDocuments }: Props) {
   const [openDelete, setOpenDelete] = useState(false);
@@ -100,7 +100,7 @@ export default function DocumentCard({ docs, t, fetchDocuments }: Props) {
                   onClick={() => {
                     setConfirmAction(() => async () => {
                       if (await handleDelete(doc.id, "documents", t)) {
-                        fetchDocuments;
+                        fetchDocuments();
                       }
                     });
                     setOpenDelete(true);
