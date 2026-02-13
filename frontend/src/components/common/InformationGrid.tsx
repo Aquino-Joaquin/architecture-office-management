@@ -8,7 +8,8 @@ export type Props = {
 export default function InformationGrid({ information, columnNo }: Props) {
   return (
     <div
-      className={`grid w-full grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-${columnNo}`}
+      className="grid w-full grid-cols-1 gap-6 md:grid-cols-2"
+      style={{ gridTemplateColumns: `repeat(${columnNo}, minmax(0, 1fr))` }}
     >
       {information.map(({ title, value, Icon }, index) => (
         <Card
