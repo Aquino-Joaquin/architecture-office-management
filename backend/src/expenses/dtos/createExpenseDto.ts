@@ -19,7 +19,7 @@ export class CreateExpenseDto {
   @IsNumber({}, { message: 'expense.expenseTypeId.number' })
   expenseTypeId: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber({}, { message: 'expense.projectId.number' })
-  projectId?: number;
+  projectId: number;
 }
