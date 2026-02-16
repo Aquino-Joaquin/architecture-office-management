@@ -39,10 +39,17 @@ export class DocumentsService {
     }
     throw new ForbiddenException();
   }
-  async getOneDocument(id: number) {
-    const document = await this.documentRepository.findOneBy({ id });
-    if (!document) throw new NotFoundException();
-    return document;
+  async getOneDocument(id: number, user: JwtUser) {
+    const project = await this.projectRepository.findOne({
+      where: {
+        documents: { id },
+        users: { id: user.id },
+      },
+    });
+
+    if (!project) throw new NotFoundException();
+
+    return this.documentRepository.findOneBy({ id });
   }
   async createDocument(
     createDocument: CreateDocumentDto,

@@ -28,8 +28,8 @@ export class DocumentsController {
     return this.documentsService.getAllDocumentsFromProject(id, req.user);
   }
   @Get(':id')
-  getOneDocument(@Param('id', ParseIntPipe) id: number) {
-    return this.documentsService.getOneDocument(id);
+  getOneDocument(@Param('id', ParseIntPipe) id: number, @Req() req) {
+    return this.documentsService.getOneDocument(id, req.user);
   }
   @Post()
   @UseInterceptors(FileInterceptor('file'))
