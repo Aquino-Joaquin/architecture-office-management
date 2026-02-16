@@ -42,7 +42,7 @@ export class DocumentsController {
   }
 
   @Delete(':id')
-  deleteDocument(@Param('id', ParseIntPipe) id: number) {
-    return this.documentsService.deleteDocument(id);
+  deleteDocument(@Param('id', ParseIntPipe) id: number, @Req() req) {
+    return this.documentsService.deleteDocument(id, req.user);
   }
 }

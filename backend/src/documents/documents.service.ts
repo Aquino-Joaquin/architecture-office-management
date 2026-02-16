@@ -90,13 +90,36 @@ export class DocumentsService {
     return await this.documentRepository.save(document);
   }
 
-  async deleteDocument(id: number) {
-    const document = await this.documentRepository.findOneBy({ id });
+  async deleteDocument(id: number, user: JwtUser) {
+    const document = await this.documentRepository.findOne({
+      where: { id },
+      relations: {
+        project: {
+          users: true,
+        },
+      },
+    });
+
     if (!document) throw new NotFoundException();
+
+    const isAdmin = user.role === 'Admin';
+
+    const isUserInProject = document.project.users.some(
+      (u) => u.id === user.id,
+    );
+
+    if (!isAdmin && !isUserInProject) {
+      throw new ForbiddenException(
+        'You are not allowed to delete this document',
+      );
+    }
+
     const { error } = await supabaseAdmin.storage
       .from('documents')
       .remove([document.path]);
-    if (error) throw new InternalServerErrorException();
+
+    if (error) throw new InternalServerErrorException(error.message);
+
     return this.documentRepository.delete(id);
   }
 }
