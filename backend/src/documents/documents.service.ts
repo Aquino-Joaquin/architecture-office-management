@@ -51,7 +51,10 @@ export class DocumentsService {
   ) {
     const { title, projectId } = createDocument;
 
-    const project = await this.projectRepository.findOneBy({ id: projectId });
+    const project = await this.projectRepository.findOne({
+      where: { id: projectId },
+      relations: { users: true },
+    });
     if (!project) throw new NotFoundException('Project not found');
 
     const user = await this.userRepository.findOneBy({ id: newUser.id });
@@ -59,6 +62,14 @@ export class DocumentsService {
 
     if (!file) {
       throw new BadRequestException('File is required');
+    }
+    const isAdmin = user.role === 'Admin';
+    const isUserInProject = project.users.some((u) => u.id === user.id);
+
+    if (!isAdmin && !isUserInProject) {
+      throw new ForbiddenException(
+        'You are not allowed to create this document',
+      );
     }
 
     const extension = file.originalname.split('.').pop();
