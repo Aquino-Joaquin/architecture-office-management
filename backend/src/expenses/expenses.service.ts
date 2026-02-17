@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { CreateExpenseDto } from './dtos/createExpenseDto';
 import { UpdateExpenseDto } from './dtos/updateExpenseDto';
 import { Project } from 'src/projects/projects.entity';
-import { User } from 'src/users/users.entity';
 import { JwtUser } from 'src/auth/jwt-user.type';
 import { ExpenseType } from 'src/expense-types/expense-types.entity';
 
