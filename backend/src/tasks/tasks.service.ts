@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -103,9 +102,7 @@ export class TasksService {
     if (user.role !== 'Admin') {
       const isAssigned = task.users.some((u) => u.id === user.id);
       if (!isAssigned) {
-        throw new ForbiddenException(
-          'You can only update tasks assigned to you',
-        );
+        throw new NotFoundException();
       }
       if (updateTask.completed !== undefined) {
         task.completed = updateTask.completed;
