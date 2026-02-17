@@ -1,9 +1,7 @@
 import {
   BadRequestException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './projects.entity';
@@ -56,7 +54,7 @@ export class ProjectsService {
     if (user.role === 'Admin') return project;
 
     const isUserAssigned = project.users.some((u) => u.id === user.id);
-    if (!isUserAssigned) throw new ForbiddenException();
+    if (!isUserAssigned) throw new NotFoundException();
 
     return project;
   }
