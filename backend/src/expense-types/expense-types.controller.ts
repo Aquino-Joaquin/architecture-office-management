@@ -44,6 +44,6 @@ export class ExpenseTypesController {
     return this.expenseTypesService.updateExpenseType(id, updateExpenseType);
   }
 
-  @Delete()
+  @Delete(':id')
   deleteExpenseType(@Param('id', ParseIntPipe) id: number) {}
 }
