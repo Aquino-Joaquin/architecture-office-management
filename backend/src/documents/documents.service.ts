@@ -37,7 +37,7 @@ export class DocumentsService {
       });
       return documents;
     }
-    throw new ForbiddenException();
+    throw new NotFoundException();
   }
   async getOneDocument(id: number, user: JwtUser) {
     const project = await this.projectRepository.findOne({
@@ -127,9 +127,7 @@ export class DocumentsService {
     );
 
     if (!isAdmin && !isUserInProject) {
-      throw new ForbiddenException(
-        'You are not allowed to delete this document',
-      );
+      throw new NotFoundException();
     }
 
     const { error } = await supabaseAdmin.storage
