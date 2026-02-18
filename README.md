@@ -1,4 +1,4 @@
-# Architecture Office Management System
+# 🏗️ Architecture Office Management System
 
 ## Overview
 
@@ -26,7 +26,7 @@ It allows teams to manage projects, track expenses, organize client information,
 
 - Axios – HTTP requests to backend API
 
-- UI Library – (Tailwind CSS, flowbite-react)
+- Tailwind CSS + Flowbite React – UI components and styling
 
 ### ⚙️ Backend
 
@@ -64,7 +64,7 @@ The system follows a **client-server architecture**:
 
 - **Frontend:** React SPA communicating via REST API
 - **Backend:** NestJS REST API with modular structure
-- **Database:** Relational database managed with ORM
+- **Database:** PostgreSQL managed through TypeORM
 - **Authentication:** JWT tokens with role validation
 
 ## Project Structure
@@ -77,26 +77,7 @@ The system follows a **client-server architecture**:
 │   ├── database-diagram.png
 │   └── screenshots/
 └── README.md
-
-
-## Screenshots
-
-### Dashboard
-
-![Dashboard](docs/screenshots/dashboard.png)
-
-### Project Management
-
-![Projects](docs/screenshots/projects.png)
-
-## Security
-
-The system implements several security best practices:
-
-- JWT authentication
-- Role-based authorization
-- Secure error handling (NotFound instead of Forbidden in sensitive cases)
-- Input validation with DTOs
+```
 
 ## Author
 
@@ -104,4 +85,3 @@ The system implements several security best practices:
 
 - Computer Engineering Student
 - Pamukkale University
-```
