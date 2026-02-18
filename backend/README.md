@@ -1,28 +1,71 @@
-# Backend – NestJS API
+# ⚙️ Backend – NestJS API
 
-This folder contains the backend of the project, developed using NestJS.
+This directory contains the backend of the project, developed using **NestJS**.  
+It provides a RESTful API for managing projects, clients, users,milestones,tasks, expenses and documents, with secure authentication and role-based authorization.
 
-## Features
+---
 
-- Authentication and authorization with roles (Admin, Staff)
-- User management
-- Project and client management
-- Office and project expenses management
-- Role-based access control for all endpoints
+## ✨ Features
 
-## Technology Stack
+- 🔐 JWT-based authentication
+- 👥 Role-based authorization (Admin, Staff)
+- 👤 User management
+- 📁 Project management
+- 🧾 Client management
+- 💰 Office and project expenses tracking
+- 📎 Document management
+- 🔒 Protected endpoints with guards and validation
 
-- NestJS
-- TypeORM
-- JWT Authentication
-- SQL Database
+---
 
-## Setup
+## 🛠️ Technology Stack
 
-1. Install dependencies:
-   npm install
+- **NestJS** – Backend framework
+- **TypeScript** – Typed JavaScript
+- **TypeORM** – Database ORM
+- **PostgreSQL** – Relational database
+- **JWT** – Authentication system
+- **class-validator & DTOs** – Request validation
 
-2. Create a `.env` file based on `.env.example`
+---
 
-3. Run the server:
-   npm run start:dev
+## 📁 Structure (simplified)
+
+```txt
+src/
+├── auth/            # Authentication & authorization
+├── users/           # Users module
+├── projects/        # Projects module
+├── clients/         # Clients module
+├── expenses/        # Expenses module
+├── documents/       # Document module
+├── expenses-types/  # Expenses-types module
+├── milestones/      # Milestones module
+├── tasks/           # Tasks module
+└── main.ts
+```
+
+## 🚀 Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Create a `.env` file based on `.env.example`
+
+### 3. Run the server:
+
+```bash
+npm run start:dev
+```
+
+---
+
+## 🔐 Security
+
+- JWT authentication with protected routes
+- Role-based access control using NestJS guards
+- DTO validation for all incoming requests
+- Secure error handling to avoid information leakage
