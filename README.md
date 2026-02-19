@@ -44,6 +44,28 @@ It allows teams to manage projects, track expenses, organize client information,
 
 - PostgreSQL – Relational database
 
+## Screenshots
+
+### Login
+
+![Login](docs/screenshots/login.png)
+
+### Dashboard
+
+#### Admin
+
+![Dashboard](docs/screenshots/dashboard-admin.png)
+
+#### Staff
+
+![Dashboard](docs/screenshots/dashboard-staff.png)
+
+### Project Details
+
+![ProjectsDetails](docs/screenshots/project-details.png)
+
+![ProjectDetails](docs/screenshots/project-details-2.png)
+
 ### 🔐 Authentication & Security
 
 - JWT-based authentication
