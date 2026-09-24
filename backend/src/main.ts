@@ -15,6 +15,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
+      'http://localhost',
       'http://localhost:5173',
       'https://architecture-office-management.vercel.app',
     ],
