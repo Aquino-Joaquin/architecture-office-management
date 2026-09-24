@@ -12,14 +12,17 @@ import {
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
+
 import { CreateDocumentDto } from './dtos/createDocumentDto';
 import { DocumentsService } from './documents.service';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+
 @UseGuards(AuthGuard('jwt'))
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
+
   @Get('projects/:id')
   getAllDocumentsFromProject(
     @Param('id', ParseIntPipe) id: number,
@@ -27,10 +30,12 @@ export class DocumentsController {
   ) {
     return this.documentsService.getAllDocumentsFromProject(id, req.user);
   }
+
   @Get(':id')
   getOneDocument(@Param('id', ParseIntPipe) id: number, @Req() req) {
     return this.documentsService.getOneDocument(id, req.user);
   }
+
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   create(
@@ -39,6 +44,15 @@ export class DocumentsController {
     @Req() req,
   ) {
     return this.documentsService.createDocument(createDocument, file, req.user);
+  }
+
+  @Get('files/:projectId/:fileName')
+  downloadFile(
+    @Param('projectId', ParseIntPipe) projectId: number,
+    @Param('fileName') fileName: string,
+    @Req() req,
+  ) {
+    return this.documentsService.downloadFile(projectId, fileName, req.user);
   }
 
   @Delete(':id')
