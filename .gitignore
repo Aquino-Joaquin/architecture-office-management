@@ -21,6 +21,8 @@ pnpm-debug.log*
 .env.local
 .env.development
 .env.production
+.env.*
+!.env.example
 
 # =========================
 # Build outputs
@@ -61,3 +63,9 @@ logs/
 # OS / Temporary files
 # =========================
 Thumbs.db
+
+
+
+
+uploads/
+

@@ -1,18 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, //delete extra data
-      forbidNonWhitelisted: true, // error if extra data
-      transform: true, // transform from json to Dto
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
-  //to be able to get request from my frontend
+
   app.enableCors({
     origin: [
       'http://localhost:5173',
@@ -26,4 +26,5 @@ async function bootstrap() {
 
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
+
 bootstrap();
