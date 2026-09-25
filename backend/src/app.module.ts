@@ -54,8 +54,6 @@ import { ExpenseType } from './expense-types/expense-types.entity';
 
           autoLoadEntities: true,
 
-          // Para esta primera instalación.
-          // Más adelante conviene utilizar migrations.
           synchronize: true,
 
           ssl: isSslEnabled ? { rejectUnauthorized: false } : false,

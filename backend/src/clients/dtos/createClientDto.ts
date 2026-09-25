@@ -15,7 +15,7 @@ export class CreateClientDto {
   @IsEmail({}, { message: 'client.email.invalid' })
   email?: string;
 
-  @IsPhoneNumber('PY', { message: 'client.phone.invalid' })
+  @IsString({ message: 'client.phone.invalid' })
   phone: string;
 
   @IsOptional()
